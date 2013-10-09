@@ -1,0 +1,7 @@
+do 5 times {
+  print("hello");
+
+  do 3 * 5 times {
+    print("bye")
+  }
+}
