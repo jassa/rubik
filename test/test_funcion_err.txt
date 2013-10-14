@@ -1,3 +1,7 @@
-def foo(int n) {
-    print(n)
+def int foo(int n) {
+    print(n);
+}
+
+def void bar() {
+    return 1;
 }

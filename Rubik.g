@@ -13,6 +13,10 @@ tokens {
     PLUS='+';
 }
 
+scope global {
+    variable_type;
+}
+
 // Top-level structure
 
 program
@@ -20,6 +24,12 @@ program
     ;
 
 block
+scope {
+    symbols;
+}
+@init {
+    $block::symbols = Hash.new;
+}
     : statement
     | statement_block
     ;
@@ -51,7 +61,12 @@ return_statement
     ;
 
 variable_statement
+scope global;
+@init {
+    $global::variable_type = nil
+}
     : VAR_TYPE variable_declaration_list statement_end!
+        { $global::variable_type = $VAR_TYPE.text }
     ;
 
 variable_declaration_list
@@ -63,11 +78,25 @@ variable_declaration
     ;
 
 declaration_target
+scope global;
     : variable_name ('[' INT ']')? ('[' INT ']')?
+        {
+            if $block::symbols.has_key?(var = String($variable_name.text).to_sym)
+              raise "'#{var}' has already been declared"
+            else
+              $block::symbols[var] = $global::variable_type
+            end
+        }
     ;
 
 assignment_statement
+scope global;
     : ID '=' expression statement_end!
+        {
+            $block::symbols.has_key?(var = String($ID.text).to_sym) or
+                raise "'#{var}' has not been declared"
+            # check type of $block::symbols[var] against VAR_TYPES
+        }
     ;
 
 condition_statement
@@ -119,6 +148,16 @@ loop_statement
 
 function
     : 'def' VAR_TYPE variable_name function_parameters block
+        {
+            has_return = !(String($block.text) =~ /return/).nil?
+            if String($VAR_TYPE) == 'void'
+              raise "'void' should not have return statement" if has_return
+            else
+              unless has_return
+                raise "expected return statement for '#{$VAR_TYPE.text}'"
+              end
+            end
+        }
     ;
 
 function_parameters

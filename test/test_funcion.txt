@@ -1,3 +1,4 @@
-def void foo(int n) {
-    print(n)
+def int foo(int n) {
+    print(n);
+    return 100;
 }
