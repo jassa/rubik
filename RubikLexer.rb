@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.5
 # Ruby runtime library version: 1.10.0
 # Input grammar file: Rubik.g
-# Generated at: 2013-10-13 22:58:47
+# Generated at: 2013-10-22 18:57:53
 #
 
 # ~~~> start load path setup
@@ -920,7 +920,7 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 191:5: ( 'boolean' | 'char' | 'float' | 'int' | 'void' )
+      # at line 183:5: ( 'boolean' | 'char' | 'float' | 'int' | 'void' )
       alt_1 = 5
       case look_1 = @input.peek( 1 )
       when 0x62 then alt_1 = 1
@@ -934,27 +934,27 @@ module Rubik
       end
       case alt_1
       when 1
-        # at line 191:7: 'boolean'
+        # at line 183:7: 'boolean'
         match( "boolean" )
 
 
       when 2
-        # at line 192:7: 'char'
+        # at line 184:7: 'char'
         match( "char" )
 
 
       when 3
-        # at line 193:7: 'float'
+        # at line 185:7: 'float'
         match( "float" )
 
 
       when 4
-        # at line 194:7: 'int'
+        # at line 186:7: 'int'
         match( "int" )
 
 
       when 5
-        # at line 195:7: 'void'
+        # at line 187:7: 'void'
         match( "void" )
 
 
@@ -983,7 +983,7 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 199:5: ( 'true' | 'false' )
+      # at line 191:5: ( 'true' | 'false' )
       alt_2 = 2
       look_2_0 = @input.peek( 1 )
 
@@ -997,12 +997,12 @@ module Rubik
       end
       case alt_2
       when 1
-        # at line 199:7: 'true'
+        # at line 191:7: 'true'
         match( "true" )
 
 
       when 2
-        # at line 200:7: 'false'
+        # at line 192:7: 'false'
         match( "false" )
 
 
@@ -1031,8 +1031,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 204:7: ( '\\'' )+ ( 'a' .. 'z' | 'A' .. 'Z' )+ '\\''
-      # at file 204:7: ( '\\'' )+
+      # at line 196:7: ( '\\'' )+ ( 'a' .. 'z' | 'A' .. 'Z' )+ '\\''
+      # at file 196:7: ( '\\'' )+
       match_count_3 = 0
       while true
         alt_3 = 2
@@ -1044,7 +1044,7 @@ module Rubik
         end
         case alt_3
         when 1
-          # at line 204:7: '\\''
+          # at line 196:7: '\\''
           match( 0x27 )
 
         else
@@ -1058,7 +1058,7 @@ module Rubik
       end
 
 
-      # at file 204:14: ( 'a' .. 'z' | 'A' .. 'Z' )+
+      # at file 196:14: ( 'a' .. 'z' | 'A' .. 'Z' )+
       match_count_4 = 0
       while true
         alt_4 = 2
@@ -1119,8 +1119,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 208:7: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
-      # at file 208:7: ( '0' .. '9' )+
+      # at line 200:7: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
+      # at file 200:7: ( '0' .. '9' )+
       match_count_5 = 0
       while true
         alt_5 = 2
@@ -1156,7 +1156,7 @@ module Rubik
 
 
       match( 0x2e )
-      # at file 208:23: ( '0' .. '9' )+
+      # at file 200:23: ( '0' .. '9' )+
       match_count_6 = 0
       while true
         alt_6 = 2
@@ -1216,8 +1216,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 212:7: ( '0' .. '9' )+
-      # at file 212:7: ( '0' .. '9' )+
+      # at line 204:7: ( '0' .. '9' )+
+      # at file 204:7: ( '0' .. '9' )+
       match_count_7 = 0
       while true
         alt_7 = 2
@@ -1277,7 +1277,7 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 216:5: ( '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\'' | '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"' )
+      # at line 208:5: ( '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\'' | '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"' )
       alt_10 = 2
       look_10_0 = @input.peek( 1 )
 
@@ -1291,9 +1291,9 @@ module Rubik
       end
       case alt_10
       when 1
-        # at line 216:7: '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\''
+        # at line 208:7: '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\''
         match( 0x27 )
-        # at line 216:12: (~ ( '\\'' | '\\\\' ) | '\\\\' . )*
+        # at line 208:12: (~ ( '\\'' | '\\\\' ) | '\\\\' . )*
         while true # decision 8
           alt_8 = 3
           look_8_0 = @input.peek( 1 )
@@ -1306,7 +1306,7 @@ module Rubik
           end
           case alt_8
           when 1
-            # at line 216:13: ~ ( '\\'' | '\\\\' )
+            # at line 208:13: ~ ( '\\'' | '\\\\' )
             if @input.peek( 1 ).between?( 0x0, 0x26 ) || @input.peek( 1 ).between?( 0x28, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
               @input.consume
             else
@@ -1319,7 +1319,7 @@ module Rubik
 
 
           when 2
-            # at line 216:30: '\\\\' .
+            # at line 208:30: '\\\\' .
             match( 0x5c )
             match_any
 
@@ -1331,9 +1331,9 @@ module Rubik
         match( 0x27 )
 
       when 2
-        # at line 217:7: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"'
+        # at line 209:7: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"'
         match( 0x22 )
-        # at line 217:12: (~ ( '\"' | '\\\\' ) | '\\\\' . )*
+        # at line 209:12: (~ ( '\"' | '\\\\' ) | '\\\\' . )*
         while true # decision 9
           alt_9 = 3
           look_9_0 = @input.peek( 1 )
@@ -1346,7 +1346,7 @@ module Rubik
           end
           case alt_9
           when 1
-            # at line 217:13: ~ ( '\"' | '\\\\' )
+            # at line 209:13: ~ ( '\"' | '\\\\' )
             if @input.peek( 1 ).between?( 0x0, 0x21 ) || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
               @input.consume
             else
@@ -1359,7 +1359,7 @@ module Rubik
 
 
           when 2
-            # at line 217:30: '\\\\' .
+            # at line 209:30: '\\\\' .
             match( 0x5c )
             match_any
 
@@ -1395,7 +1395,7 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 221:7: ( '_' | 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+      # at line 213:7: ( '_' | 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
       if @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
         @input.consume
       else
@@ -1406,7 +1406,7 @@ module Rubik
       end
 
 
-      # at line 221:35: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+      # at line 213:35: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
       while true # decision 11
         alt_11 = 2
         look_11_0 = @input.peek( 1 )
@@ -1459,8 +1459,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 225:7: ( '\\n' | '\\r' )+
-      # at file 225:7: ( '\\n' | '\\r' )+
+      # at line 217:7: ( '\\n' | '\\r' )+
+      # at file 217:7: ( '\\n' | '\\r' )+
       match_count_12 = 0
       while true
         alt_12 = 2
@@ -1525,8 +1525,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 229:7: ( '\\t' | '\\f' | ' ' | '\\u00A0' )+
-      # at file 229:7: ( '\\t' | '\\f' | ' ' | '\\u00A0' )+
+      # at line 221:7: ( '\\t' | '\\f' | ' ' | '\\u00A0' )+
+      # at file 221:7: ( '\\t' | '\\f' | ' ' | '\\u00A0' )+
       match_count_13 = 0
       while true
         alt_13 = 2

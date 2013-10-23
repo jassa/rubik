@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.5
 # Ruby runtime library version: 1.10.0
 # Input grammar file: Rubik.g
-# Generated at: 2013-10-13 22:58:47
+# Generated at: 2013-10-22 18:57:52
 #
 
 # ~~~> start load path setup
@@ -106,9 +106,6 @@ module Rubik
                      :write_expression, :loop_statement, :function, :function_parameters, 
                      :parameters, :variable_name, :primary, :synpred1_Rubik ].freeze
 
-    @@global = Scope("variable_type" )
-
-
     @@block = Scope("symbols" )
 
     include TokenData
@@ -121,8 +118,6 @@ module Rubik
 
     def initialize( input, options = {} )
       super( input, options )
-      @global_stack = []
-
     @block_stack = []
 
     end
@@ -133,7 +128,7 @@ module Rubik
     # parser rule program
     #
     # (in Rubik.g)
-    # 22:1: program : 'begin' ( block )+ 'end' ;
+    # 18:1: program : 'begin' ( block )+ 'end' ;
     #
     def program
       # -> uncomment the next line to manually enable rule tracing
@@ -160,15 +155,15 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 23:7: 'begin' ( block )+ 'end'
-      string_literal1 = match( T__34, TOKENS_FOLLOWING_T__34_IN_program_98 )
+      # at line 19:7: 'begin' ( block )+ 'end'
+      string_literal1 = match( T__34, TOKENS_FOLLOWING_T__34_IN_program_91 )
       if @state.backtracking == 0
         tree_for_string_literal1 = @adaptor.create_with_payload( string_literal1 )
         @adaptor.add_child( root_0, tree_for_string_literal1 )
 
       end
 
-      # at file 23:15: ( block )+
+      # at file 19:15: ( block )+
       match_count_1 = 0
       while true
         alt_1 = 2
@@ -180,8 +175,8 @@ module Rubik
         end
         case alt_1
         when 1
-          # at line 23:15: block
-          @state.following.push( TOKENS_FOLLOWING_block_IN_program_100 )
+          # at line 19:15: block
+          @state.following.push( TOKENS_FOLLOWING_block_IN_program_93 )
           block2 = block
           @state.following.pop
           if @state.backtracking == 0
@@ -203,7 +198,7 @@ module Rubik
       end
 
 
-      string_literal3 = match( T__38, TOKENS_FOLLOWING_T__38_IN_program_103 )
+      string_literal3 = match( T__38, TOKENS_FOLLOWING_T__38_IN_program_96 )
       if @state.backtracking == 0
         tree_for_string_literal3 = @adaptor.create_with_payload( string_literal3 )
         @adaptor.add_child( root_0, tree_for_string_literal3 )
@@ -243,7 +238,7 @@ module Rubik
     # parser rule block
     #
     # (in Rubik.g)
-    # 26:1: block : ( statement | statement_block );
+    # 22:1: block : ( statement | statement_block );
     #
     def block
       # -> uncomment the next line to manually enable rule tracing
@@ -272,7 +267,7 @@ module Rubik
 
 
       begin
-      # at line 33:5: ( statement | statement_block )
+      # at line 29:5: ( statement | statement_block )
       alt_2 = 2
       look_2_0 = @input.peek( 1 )
 
@@ -293,8 +288,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 33:7: statement
-        @state.following.push( TOKENS_FOLLOWING_statement_IN_block_129 )
+        # at line 29:7: statement
+        @state.following.push( TOKENS_FOLLOWING_statement_IN_block_122 )
         statement4 = statement
         @state.following.pop
         if @state.backtracking == 0
@@ -306,8 +301,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 34:7: statement_block
-        @state.following.push( TOKENS_FOLLOWING_statement_block_IN_block_137 )
+        # at line 30:7: statement_block
+        @state.following.push( TOKENS_FOLLOWING_statement_block_IN_block_130 )
         statement_block5 = statement_block
         @state.following.pop
         if @state.backtracking == 0
@@ -349,7 +344,7 @@ module Rubik
     # parser rule statement_block
     #
     # (in Rubik.g)
-    # 37:1: statement_block : '{' ( statement )* '}' ;
+    # 33:1: statement_block : '{' ( statement )* '}' ;
     #
     def statement_block
       # -> uncomment the next line to manually enable rule tracing
@@ -376,15 +371,15 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 38:7: '{' ( statement )* '}'
-      char_literal6 = match( LBRACE, TOKENS_FOLLOWING_LBRACE_IN_statement_block_154 )
+      # at line 34:7: '{' ( statement )* '}'
+      char_literal6 = match( LBRACE, TOKENS_FOLLOWING_LBRACE_IN_statement_block_147 )
       if @state.backtracking == 0
         tree_for_char_literal6 = @adaptor.create_with_payload( char_literal6 )
         @adaptor.add_child( root_0, tree_for_char_literal6 )
 
       end
 
-      # at line 38:11: ( statement )*
+      # at line 34:11: ( statement )*
       while true # decision 3
         alt_3 = 2
         look_3_0 = @input.peek( 1 )
@@ -395,8 +390,8 @@ module Rubik
         end
         case alt_3
         when 1
-          # at line 38:11: statement
-          @state.following.push( TOKENS_FOLLOWING_statement_IN_statement_block_156 )
+          # at line 34:11: statement
+          @state.following.push( TOKENS_FOLLOWING_statement_IN_statement_block_149 )
           statement7 = statement
           @state.following.pop
           if @state.backtracking == 0
@@ -409,7 +404,7 @@ module Rubik
         end
       end # loop for decision 3
 
-      char_literal8 = match( RBRACE, TOKENS_FOLLOWING_RBRACE_IN_statement_block_159 )
+      char_literal8 = match( RBRACE, TOKENS_FOLLOWING_RBRACE_IN_statement_block_152 )
       if @state.backtracking == 0
         tree_for_char_literal8 = @adaptor.create_with_payload( char_literal8 )
         @adaptor.add_child( root_0, tree_for_char_literal8 )
@@ -449,7 +444,7 @@ module Rubik
     # parser rule statement
     #
     # (in Rubik.g)
-    # 43:1: statement : ( variable_statement | assignment_statement | condition_statement | write_statement | loop_statement | return_statement | function );
+    # 39:1: statement : ( variable_statement | assignment_statement | condition_statement | write_statement | loop_statement | return_statement | function );
     #
     def statement
       # -> uncomment the next line to manually enable rule tracing
@@ -475,7 +470,7 @@ module Rubik
 
 
       begin
-      # at line 44:5: ( variable_statement | assignment_statement | condition_statement | write_statement | loop_statement | return_statement | function )
+      # at line 40:5: ( variable_statement | assignment_statement | condition_statement | write_statement | loop_statement | return_statement | function )
       alt_4 = 7
       case look_4 = @input.peek( 1 )
       when VAR_TYPE then alt_4 = 1
@@ -498,8 +493,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 44:7: variable_statement
-        @state.following.push( TOKENS_FOLLOWING_variable_statement_IN_statement_178 )
+        # at line 40:7: variable_statement
+        @state.following.push( TOKENS_FOLLOWING_variable_statement_IN_statement_171 )
         variable_statement9 = variable_statement
         @state.following.pop
         if @state.backtracking == 0
@@ -511,8 +506,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 45:7: assignment_statement
-        @state.following.push( TOKENS_FOLLOWING_assignment_statement_IN_statement_186 )
+        # at line 41:7: assignment_statement
+        @state.following.push( TOKENS_FOLLOWING_assignment_statement_IN_statement_179 )
         assignment_statement10 = assignment_statement
         @state.following.pop
         if @state.backtracking == 0
@@ -524,8 +519,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 46:7: condition_statement
-        @state.following.push( TOKENS_FOLLOWING_condition_statement_IN_statement_194 )
+        # at line 42:7: condition_statement
+        @state.following.push( TOKENS_FOLLOWING_condition_statement_IN_statement_187 )
         condition_statement11 = condition_statement
         @state.following.pop
         if @state.backtracking == 0
@@ -537,8 +532,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 47:7: write_statement
-        @state.following.push( TOKENS_FOLLOWING_write_statement_IN_statement_202 )
+        # at line 43:7: write_statement
+        @state.following.push( TOKENS_FOLLOWING_write_statement_IN_statement_195 )
         write_statement12 = write_statement
         @state.following.pop
         if @state.backtracking == 0
@@ -550,8 +545,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 48:7: loop_statement
-        @state.following.push( TOKENS_FOLLOWING_loop_statement_IN_statement_210 )
+        # at line 44:7: loop_statement
+        @state.following.push( TOKENS_FOLLOWING_loop_statement_IN_statement_203 )
         loop_statement13 = loop_statement
         @state.following.pop
         if @state.backtracking == 0
@@ -563,8 +558,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 49:7: return_statement
-        @state.following.push( TOKENS_FOLLOWING_return_statement_IN_statement_218 )
+        # at line 45:7: return_statement
+        @state.following.push( TOKENS_FOLLOWING_return_statement_IN_statement_211 )
         return_statement14 = return_statement
         @state.following.pop
         if @state.backtracking == 0
@@ -576,8 +571,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 50:7: function
-        @state.following.push( TOKENS_FOLLOWING_function_IN_statement_226 )
+        # at line 46:7: function
+        @state.following.push( TOKENS_FOLLOWING_function_IN_statement_219 )
         function15 = function
         @state.following.pop
         if @state.backtracking == 0
@@ -618,7 +613,7 @@ module Rubik
     # parser rule statement_end
     #
     # (in Rubik.g)
-    # 53:1: statement_end : ( ';' | ( '}' )=>| EOF );
+    # 49:1: statement_end : ( ';' | ( '}' )=>| EOF );
     #
     def statement_end
       # -> uncomment the next line to manually enable rule tracing
@@ -641,7 +636,7 @@ module Rubik
       tree_for_EOF17 = nil
 
       begin
-      # at line 54:5: ( ';' | ( '}' )=>| EOF )
+      # at line 50:5: ( ';' | ( '}' )=>| EOF )
       alt_5 = 3
       look_5_0 = @input.peek( 1 )
 
@@ -684,8 +679,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 54:7: ';'
-        char_literal16 = match( SEMI, TOKENS_FOLLOWING_SEMI_IN_statement_end_243 )
+        # at line 50:7: ';'
+        char_literal16 = match( SEMI, TOKENS_FOLLOWING_SEMI_IN_statement_end_236 )
         if @state.backtracking == 0
           tree_for_char_literal16 = @adaptor.create_with_payload( char_literal16 )
           @adaptor.add_child( root_0, tree_for_char_literal16 )
@@ -697,14 +692,14 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 55:7: ( '}' )=>
+        # at line 51:7: ( '}' )=>
 
       when 3
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 56:7: EOF
-        __EOF17__ = match( EOF, TOKENS_FOLLOWING_EOF_IN_statement_end_264 )
+        # at line 52:7: EOF
+        __EOF17__ = match( EOF, TOKENS_FOLLOWING_EOF_IN_statement_end_257 )
         if @state.backtracking == 0
           tree_for_EOF17 = @adaptor.create_with_payload( __EOF17__ )
           @adaptor.add_child( root_0, tree_for_EOF17 )
@@ -745,7 +740,7 @@ module Rubik
     # parser rule return_statement
     #
     # (in Rubik.g)
-    # 59:1: return_statement : 'return' expression statement_end !;
+    # 55:1: return_statement : 'return' expression statement_end !;
     #
     def return_statement
       # -> uncomment the next line to manually enable rule tracing
@@ -771,22 +766,22 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 60:7: 'return' expression statement_end !
-      string_literal18 = match( T__41, TOKENS_FOLLOWING_T__41_IN_return_statement_281 )
+      # at line 56:7: 'return' expression statement_end !
+      string_literal18 = match( T__41, TOKENS_FOLLOWING_T__41_IN_return_statement_274 )
       if @state.backtracking == 0
         tree_for_string_literal18 = @adaptor.create_with_payload( string_literal18 )
         @adaptor.add_child( root_0, tree_for_string_literal18 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_expression_IN_return_statement_283 )
+      @state.following.push( TOKENS_FOLLOWING_expression_IN_return_statement_276 )
       expression19 = expression
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, expression19.tree )
       end
 
-      @state.following.push( TOKENS_FOLLOWING_statement_end_IN_return_statement_285 )
+      @state.following.push( TOKENS_FOLLOWING_statement_end_IN_return_statement_278 )
       statement_end20 = statement_end
       @state.following.pop
 
@@ -822,14 +817,12 @@ module Rubik
     # parser rule variable_statement
     #
     # (in Rubik.g)
-    # 63:1: variable_statement : VAR_TYPE variable_declaration_list statement_end !;
+    # 59:1: variable_statement : VAR_TYPE variable_declaration_list statement_end !;
     #
     def variable_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 7 )
 
-
-      @global_stack.push( @@global.new )
 
       return_value = VariableStatementReturnValue.new
 
@@ -846,42 +839,28 @@ module Rubik
 
       tree_for_VAR_TYPE21 = nil
 
-      # - - - - @init action - - - -
-
-          @global_stack.last.variable_type = nil
-
-
-
       begin
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 68:7: VAR_TYPE variable_declaration_list statement_end !
-      __VAR_TYPE21__ = match( VAR_TYPE, TOKENS_FOLLOWING_VAR_TYPE_IN_variable_statement_313 )
+      # at line 60:7: VAR_TYPE variable_declaration_list statement_end !
+      __VAR_TYPE21__ = match( VAR_TYPE, TOKENS_FOLLOWING_VAR_TYPE_IN_variable_statement_296 )
       if @state.backtracking == 0
         tree_for_VAR_TYPE21 = @adaptor.create_with_payload( __VAR_TYPE21__ )
         @adaptor.add_child( root_0, tree_for_VAR_TYPE21 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_variable_declaration_list_IN_variable_statement_315 )
+      @state.following.push( TOKENS_FOLLOWING_variable_declaration_list_IN_variable_statement_298 )
       variable_declaration_list22 = variable_declaration_list
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, variable_declaration_list22.tree )
       end
 
-      @state.following.push( TOKENS_FOLLOWING_statement_end_IN_variable_statement_317 )
+      @state.following.push( TOKENS_FOLLOWING_statement_end_IN_variable_statement_300 )
       statement_end23 = statement_end
       @state.following.pop
-
-      # syntactic predicate action gate test
-      if @state.backtracking == 0
-        # --> action
-         @global_stack.last.variable_type = __VAR_TYPE21__.text 
-        # <-- action
-      end
-
 
       # - - - - - - - rule clean up - - - - - - - -
       return_value.stop = @input.look( -1 )
@@ -903,7 +882,6 @@ module Rubik
         # -> uncomment the next line to manually enable rule tracing
         # trace_out( __method__, 7 )
 
-      @global_stack.pop
 
       end
 
@@ -916,7 +894,7 @@ module Rubik
     # parser rule variable_declaration_list
     #
     # (in Rubik.g)
-    # 72:1: variable_declaration_list : variable_declaration ( ',' variable_declaration )* ;
+    # 63:1: variable_declaration_list : variable_declaration ( ',' variable_declaration )* ;
     #
     def variable_declaration_list
       # -> uncomment the next line to manually enable rule tracing
@@ -942,15 +920,15 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 73:7: variable_declaration ( ',' variable_declaration )*
-      @state.following.push( TOKENS_FOLLOWING_variable_declaration_IN_variable_declaration_list_345 )
+      # at line 64:7: variable_declaration ( ',' variable_declaration )*
+      @state.following.push( TOKENS_FOLLOWING_variable_declaration_IN_variable_declaration_list_318 )
       variable_declaration24 = variable_declaration
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, variable_declaration24.tree )
       end
 
-      # at line 73:28: ( ',' variable_declaration )*
+      # at line 64:28: ( ',' variable_declaration )*
       while true # decision 6
         alt_6 = 2
         look_6_0 = @input.peek( 1 )
@@ -961,15 +939,15 @@ module Rubik
         end
         case alt_6
         when 1
-          # at line 73:29: ',' variable_declaration
-          char_literal25 = match( T__22, TOKENS_FOLLOWING_T__22_IN_variable_declaration_list_348 )
+          # at line 64:29: ',' variable_declaration
+          char_literal25 = match( T__22, TOKENS_FOLLOWING_T__22_IN_variable_declaration_list_321 )
           if @state.backtracking == 0
             tree_for_char_literal25 = @adaptor.create_with_payload( char_literal25 )
             @adaptor.add_child( root_0, tree_for_char_literal25 )
 
           end
 
-          @state.following.push( TOKENS_FOLLOWING_variable_declaration_IN_variable_declaration_list_350 )
+          @state.following.push( TOKENS_FOLLOWING_variable_declaration_IN_variable_declaration_list_323 )
           variable_declaration26 = variable_declaration
           @state.following.pop
           if @state.backtracking == 0
@@ -1015,7 +993,7 @@ module Rubik
     # parser rule variable_declaration
     #
     # (in Rubik.g)
-    # 76:1: variable_declaration : declaration_target ( '=' expression )? ;
+    # 67:1: variable_declaration : declaration_target ( '=' expression )? ;
     #
     def variable_declaration
       # -> uncomment the next line to manually enable rule tracing
@@ -1041,15 +1019,15 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 77:7: declaration_target ( '=' expression )?
-      @state.following.push( TOKENS_FOLLOWING_declaration_target_IN_variable_declaration_369 )
+      # at line 68:7: declaration_target ( '=' expression )?
+      @state.following.push( TOKENS_FOLLOWING_declaration_target_IN_variable_declaration_342 )
       declaration_target27 = declaration_target
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, declaration_target27.tree )
       end
 
-      # at line 77:26: ( '=' expression )?
+      # at line 68:26: ( '=' expression )?
       alt_7 = 2
       look_7_0 = @input.peek( 1 )
 
@@ -1058,15 +1036,15 @@ module Rubik
       end
       case alt_7
       when 1
-        # at line 77:27: '=' expression
-        char_literal28 = match( T__28, TOKENS_FOLLOWING_T__28_IN_variable_declaration_372 )
+        # at line 68:27: '=' expression
+        char_literal28 = match( T__28, TOKENS_FOLLOWING_T__28_IN_variable_declaration_345 )
         if @state.backtracking == 0
           tree_for_char_literal28 = @adaptor.create_with_payload( char_literal28 )
           @adaptor.add_child( root_0, tree_for_char_literal28 )
 
         end
 
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_variable_declaration_374 )
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_variable_declaration_347 )
         expression29 = expression
         @state.following.pop
         if @state.backtracking == 0
@@ -1108,14 +1086,12 @@ module Rubik
     # parser rule declaration_target
     #
     # (in Rubik.g)
-    # 80:1: declaration_target : variable_name ( '[' INT ']' )? ( '[' INT ']' )? ;
+    # 71:1: declaration_target : variable_name ( '[' INT ']' )? ( '[' INT ']' )? ;
     #
     def declaration_target
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 10 )
 
-
-      @global_stack.push( @@global.new )
 
       return_value = DeclarationTargetReturnValue.new
 
@@ -1145,15 +1121,15 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 82:7: variable_name ( '[' INT ']' )? ( '[' INT ']' )?
-      @state.following.push( TOKENS_FOLLOWING_variable_name_IN_declaration_target_398 )
+      # at line 72:7: variable_name ( '[' INT ']' )? ( '[' INT ']' )?
+      @state.following.push( TOKENS_FOLLOWING_variable_name_IN_declaration_target_366 )
       variable_name30 = variable_name
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, variable_name30.tree )
       end
 
-      # at line 82:21: ( '[' INT ']' )?
+      # at line 72:21: ( '[' INT ']' )?
       alt_8 = 2
       look_8_0 = @input.peek( 1 )
 
@@ -1170,22 +1146,22 @@ module Rubik
       end
       case alt_8
       when 1
-        # at line 82:22: '[' INT ']'
-        char_literal31 = match( T__32, TOKENS_FOLLOWING_T__32_IN_declaration_target_401 )
+        # at line 72:22: '[' INT ']'
+        char_literal31 = match( T__32, TOKENS_FOLLOWING_T__32_IN_declaration_target_369 )
         if @state.backtracking == 0
           tree_for_char_literal31 = @adaptor.create_with_payload( char_literal31 )
           @adaptor.add_child( root_0, tree_for_char_literal31 )
 
         end
 
-        __INT32__ = match( INT, TOKENS_FOLLOWING_INT_IN_declaration_target_403 )
+        __INT32__ = match( INT, TOKENS_FOLLOWING_INT_IN_declaration_target_371 )
         if @state.backtracking == 0
           tree_for_INT32 = @adaptor.create_with_payload( __INT32__ )
           @adaptor.add_child( root_0, tree_for_INT32 )
 
         end
 
-        char_literal33 = match( T__33, TOKENS_FOLLOWING_T__33_IN_declaration_target_405 )
+        char_literal33 = match( T__33, TOKENS_FOLLOWING_T__33_IN_declaration_target_373 )
         if @state.backtracking == 0
           tree_for_char_literal33 = @adaptor.create_with_payload( char_literal33 )
           @adaptor.add_child( root_0, tree_for_char_literal33 )
@@ -1194,7 +1170,7 @@ module Rubik
 
 
       end
-      # at line 82:36: ( '[' INT ']' )?
+      # at line 72:36: ( '[' INT ']' )?
       alt_9 = 2
       look_9_0 = @input.peek( 1 )
 
@@ -1203,22 +1179,22 @@ module Rubik
       end
       case alt_9
       when 1
-        # at line 82:37: '[' INT ']'
-        char_literal34 = match( T__32, TOKENS_FOLLOWING_T__32_IN_declaration_target_410 )
+        # at line 72:37: '[' INT ']'
+        char_literal34 = match( T__32, TOKENS_FOLLOWING_T__32_IN_declaration_target_378 )
         if @state.backtracking == 0
           tree_for_char_literal34 = @adaptor.create_with_payload( char_literal34 )
           @adaptor.add_child( root_0, tree_for_char_literal34 )
 
         end
 
-        __INT35__ = match( INT, TOKENS_FOLLOWING_INT_IN_declaration_target_412 )
+        __INT35__ = match( INT, TOKENS_FOLLOWING_INT_IN_declaration_target_380 )
         if @state.backtracking == 0
           tree_for_INT35 = @adaptor.create_with_payload( __INT35__ )
           @adaptor.add_child( root_0, tree_for_INT35 )
 
         end
 
-        char_literal36 = match( T__33, TOKENS_FOLLOWING_T__33_IN_declaration_target_414 )
+        char_literal36 = match( T__33, TOKENS_FOLLOWING_T__33_IN_declaration_target_382 )
         if @state.backtracking == 0
           tree_for_char_literal36 = @adaptor.create_with_payload( char_literal36 )
           @adaptor.add_child( root_0, tree_for_char_literal36 )
@@ -1235,7 +1211,8 @@ module Rubik
                     if @block_stack.last.symbols.has_key?(var = String(( variable_name30 && @input.to_s( variable_name30.start, variable_name30.stop ) )).to_sym)
                       raise "'#{var}' has already been declared"
                     else
-                      @block_stack.last.symbols[var] = @global_stack.last.variable_type
+                      require 'debugger'; debugger
+                      @block_stack.last.symbols[var] = 1
                     end
                 
         # <-- action
@@ -1262,7 +1239,6 @@ module Rubik
         # -> uncomment the next line to manually enable rule tracing
         # trace_out( __method__, 10 )
 
-      @global_stack.pop
 
       end
 
@@ -1275,14 +1251,12 @@ module Rubik
     # parser rule assignment_statement
     #
     # (in Rubik.g)
-    # 92:1: assignment_statement : ID '=' expression statement_end !;
+    # 83:1: assignment_statement : ID '=' expression statement_end !;
     #
     def assignment_statement
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 11 )
 
-
-      @global_stack.push( @@global.new )
 
       return_value = AssignmentStatementReturnValue.new
 
@@ -1305,29 +1279,29 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 94:7: ID '=' expression statement_end !
-      __ID37__ = match( ID, TOKENS_FOLLOWING_ID_IN_assignment_statement_448 )
+      # at line 84:7: ID '=' expression statement_end !
+      __ID37__ = match( ID, TOKENS_FOLLOWING_ID_IN_assignment_statement_411 )
       if @state.backtracking == 0
         tree_for_ID37 = @adaptor.create_with_payload( __ID37__ )
         @adaptor.add_child( root_0, tree_for_ID37 )
 
       end
 
-      char_literal38 = match( T__28, TOKENS_FOLLOWING_T__28_IN_assignment_statement_450 )
+      char_literal38 = match( T__28, TOKENS_FOLLOWING_T__28_IN_assignment_statement_413 )
       if @state.backtracking == 0
         tree_for_char_literal38 = @adaptor.create_with_payload( char_literal38 )
         @adaptor.add_child( root_0, tree_for_char_literal38 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_expression_IN_assignment_statement_452 )
+      @state.following.push( TOKENS_FOLLOWING_expression_IN_assignment_statement_415 )
       expression39 = expression
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, expression39.tree )
       end
 
-      @state.following.push( TOKENS_FOLLOWING_statement_end_IN_assignment_statement_454 )
+      @state.following.push( TOKENS_FOLLOWING_statement_end_IN_assignment_statement_417 )
       statement_end40 = statement_end
       @state.following.pop
 
@@ -1363,7 +1337,6 @@ module Rubik
         # -> uncomment the next line to manually enable rule tracing
         # trace_out( __method__, 11 )
 
-      @global_stack.pop
 
       end
 
@@ -1376,7 +1349,7 @@ module Rubik
     # parser rule condition_statement
     #
     # (in Rubik.g)
-    # 102:1: condition_statement : 'if' '(' expression ')' block ( 'else' block )? ;
+    # 92:1: condition_statement : 'if' '(' expression ')' block ( 'else' block )? ;
     #
     def condition_statement
       # -> uncomment the next line to manually enable rule tracing
@@ -1409,43 +1382,43 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 103:7: 'if' '(' expression ')' block ( 'else' block )?
-      string_literal41 = match( T__39, TOKENS_FOLLOWING_T__39_IN_condition_statement_482 )
+      # at line 93:7: 'if' '(' expression ')' block ( 'else' block )?
+      string_literal41 = match( T__39, TOKENS_FOLLOWING_T__39_IN_condition_statement_445 )
       if @state.backtracking == 0
         tree_for_string_literal41 = @adaptor.create_with_payload( string_literal41 )
         @adaptor.add_child( root_0, tree_for_string_literal41 )
 
       end
 
-      char_literal42 = match( T__19, TOKENS_FOLLOWING_T__19_IN_condition_statement_484 )
+      char_literal42 = match( T__19, TOKENS_FOLLOWING_T__19_IN_condition_statement_447 )
       if @state.backtracking == 0
         tree_for_char_literal42 = @adaptor.create_with_payload( char_literal42 )
         @adaptor.add_child( root_0, tree_for_char_literal42 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_expression_IN_condition_statement_486 )
+      @state.following.push( TOKENS_FOLLOWING_expression_IN_condition_statement_449 )
       expression43 = expression
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, expression43.tree )
       end
 
-      char_literal44 = match( T__20, TOKENS_FOLLOWING_T__20_IN_condition_statement_488 )
+      char_literal44 = match( T__20, TOKENS_FOLLOWING_T__20_IN_condition_statement_451 )
       if @state.backtracking == 0
         tree_for_char_literal44 = @adaptor.create_with_payload( char_literal44 )
         @adaptor.add_child( root_0, tree_for_char_literal44 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_block_IN_condition_statement_490 )
+      @state.following.push( TOKENS_FOLLOWING_block_IN_condition_statement_453 )
       block45 = block
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, block45.tree )
       end
 
-      # at line 103:37: ( 'else' block )?
+      # at line 93:37: ( 'else' block )?
       alt_10 = 2
       look_10_0 = @input.peek( 1 )
 
@@ -1454,15 +1427,15 @@ module Rubik
       end
       case alt_10
       when 1
-        # at line 103:38: 'else' block
-        string_literal46 = match( T__37, TOKENS_FOLLOWING_T__37_IN_condition_statement_493 )
+        # at line 93:38: 'else' block
+        string_literal46 = match( T__37, TOKENS_FOLLOWING_T__37_IN_condition_statement_456 )
         if @state.backtracking == 0
           tree_for_string_literal46 = @adaptor.create_with_payload( string_literal46 )
           @adaptor.add_child( root_0, tree_for_string_literal46 )
 
         end
 
-        @state.following.push( TOKENS_FOLLOWING_block_IN_condition_statement_495 )
+        @state.following.push( TOKENS_FOLLOWING_block_IN_condition_statement_458 )
         block47 = block
         @state.following.pop
         if @state.backtracking == 0
@@ -1504,7 +1477,7 @@ module Rubik
     # parser rule expression
     #
     # (in Rubik.g)
-    # 106:1: expression : exp ( relation_op exp )? ;
+    # 96:1: expression : exp ( relation_op exp )? ;
     #
     def expression
       # -> uncomment the next line to manually enable rule tracing
@@ -1529,15 +1502,15 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 107:7: exp ( relation_op exp )?
-      @state.following.push( TOKENS_FOLLOWING_exp_IN_expression_514 )
+      # at line 97:7: exp ( relation_op exp )?
+      @state.following.push( TOKENS_FOLLOWING_exp_IN_expression_477 )
       exp48 = exp
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, exp48.tree )
       end
 
-      # at line 107:11: ( relation_op exp )?
+      # at line 97:11: ( relation_op exp )?
       alt_11 = 2
       look_11_0 = @input.peek( 1 )
 
@@ -1546,15 +1519,15 @@ module Rubik
       end
       case alt_11
       when 1
-        # at line 107:12: relation_op exp
-        @state.following.push( TOKENS_FOLLOWING_relation_op_IN_expression_517 )
+        # at line 97:12: relation_op exp
+        @state.following.push( TOKENS_FOLLOWING_relation_op_IN_expression_480 )
         relation_op49 = relation_op
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child( root_0, relation_op49.tree )
         end
 
-        @state.following.push( TOKENS_FOLLOWING_exp_IN_expression_519 )
+        @state.following.push( TOKENS_FOLLOWING_exp_IN_expression_482 )
         exp50 = exp
         @state.following.pop
         if @state.backtracking == 0
@@ -1596,7 +1569,7 @@ module Rubik
     # parser rule relation_op
     #
     # (in Rubik.g)
-    # 110:1: relation_op : ( '<' | '>' | '<=' | '>=' | '==' | '!=' );
+    # 100:1: relation_op : ( '<' | '>' | '<=' | '>=' | '==' | '!=' );
     #
     def relation_op
       # -> uncomment the next line to manually enable rule tracing
@@ -1674,7 +1647,7 @@ module Rubik
     # parser rule exp
     #
     # (in Rubik.g)
-    # 119:1: exp : term ( ( '+' | '-' ) exp )? ;
+    # 109:1: exp : term ( ( '+' | '-' ) exp )? ;
     #
     def exp
       # -> uncomment the next line to manually enable rule tracing
@@ -1700,15 +1673,15 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 120:7: term ( ( '+' | '-' ) exp )?
-      @state.following.push( TOKENS_FOLLOWING_term_IN_exp_595 )
+      # at line 110:7: term ( ( '+' | '-' ) exp )?
+      @state.following.push( TOKENS_FOLLOWING_term_IN_exp_558 )
       term52 = term
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, term52.tree )
       end
 
-      # at line 120:12: ( ( '+' | '-' ) exp )?
+      # at line 110:12: ( ( '+' | '-' ) exp )?
       alt_12 = 2
       look_12_0 = @input.peek( 1 )
 
@@ -1717,7 +1690,7 @@ module Rubik
       end
       case alt_12
       when 1
-        # at line 120:13: ( '+' | '-' ) exp
+        # at line 110:13: ( '+' | '-' ) exp
         set53 = @input.look
 
         if @input.peek(1) == PLUS || @input.peek(1) == T__23
@@ -1738,7 +1711,7 @@ module Rubik
         end
 
 
-        @state.following.push( TOKENS_FOLLOWING_exp_IN_exp_604 )
+        @state.following.push( TOKENS_FOLLOWING_exp_IN_exp_567 )
         exp54 = exp
         @state.following.pop
         if @state.backtracking == 0
@@ -1780,7 +1753,7 @@ module Rubik
     # parser rule term
     #
     # (in Rubik.g)
-    # 123:1: term : factor ( ( '*' | '/' ) term )? ;
+    # 113:1: term : factor ( ( '*' | '/' ) term )? ;
     #
     def term
       # -> uncomment the next line to manually enable rule tracing
@@ -1806,15 +1779,15 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 124:7: factor ( ( '*' | '/' ) term )?
-      @state.following.push( TOKENS_FOLLOWING_factor_IN_term_623 )
+      # at line 114:7: factor ( ( '*' | '/' ) term )?
+      @state.following.push( TOKENS_FOLLOWING_factor_IN_term_586 )
       factor55 = factor
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, factor55.tree )
       end
 
-      # at line 124:14: ( ( '*' | '/' ) term )?
+      # at line 114:14: ( ( '*' | '/' ) term )?
       alt_13 = 2
       look_13_0 = @input.peek( 1 )
 
@@ -1823,7 +1796,7 @@ module Rubik
       end
       case alt_13
       when 1
-        # at line 124:15: ( '*' | '/' ) term
+        # at line 114:15: ( '*' | '/' ) term
         set56 = @input.look
 
         if @input.peek(1) == T__21 || @input.peek(1) == T__25
@@ -1844,7 +1817,7 @@ module Rubik
         end
 
 
-        @state.following.push( TOKENS_FOLLOWING_term_IN_term_632 )
+        @state.following.push( TOKENS_FOLLOWING_term_IN_term_595 )
         term57 = term
         @state.following.pop
         if @state.backtracking == 0
@@ -1886,7 +1859,7 @@ module Rubik
     # parser rule factor
     #
     # (in Rubik.g)
-    # 127:1: factor : ( '(' expression ')' | ( '-' )? primary );
+    # 117:1: factor : ( '(' expression ')' | ( '-' )? primary );
     #
     def factor
       # -> uncomment the next line to manually enable rule tracing
@@ -1913,7 +1886,7 @@ module Rubik
       tree_for_char_literal61 = nil
 
       begin
-      # at line 128:5: ( '(' expression ')' | ( '-' )? primary )
+      # at line 118:5: ( '(' expression ')' | ( '-' )? primary )
       alt_15 = 2
       look_15_0 = @input.peek( 1 )
 
@@ -1934,22 +1907,22 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 128:7: '(' expression ')'
-        char_literal58 = match( T__19, TOKENS_FOLLOWING_T__19_IN_factor_651 )
+        # at line 118:7: '(' expression ')'
+        char_literal58 = match( T__19, TOKENS_FOLLOWING_T__19_IN_factor_614 )
         if @state.backtracking == 0
           tree_for_char_literal58 = @adaptor.create_with_payload( char_literal58 )
           @adaptor.add_child( root_0, tree_for_char_literal58 )
 
         end
 
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_factor_653 )
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_factor_616 )
         expression59 = expression
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child( root_0, expression59.tree )
         end
 
-        char_literal60 = match( T__20, TOKENS_FOLLOWING_T__20_IN_factor_655 )
+        char_literal60 = match( T__20, TOKENS_FOLLOWING_T__20_IN_factor_618 )
         if @state.backtracking == 0
           tree_for_char_literal60 = @adaptor.create_with_payload( char_literal60 )
           @adaptor.add_child( root_0, tree_for_char_literal60 )
@@ -1961,8 +1934,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 129:7: ( '-' )? primary
-        # at line 129:7: ( '-' )?
+        # at line 119:7: ( '-' )? primary
+        # at line 119:7: ( '-' )?
         alt_14 = 2
         look_14_0 = @input.peek( 1 )
 
@@ -1971,8 +1944,8 @@ module Rubik
         end
         case alt_14
         when 1
-          # at line 129:7: '-'
-          char_literal61 = match( T__23, TOKENS_FOLLOWING_T__23_IN_factor_663 )
+          # at line 119:7: '-'
+          char_literal61 = match( T__23, TOKENS_FOLLOWING_T__23_IN_factor_626 )
           if @state.backtracking == 0
             tree_for_char_literal61 = @adaptor.create_with_payload( char_literal61 )
             @adaptor.add_child( root_0, tree_for_char_literal61 )
@@ -1981,7 +1954,7 @@ module Rubik
 
 
         end
-        @state.following.push( TOKENS_FOLLOWING_primary_IN_factor_666 )
+        @state.following.push( TOKENS_FOLLOWING_primary_IN_factor_629 )
         primary62 = primary
         @state.following.pop
         if @state.backtracking == 0
@@ -2022,7 +1995,7 @@ module Rubik
     # parser rule expression_list
     #
     # (in Rubik.g)
-    # 132:1: expression_list : expression ( ',' expression )* ;
+    # 122:1: expression_list : expression ( ',' expression )* ;
     #
     def expression_list
       # -> uncomment the next line to manually enable rule tracing
@@ -2048,15 +2021,15 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 133:7: expression ( ',' expression )*
-      @state.following.push( TOKENS_FOLLOWING_expression_IN_expression_list_683 )
+      # at line 123:7: expression ( ',' expression )*
+      @state.following.push( TOKENS_FOLLOWING_expression_IN_expression_list_646 )
       expression63 = expression
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, expression63.tree )
       end
 
-      # at line 133:18: ( ',' expression )*
+      # at line 123:18: ( ',' expression )*
       while true # decision 16
         alt_16 = 2
         look_16_0 = @input.peek( 1 )
@@ -2067,15 +2040,15 @@ module Rubik
         end
         case alt_16
         when 1
-          # at line 133:19: ',' expression
-          char_literal64 = match( T__22, TOKENS_FOLLOWING_T__22_IN_expression_list_686 )
+          # at line 123:19: ',' expression
+          char_literal64 = match( T__22, TOKENS_FOLLOWING_T__22_IN_expression_list_649 )
           if @state.backtracking == 0
             tree_for_char_literal64 = @adaptor.create_with_payload( char_literal64 )
             @adaptor.add_child( root_0, tree_for_char_literal64 )
 
           end
 
-          @state.following.push( TOKENS_FOLLOWING_expression_IN_expression_list_688 )
+          @state.following.push( TOKENS_FOLLOWING_expression_IN_expression_list_651 )
           expression65 = expression
           @state.following.pop
           if @state.backtracking == 0
@@ -2121,7 +2094,7 @@ module Rubik
     # parser rule write_statement
     #
     # (in Rubik.g)
-    # 136:1: write_statement : 'print' '(' write_expression ( '.' write_expression )* ')' statement_end !;
+    # 126:1: write_statement : 'print' '(' write_expression ( '.' write_expression )* ')' statement_end !;
     #
     def write_statement
       # -> uncomment the next line to manually enable rule tracing
@@ -2154,29 +2127,29 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 137:7: 'print' '(' write_expression ( '.' write_expression )* ')' statement_end !
-      string_literal66 = match( T__40, TOKENS_FOLLOWING_T__40_IN_write_statement_707 )
+      # at line 127:7: 'print' '(' write_expression ( '.' write_expression )* ')' statement_end !
+      string_literal66 = match( T__40, TOKENS_FOLLOWING_T__40_IN_write_statement_670 )
       if @state.backtracking == 0
         tree_for_string_literal66 = @adaptor.create_with_payload( string_literal66 )
         @adaptor.add_child( root_0, tree_for_string_literal66 )
 
       end
 
-      char_literal67 = match( T__19, TOKENS_FOLLOWING_T__19_IN_write_statement_709 )
+      char_literal67 = match( T__19, TOKENS_FOLLOWING_T__19_IN_write_statement_672 )
       if @state.backtracking == 0
         tree_for_char_literal67 = @adaptor.create_with_payload( char_literal67 )
         @adaptor.add_child( root_0, tree_for_char_literal67 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_write_expression_IN_write_statement_711 )
+      @state.following.push( TOKENS_FOLLOWING_write_expression_IN_write_statement_674 )
       write_expression68 = write_expression
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, write_expression68.tree )
       end
 
-      # at line 137:36: ( '.' write_expression )*
+      # at line 127:36: ( '.' write_expression )*
       while true # decision 17
         alt_17 = 2
         look_17_0 = @input.peek( 1 )
@@ -2187,15 +2160,15 @@ module Rubik
         end
         case alt_17
         when 1
-          # at line 137:37: '.' write_expression
-          char_literal69 = match( T__24, TOKENS_FOLLOWING_T__24_IN_write_statement_714 )
+          # at line 127:37: '.' write_expression
+          char_literal69 = match( T__24, TOKENS_FOLLOWING_T__24_IN_write_statement_677 )
           if @state.backtracking == 0
             tree_for_char_literal69 = @adaptor.create_with_payload( char_literal69 )
             @adaptor.add_child( root_0, tree_for_char_literal69 )
 
           end
 
-          @state.following.push( TOKENS_FOLLOWING_write_expression_IN_write_statement_716 )
+          @state.following.push( TOKENS_FOLLOWING_write_expression_IN_write_statement_679 )
           write_expression70 = write_expression
           @state.following.pop
           if @state.backtracking == 0
@@ -2208,14 +2181,14 @@ module Rubik
         end
       end # loop for decision 17
 
-      char_literal71 = match( T__20, TOKENS_FOLLOWING_T__20_IN_write_statement_720 )
+      char_literal71 = match( T__20, TOKENS_FOLLOWING_T__20_IN_write_statement_683 )
       if @state.backtracking == 0
         tree_for_char_literal71 = @adaptor.create_with_payload( char_literal71 )
         @adaptor.add_child( root_0, tree_for_char_literal71 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_statement_end_IN_write_statement_722 )
+      @state.following.push( TOKENS_FOLLOWING_statement_end_IN_write_statement_685 )
       statement_end72 = statement_end
       @state.following.pop
 
@@ -2251,7 +2224,7 @@ module Rubik
     # parser rule write_expression
     #
     # (in Rubik.g)
-    # 140:1: write_expression : ( expression | STRING );
+    # 130:1: write_expression : ( expression | STRING );
     #
     def write_expression
       # -> uncomment the next line to manually enable rule tracing
@@ -2273,7 +2246,7 @@ module Rubik
       tree_for_STRING74 = nil
 
       begin
-      # at line 141:5: ( expression | STRING )
+      # at line 131:5: ( expression | STRING )
       alt_18 = 2
       look_18_0 = @input.peek( 1 )
 
@@ -2294,8 +2267,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 141:7: expression
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_write_expression_740 )
+        # at line 131:7: expression
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_write_expression_703 )
         expression73 = expression
         @state.following.pop
         if @state.backtracking == 0
@@ -2307,8 +2280,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 142:7: STRING
-        __STRING74__ = match( STRING, TOKENS_FOLLOWING_STRING_IN_write_expression_748 )
+        # at line 132:7: STRING
+        __STRING74__ = match( STRING, TOKENS_FOLLOWING_STRING_IN_write_expression_711 )
         if @state.backtracking == 0
           tree_for_STRING74 = @adaptor.create_with_payload( __STRING74__ )
           @adaptor.add_child( root_0, tree_for_STRING74 )
@@ -2349,7 +2322,7 @@ module Rubik
     # parser rule loop_statement
     #
     # (in Rubik.g)
-    # 145:1: loop_statement : 'do' exp 'times' block ;
+    # 135:1: loop_statement : 'do' exp 'times' block ;
     #
     def loop_statement
       # -> uncomment the next line to manually enable rule tracing
@@ -2377,29 +2350,29 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 146:7: 'do' exp 'times' block
-      string_literal75 = match( T__36, TOKENS_FOLLOWING_T__36_IN_loop_statement_765 )
+      # at line 136:7: 'do' exp 'times' block
+      string_literal75 = match( T__36, TOKENS_FOLLOWING_T__36_IN_loop_statement_728 )
       if @state.backtracking == 0
         tree_for_string_literal75 = @adaptor.create_with_payload( string_literal75 )
         @adaptor.add_child( root_0, tree_for_string_literal75 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_exp_IN_loop_statement_767 )
+      @state.following.push( TOKENS_FOLLOWING_exp_IN_loop_statement_730 )
       exp76 = exp
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, exp76.tree )
       end
 
-      string_literal77 = match( T__42, TOKENS_FOLLOWING_T__42_IN_loop_statement_769 )
+      string_literal77 = match( T__42, TOKENS_FOLLOWING_T__42_IN_loop_statement_732 )
       if @state.backtracking == 0
         tree_for_string_literal77 = @adaptor.create_with_payload( string_literal77 )
         @adaptor.add_child( root_0, tree_for_string_literal77 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_block_IN_loop_statement_771 )
+      @state.following.push( TOKENS_FOLLOWING_block_IN_loop_statement_734 )
       block78 = block
       @state.following.pop
       if @state.backtracking == 0
@@ -2439,7 +2412,7 @@ module Rubik
     # parser rule function
     #
     # (in Rubik.g)
-    # 149:1: function : 'def' VAR_TYPE variable_name function_parameters block ;
+    # 139:1: function : 'def' VAR_TYPE variable_name function_parameters block ;
     #
     def function
       # -> uncomment the next line to manually enable rule tracing
@@ -2468,36 +2441,36 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 150:7: 'def' VAR_TYPE variable_name function_parameters block
-      string_literal79 = match( T__35, TOKENS_FOLLOWING_T__35_IN_function_788 )
+      # at line 140:7: 'def' VAR_TYPE variable_name function_parameters block
+      string_literal79 = match( T__35, TOKENS_FOLLOWING_T__35_IN_function_751 )
       if @state.backtracking == 0
         tree_for_string_literal79 = @adaptor.create_with_payload( string_literal79 )
         @adaptor.add_child( root_0, tree_for_string_literal79 )
 
       end
 
-      __VAR_TYPE80__ = match( VAR_TYPE, TOKENS_FOLLOWING_VAR_TYPE_IN_function_790 )
+      __VAR_TYPE80__ = match( VAR_TYPE, TOKENS_FOLLOWING_VAR_TYPE_IN_function_753 )
       if @state.backtracking == 0
         tree_for_VAR_TYPE80 = @adaptor.create_with_payload( __VAR_TYPE80__ )
         @adaptor.add_child( root_0, tree_for_VAR_TYPE80 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_variable_name_IN_function_792 )
+      @state.following.push( TOKENS_FOLLOWING_variable_name_IN_function_755 )
       variable_name81 = variable_name
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, variable_name81.tree )
       end
 
-      @state.following.push( TOKENS_FOLLOWING_function_parameters_IN_function_794 )
+      @state.following.push( TOKENS_FOLLOWING_function_parameters_IN_function_757 )
       function_parameters82 = function_parameters
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, function_parameters82.tree )
       end
 
-      @state.following.push( TOKENS_FOLLOWING_block_IN_function_796 )
+      @state.following.push( TOKENS_FOLLOWING_block_IN_function_759 )
       block83 = block
       @state.following.pop
       if @state.backtracking == 0
@@ -2509,12 +2482,14 @@ module Rubik
       if @state.backtracking == 0
         # --> action
 
+                    require 'debugger'; debugger
+
                     has_return = !(String(( block83 && @input.to_s( block83.start, block83.stop ) )) =~ /return/).nil?
                     if String(__VAR_TYPE80__) == 'void'
-                      raise "'void' should not have return statement" if has_return
+                      raise "'void' function should not have return statement" if has_return
                     else
                       unless has_return
-                        raise "expected return statement for '#{__VAR_TYPE80__.text}'"
+                        raise "missing return statement for '#{__VAR_TYPE80__.text}'"
                       end
                     end
                 
@@ -2554,7 +2529,7 @@ module Rubik
     # parser rule function_parameters
     #
     # (in Rubik.g)
-    # 163:1: function_parameters : '(' ( parameters )? ')' ;
+    # 155:1: function_parameters : '(' ( parameters )? ')' ;
     #
     def function_parameters
       # -> uncomment the next line to manually enable rule tracing
@@ -2581,15 +2556,15 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 164:7: '(' ( parameters )? ')'
-      char_literal84 = match( T__19, TOKENS_FOLLOWING_T__19_IN_function_parameters_823 )
+      # at line 156:7: '(' ( parameters )? ')'
+      char_literal84 = match( T__19, TOKENS_FOLLOWING_T__19_IN_function_parameters_786 )
       if @state.backtracking == 0
         tree_for_char_literal84 = @adaptor.create_with_payload( char_literal84 )
         @adaptor.add_child( root_0, tree_for_char_literal84 )
 
       end
 
-      # at line 164:11: ( parameters )?
+      # at line 156:11: ( parameters )?
       alt_19 = 2
       look_19_0 = @input.peek( 1 )
 
@@ -2598,8 +2573,8 @@ module Rubik
       end
       case alt_19
       when 1
-        # at line 164:11: parameters
-        @state.following.push( TOKENS_FOLLOWING_parameters_IN_function_parameters_825 )
+        # at line 156:11: parameters
+        @state.following.push( TOKENS_FOLLOWING_parameters_IN_function_parameters_788 )
         parameters85 = parameters
         @state.following.pop
         if @state.backtracking == 0
@@ -2608,7 +2583,7 @@ module Rubik
 
 
       end
-      char_literal86 = match( T__20, TOKENS_FOLLOWING_T__20_IN_function_parameters_828 )
+      char_literal86 = match( T__20, TOKENS_FOLLOWING_T__20_IN_function_parameters_791 )
       if @state.backtracking == 0
         tree_for_char_literal86 = @adaptor.create_with_payload( char_literal86 )
         @adaptor.add_child( root_0, tree_for_char_literal86 )
@@ -2648,7 +2623,7 @@ module Rubik
     # parser rule parameters
     #
     # (in Rubik.g)
-    # 167:1: parameters : VAR_TYPE variable_name ( ',' VAR_TYPE variable_name )* ;
+    # 159:1: parameters : VAR_TYPE variable_name ( ',' VAR_TYPE variable_name )* ;
     #
     def parameters
       # -> uncomment the next line to manually enable rule tracing
@@ -2678,22 +2653,22 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 168:7: VAR_TYPE variable_name ( ',' VAR_TYPE variable_name )*
-      __VAR_TYPE87__ = match( VAR_TYPE, TOKENS_FOLLOWING_VAR_TYPE_IN_parameters_845 )
+      # at line 160:7: VAR_TYPE variable_name ( ',' VAR_TYPE variable_name )*
+      __VAR_TYPE87__ = match( VAR_TYPE, TOKENS_FOLLOWING_VAR_TYPE_IN_parameters_808 )
       if @state.backtracking == 0
         tree_for_VAR_TYPE87 = @adaptor.create_with_payload( __VAR_TYPE87__ )
         @adaptor.add_child( root_0, tree_for_VAR_TYPE87 )
 
       end
 
-      @state.following.push( TOKENS_FOLLOWING_variable_name_IN_parameters_847 )
+      @state.following.push( TOKENS_FOLLOWING_variable_name_IN_parameters_810 )
       variable_name88 = variable_name
       @state.following.pop
       if @state.backtracking == 0
         @adaptor.add_child( root_0, variable_name88.tree )
       end
 
-      # at line 168:30: ( ',' VAR_TYPE variable_name )*
+      # at line 160:30: ( ',' VAR_TYPE variable_name )*
       while true # decision 20
         alt_20 = 2
         look_20_0 = @input.peek( 1 )
@@ -2704,22 +2679,22 @@ module Rubik
         end
         case alt_20
         when 1
-          # at line 168:31: ',' VAR_TYPE variable_name
-          char_literal89 = match( T__22, TOKENS_FOLLOWING_T__22_IN_parameters_850 )
+          # at line 160:31: ',' VAR_TYPE variable_name
+          char_literal89 = match( T__22, TOKENS_FOLLOWING_T__22_IN_parameters_813 )
           if @state.backtracking == 0
             tree_for_char_literal89 = @adaptor.create_with_payload( char_literal89 )
             @adaptor.add_child( root_0, tree_for_char_literal89 )
 
           end
 
-          __VAR_TYPE90__ = match( VAR_TYPE, TOKENS_FOLLOWING_VAR_TYPE_IN_parameters_852 )
+          __VAR_TYPE90__ = match( VAR_TYPE, TOKENS_FOLLOWING_VAR_TYPE_IN_parameters_815 )
           if @state.backtracking == 0
             tree_for_VAR_TYPE90 = @adaptor.create_with_payload( __VAR_TYPE90__ )
             @adaptor.add_child( root_0, tree_for_VAR_TYPE90 )
 
           end
 
-          @state.following.push( TOKENS_FOLLOWING_variable_name_IN_parameters_854 )
+          @state.following.push( TOKENS_FOLLOWING_variable_name_IN_parameters_817 )
           variable_name91 = variable_name
           @state.following.pop
           if @state.backtracking == 0
@@ -2765,7 +2740,7 @@ module Rubik
     # parser rule variable_name
     #
     # (in Rubik.g)
-    # 173:1: variable_name : ID ;
+    # 165:1: variable_name : ID ;
     #
     def variable_name
       # -> uncomment the next line to manually enable rule tracing
@@ -2789,8 +2764,8 @@ module Rubik
       root_0 = @adaptor.create_flat_list
 
 
-      # at line 174:7: ID
-      __ID92__ = match( ID, TOKENS_FOLLOWING_ID_IN_variable_name_875 )
+      # at line 166:7: ID
+      __ID92__ = match( ID, TOKENS_FOLLOWING_ID_IN_variable_name_838 )
       if @state.backtracking == 0
         tree_for_ID92 = @adaptor.create_with_payload( __ID92__ )
         @adaptor.add_child( root_0, tree_for_ID92 )
@@ -2830,7 +2805,7 @@ module Rubik
     # parser rule primary
     #
     # (in Rubik.g)
-    # 179:1: primary : ( BOOLEAN | CHAR | FLOAT | INT | variable_name ( '[' expression ']' )? ( '[' expression ']' )? | variable_name ( '(' expression_list ')' ) );
+    # 171:1: primary : ( BOOLEAN | CHAR | FLOAT | INT | variable_name ( '[' expression ']' )? ( '[' expression ']' )? | variable_name ( '(' expression_list ')' ) );
     #
     def primary
       # -> uncomment the next line to manually enable rule tracing
@@ -2874,7 +2849,7 @@ module Rubik
       tree_for_char_literal107 = nil
 
       begin
-      # at line 180:5: ( BOOLEAN | CHAR | FLOAT | INT | variable_name ( '[' expression ']' )? ( '[' expression ']' )? | variable_name ( '(' expression_list ')' ) )
+      # at line 172:5: ( BOOLEAN | CHAR | FLOAT | INT | variable_name ( '[' expression ']' )? ( '[' expression ']' )? | variable_name ( '(' expression_list ')' ) )
       alt_23 = 6
       case look_23 = @input.peek( 1 )
       when BOOLEAN then alt_23 = 1
@@ -2908,8 +2883,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 180:7: BOOLEAN
-        __BOOLEAN93__ = match( BOOLEAN, TOKENS_FOLLOWING_BOOLEAN_IN_primary_894 )
+        # at line 172:7: BOOLEAN
+        __BOOLEAN93__ = match( BOOLEAN, TOKENS_FOLLOWING_BOOLEAN_IN_primary_857 )
         if @state.backtracking == 0
           tree_for_BOOLEAN93 = @adaptor.create_with_payload( __BOOLEAN93__ )
           @adaptor.add_child( root_0, tree_for_BOOLEAN93 )
@@ -2921,8 +2896,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 181:7: CHAR
-        __CHAR94__ = match( CHAR, TOKENS_FOLLOWING_CHAR_IN_primary_902 )
+        # at line 173:7: CHAR
+        __CHAR94__ = match( CHAR, TOKENS_FOLLOWING_CHAR_IN_primary_865 )
         if @state.backtracking == 0
           tree_for_CHAR94 = @adaptor.create_with_payload( __CHAR94__ )
           @adaptor.add_child( root_0, tree_for_CHAR94 )
@@ -2934,8 +2909,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 182:7: FLOAT
-        __FLOAT95__ = match( FLOAT, TOKENS_FOLLOWING_FLOAT_IN_primary_910 )
+        # at line 174:7: FLOAT
+        __FLOAT95__ = match( FLOAT, TOKENS_FOLLOWING_FLOAT_IN_primary_873 )
         if @state.backtracking == 0
           tree_for_FLOAT95 = @adaptor.create_with_payload( __FLOAT95__ )
           @adaptor.add_child( root_0, tree_for_FLOAT95 )
@@ -2947,8 +2922,8 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 183:7: INT
-        __INT96__ = match( INT, TOKENS_FOLLOWING_INT_IN_primary_918 )
+        # at line 175:7: INT
+        __INT96__ = match( INT, TOKENS_FOLLOWING_INT_IN_primary_881 )
         if @state.backtracking == 0
           tree_for_INT96 = @adaptor.create_with_payload( __INT96__ )
           @adaptor.add_child( root_0, tree_for_INT96 )
@@ -2960,15 +2935,15 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 184:7: variable_name ( '[' expression ']' )? ( '[' expression ']' )?
-        @state.following.push( TOKENS_FOLLOWING_variable_name_IN_primary_926 )
+        # at line 176:7: variable_name ( '[' expression ']' )? ( '[' expression ']' )?
+        @state.following.push( TOKENS_FOLLOWING_variable_name_IN_primary_889 )
         variable_name97 = variable_name
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child( root_0, variable_name97.tree )
         end
 
-        # at line 184:21: ( '[' expression ']' )?
+        # at line 176:21: ( '[' expression ']' )?
         alt_21 = 2
         look_21_0 = @input.peek( 1 )
 
@@ -2977,22 +2952,22 @@ module Rubik
         end
         case alt_21
         when 1
-          # at line 184:22: '[' expression ']'
-          char_literal98 = match( T__32, TOKENS_FOLLOWING_T__32_IN_primary_929 )
+          # at line 176:22: '[' expression ']'
+          char_literal98 = match( T__32, TOKENS_FOLLOWING_T__32_IN_primary_892 )
           if @state.backtracking == 0
             tree_for_char_literal98 = @adaptor.create_with_payload( char_literal98 )
             @adaptor.add_child( root_0, tree_for_char_literal98 )
 
           end
 
-          @state.following.push( TOKENS_FOLLOWING_expression_IN_primary_931 )
+          @state.following.push( TOKENS_FOLLOWING_expression_IN_primary_894 )
           expression99 = expression
           @state.following.pop
           if @state.backtracking == 0
             @adaptor.add_child( root_0, expression99.tree )
           end
 
-          char_literal100 = match( T__33, TOKENS_FOLLOWING_T__33_IN_primary_933 )
+          char_literal100 = match( T__33, TOKENS_FOLLOWING_T__33_IN_primary_896 )
           if @state.backtracking == 0
             tree_for_char_literal100 = @adaptor.create_with_payload( char_literal100 )
             @adaptor.add_child( root_0, tree_for_char_literal100 )
@@ -3001,7 +2976,7 @@ module Rubik
 
 
         end
-        # at line 184:43: ( '[' expression ']' )?
+        # at line 176:43: ( '[' expression ']' )?
         alt_22 = 2
         look_22_0 = @input.peek( 1 )
 
@@ -3010,22 +2985,22 @@ module Rubik
         end
         case alt_22
         when 1
-          # at line 184:44: '[' expression ']'
-          char_literal101 = match( T__32, TOKENS_FOLLOWING_T__32_IN_primary_938 )
+          # at line 176:44: '[' expression ']'
+          char_literal101 = match( T__32, TOKENS_FOLLOWING_T__32_IN_primary_901 )
           if @state.backtracking == 0
             tree_for_char_literal101 = @adaptor.create_with_payload( char_literal101 )
             @adaptor.add_child( root_0, tree_for_char_literal101 )
 
           end
 
-          @state.following.push( TOKENS_FOLLOWING_expression_IN_primary_940 )
+          @state.following.push( TOKENS_FOLLOWING_expression_IN_primary_903 )
           expression102 = expression
           @state.following.pop
           if @state.backtracking == 0
             @adaptor.add_child( root_0, expression102.tree )
           end
 
-          char_literal103 = match( T__33, TOKENS_FOLLOWING_T__33_IN_primary_942 )
+          char_literal103 = match( T__33, TOKENS_FOLLOWING_T__33_IN_primary_905 )
           if @state.backtracking == 0
             tree_for_char_literal103 = @adaptor.create_with_payload( char_literal103 )
             @adaptor.add_child( root_0, tree_for_char_literal103 )
@@ -3039,31 +3014,31 @@ module Rubik
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 185:7: variable_name ( '(' expression_list ')' )
-        @state.following.push( TOKENS_FOLLOWING_variable_name_IN_primary_952 )
+        # at line 177:7: variable_name ( '(' expression_list ')' )
+        @state.following.push( TOKENS_FOLLOWING_variable_name_IN_primary_915 )
         variable_name104 = variable_name
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child( root_0, variable_name104.tree )
         end
 
-        # at line 185:21: ( '(' expression_list ')' )
-        # at line 185:22: '(' expression_list ')'
-        char_literal105 = match( T__19, TOKENS_FOLLOWING_T__19_IN_primary_955 )
+        # at line 177:21: ( '(' expression_list ')' )
+        # at line 177:22: '(' expression_list ')'
+        char_literal105 = match( T__19, TOKENS_FOLLOWING_T__19_IN_primary_918 )
         if @state.backtracking == 0
           tree_for_char_literal105 = @adaptor.create_with_payload( char_literal105 )
           @adaptor.add_child( root_0, tree_for_char_literal105 )
 
         end
 
-        @state.following.push( TOKENS_FOLLOWING_expression_list_IN_primary_957 )
+        @state.following.push( TOKENS_FOLLOWING_expression_list_IN_primary_920 )
         expression_list106 = expression_list
         @state.following.pop
         if @state.backtracking == 0
           @adaptor.add_child( root_0, expression_list106.tree )
         end
 
-        char_literal107 = match( T__20, TOKENS_FOLLOWING_T__20_IN_primary_959 )
+        char_literal107 = match( T__20, TOKENS_FOLLOWING_T__20_IN_primary_922 )
         if @state.backtracking == 0
           tree_for_char_literal107 = @adaptor.create_with_payload( char_literal107 )
           @adaptor.add_child( root_0, tree_for_char_literal107 )
@@ -3103,7 +3078,7 @@ module Rubik
     # syntactic predicate synpred1_Rubik
     #
     # (in Rubik.g)
-    # 55:7: synpred1_Rubik : '}' ;
+    # 51:7: synpred1_Rubik : '}' ;
     #
     # This is an imaginary rule inserted by ANTLR to
     # implement a syntactic predicate decision
@@ -3113,8 +3088,8 @@ module Rubik
       # trace_in( __method__, 27 )
 
 
-      # at line 55:9: '}'
-      match( RBRACE, TOKENS_FOLLOWING_RBRACE_IN_synpred1_Rubik_253 )
+      # at line 51:9: '}'
+      match( RBRACE, TOKENS_FOLLOWING_RBRACE_IN_synpred1_Rubik_246 )
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
@@ -3124,113 +3099,113 @@ module Rubik
     end
 
 
-    TOKENS_FOLLOWING_T__34_IN_program_98 = Set[ 8, 10, 16, 35, 36, 39, 40, 41 ]
-    TOKENS_FOLLOWING_block_IN_program_100 = Set[ 8, 10, 16, 35, 36, 38, 39, 40, 41 ]
-    TOKENS_FOLLOWING_T__38_IN_program_103 = Set[ 1 ]
-    TOKENS_FOLLOWING_statement_IN_block_129 = Set[ 1 ]
-    TOKENS_FOLLOWING_statement_block_IN_block_137 = Set[ 1 ]
-    TOKENS_FOLLOWING_LBRACE_IN_statement_block_154 = Set[ 8, 13, 16, 35, 36, 39, 40, 41 ]
-    TOKENS_FOLLOWING_statement_IN_statement_block_156 = Set[ 8, 13, 16, 35, 36, 39, 40, 41 ]
-    TOKENS_FOLLOWING_RBRACE_IN_statement_block_159 = Set[ 1 ]
-    TOKENS_FOLLOWING_variable_statement_IN_statement_178 = Set[ 1 ]
-    TOKENS_FOLLOWING_assignment_statement_IN_statement_186 = Set[ 1 ]
-    TOKENS_FOLLOWING_condition_statement_IN_statement_194 = Set[ 1 ]
-    TOKENS_FOLLOWING_write_statement_IN_statement_202 = Set[ 1 ]
-    TOKENS_FOLLOWING_loop_statement_IN_statement_210 = Set[ 1 ]
-    TOKENS_FOLLOWING_return_statement_IN_statement_218 = Set[ 1 ]
-    TOKENS_FOLLOWING_function_IN_statement_226 = Set[ 1 ]
-    TOKENS_FOLLOWING_SEMI_IN_statement_end_243 = Set[ 1 ]
-    TOKENS_FOLLOWING_EOF_IN_statement_end_264 = Set[ 1 ]
-    TOKENS_FOLLOWING_T__41_IN_return_statement_281 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_expression_IN_return_statement_283 = Set[ 14 ]
-    TOKENS_FOLLOWING_statement_end_IN_return_statement_285 = Set[ 1 ]
-    TOKENS_FOLLOWING_VAR_TYPE_IN_variable_statement_313 = Set[ 8 ]
-    TOKENS_FOLLOWING_variable_declaration_list_IN_variable_statement_315 = Set[ 14 ]
-    TOKENS_FOLLOWING_statement_end_IN_variable_statement_317 = Set[ 1 ]
-    TOKENS_FOLLOWING_variable_declaration_IN_variable_declaration_list_345 = Set[ 1, 22 ]
-    TOKENS_FOLLOWING_T__22_IN_variable_declaration_list_348 = Set[ 8 ]
-    TOKENS_FOLLOWING_variable_declaration_IN_variable_declaration_list_350 = Set[ 1, 22 ]
-    TOKENS_FOLLOWING_declaration_target_IN_variable_declaration_369 = Set[ 1, 28 ]
-    TOKENS_FOLLOWING_T__28_IN_variable_declaration_372 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_expression_IN_variable_declaration_374 = Set[ 1 ]
-    TOKENS_FOLLOWING_variable_name_IN_declaration_target_398 = Set[ 1, 32 ]
-    TOKENS_FOLLOWING_T__32_IN_declaration_target_401 = Set[ 9 ]
-    TOKENS_FOLLOWING_INT_IN_declaration_target_403 = Set[ 33 ]
-    TOKENS_FOLLOWING_T__33_IN_declaration_target_405 = Set[ 1, 32 ]
-    TOKENS_FOLLOWING_T__32_IN_declaration_target_410 = Set[ 9 ]
-    TOKENS_FOLLOWING_INT_IN_declaration_target_412 = Set[ 33 ]
-    TOKENS_FOLLOWING_T__33_IN_declaration_target_414 = Set[ 1 ]
-    TOKENS_FOLLOWING_ID_IN_assignment_statement_448 = Set[ 28 ]
-    TOKENS_FOLLOWING_T__28_IN_assignment_statement_450 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_expression_IN_assignment_statement_452 = Set[ 14 ]
-    TOKENS_FOLLOWING_statement_end_IN_assignment_statement_454 = Set[ 1 ]
-    TOKENS_FOLLOWING_T__39_IN_condition_statement_482 = Set[ 19 ]
-    TOKENS_FOLLOWING_T__19_IN_condition_statement_484 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_expression_IN_condition_statement_486 = Set[ 20 ]
-    TOKENS_FOLLOWING_T__20_IN_condition_statement_488 = Set[ 8, 10, 16, 35, 36, 39, 40, 41 ]
-    TOKENS_FOLLOWING_block_IN_condition_statement_490 = Set[ 1, 37 ]
-    TOKENS_FOLLOWING_T__37_IN_condition_statement_493 = Set[ 8, 10, 16, 35, 36, 39, 40, 41 ]
-    TOKENS_FOLLOWING_block_IN_condition_statement_495 = Set[ 1 ]
-    TOKENS_FOLLOWING_exp_IN_expression_514 = Set[ 1, 18, 26, 27, 29, 30, 31 ]
-    TOKENS_FOLLOWING_relation_op_IN_expression_517 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_exp_IN_expression_519 = Set[ 1 ]
-    TOKENS_FOLLOWING_term_IN_exp_595 = Set[ 1, 12, 23 ]
-    TOKENS_FOLLOWING_set_IN_exp_598 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_exp_IN_exp_604 = Set[ 1 ]
-    TOKENS_FOLLOWING_factor_IN_term_623 = Set[ 1, 21, 25 ]
-    TOKENS_FOLLOWING_set_IN_term_626 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_term_IN_term_632 = Set[ 1 ]
-    TOKENS_FOLLOWING_T__19_IN_factor_651 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_expression_IN_factor_653 = Set[ 20 ]
-    TOKENS_FOLLOWING_T__20_IN_factor_655 = Set[ 1 ]
-    TOKENS_FOLLOWING_T__23_IN_factor_663 = Set[ 5, 6, 7, 8, 9 ]
-    TOKENS_FOLLOWING_primary_IN_factor_666 = Set[ 1 ]
-    TOKENS_FOLLOWING_expression_IN_expression_list_683 = Set[ 1, 22 ]
-    TOKENS_FOLLOWING_T__22_IN_expression_list_686 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_expression_IN_expression_list_688 = Set[ 1, 22 ]
-    TOKENS_FOLLOWING_T__40_IN_write_statement_707 = Set[ 19 ]
-    TOKENS_FOLLOWING_T__19_IN_write_statement_709 = Set[ 5, 6, 7, 8, 9, 15, 19, 23 ]
-    TOKENS_FOLLOWING_write_expression_IN_write_statement_711 = Set[ 20, 24 ]
-    TOKENS_FOLLOWING_T__24_IN_write_statement_714 = Set[ 5, 6, 7, 8, 9, 15, 19, 23 ]
-    TOKENS_FOLLOWING_write_expression_IN_write_statement_716 = Set[ 20, 24 ]
-    TOKENS_FOLLOWING_T__20_IN_write_statement_720 = Set[ 14 ]
-    TOKENS_FOLLOWING_statement_end_IN_write_statement_722 = Set[ 1 ]
-    TOKENS_FOLLOWING_expression_IN_write_expression_740 = Set[ 1 ]
-    TOKENS_FOLLOWING_STRING_IN_write_expression_748 = Set[ 1 ]
-    TOKENS_FOLLOWING_T__36_IN_loop_statement_765 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_exp_IN_loop_statement_767 = Set[ 42 ]
-    TOKENS_FOLLOWING_T__42_IN_loop_statement_769 = Set[ 8, 10, 16, 35, 36, 39, 40, 41 ]
-    TOKENS_FOLLOWING_block_IN_loop_statement_771 = Set[ 1 ]
-    TOKENS_FOLLOWING_T__35_IN_function_788 = Set[ 16 ]
-    TOKENS_FOLLOWING_VAR_TYPE_IN_function_790 = Set[ 8 ]
-    TOKENS_FOLLOWING_variable_name_IN_function_792 = Set[ 19 ]
-    TOKENS_FOLLOWING_function_parameters_IN_function_794 = Set[ 8, 10, 16, 35, 36, 39, 40, 41 ]
-    TOKENS_FOLLOWING_block_IN_function_796 = Set[ 1 ]
-    TOKENS_FOLLOWING_T__19_IN_function_parameters_823 = Set[ 16, 20 ]
-    TOKENS_FOLLOWING_parameters_IN_function_parameters_825 = Set[ 20 ]
-    TOKENS_FOLLOWING_T__20_IN_function_parameters_828 = Set[ 1 ]
-    TOKENS_FOLLOWING_VAR_TYPE_IN_parameters_845 = Set[ 8 ]
-    TOKENS_FOLLOWING_variable_name_IN_parameters_847 = Set[ 1, 22 ]
-    TOKENS_FOLLOWING_T__22_IN_parameters_850 = Set[ 16 ]
-    TOKENS_FOLLOWING_VAR_TYPE_IN_parameters_852 = Set[ 8 ]
-    TOKENS_FOLLOWING_variable_name_IN_parameters_854 = Set[ 1, 22 ]
-    TOKENS_FOLLOWING_ID_IN_variable_name_875 = Set[ 1 ]
-    TOKENS_FOLLOWING_BOOLEAN_IN_primary_894 = Set[ 1 ]
-    TOKENS_FOLLOWING_CHAR_IN_primary_902 = Set[ 1 ]
-    TOKENS_FOLLOWING_FLOAT_IN_primary_910 = Set[ 1 ]
-    TOKENS_FOLLOWING_INT_IN_primary_918 = Set[ 1 ]
-    TOKENS_FOLLOWING_variable_name_IN_primary_926 = Set[ 1, 32 ]
-    TOKENS_FOLLOWING_T__32_IN_primary_929 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_expression_IN_primary_931 = Set[ 33 ]
-    TOKENS_FOLLOWING_T__33_IN_primary_933 = Set[ 1, 32 ]
-    TOKENS_FOLLOWING_T__32_IN_primary_938 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_expression_IN_primary_940 = Set[ 33 ]
-    TOKENS_FOLLOWING_T__33_IN_primary_942 = Set[ 1 ]
-    TOKENS_FOLLOWING_variable_name_IN_primary_952 = Set[ 19 ]
-    TOKENS_FOLLOWING_T__19_IN_primary_955 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
-    TOKENS_FOLLOWING_expression_list_IN_primary_957 = Set[ 20 ]
-    TOKENS_FOLLOWING_T__20_IN_primary_959 = Set[ 1 ]
-    TOKENS_FOLLOWING_RBRACE_IN_synpred1_Rubik_253 = Set[ 1 ]
+    TOKENS_FOLLOWING_T__34_IN_program_91 = Set[ 8, 10, 16, 35, 36, 39, 40, 41 ]
+    TOKENS_FOLLOWING_block_IN_program_93 = Set[ 8, 10, 16, 35, 36, 38, 39, 40, 41 ]
+    TOKENS_FOLLOWING_T__38_IN_program_96 = Set[ 1 ]
+    TOKENS_FOLLOWING_statement_IN_block_122 = Set[ 1 ]
+    TOKENS_FOLLOWING_statement_block_IN_block_130 = Set[ 1 ]
+    TOKENS_FOLLOWING_LBRACE_IN_statement_block_147 = Set[ 8, 13, 16, 35, 36, 39, 40, 41 ]
+    TOKENS_FOLLOWING_statement_IN_statement_block_149 = Set[ 8, 13, 16, 35, 36, 39, 40, 41 ]
+    TOKENS_FOLLOWING_RBRACE_IN_statement_block_152 = Set[ 1 ]
+    TOKENS_FOLLOWING_variable_statement_IN_statement_171 = Set[ 1 ]
+    TOKENS_FOLLOWING_assignment_statement_IN_statement_179 = Set[ 1 ]
+    TOKENS_FOLLOWING_condition_statement_IN_statement_187 = Set[ 1 ]
+    TOKENS_FOLLOWING_write_statement_IN_statement_195 = Set[ 1 ]
+    TOKENS_FOLLOWING_loop_statement_IN_statement_203 = Set[ 1 ]
+    TOKENS_FOLLOWING_return_statement_IN_statement_211 = Set[ 1 ]
+    TOKENS_FOLLOWING_function_IN_statement_219 = Set[ 1 ]
+    TOKENS_FOLLOWING_SEMI_IN_statement_end_236 = Set[ 1 ]
+    TOKENS_FOLLOWING_EOF_IN_statement_end_257 = Set[ 1 ]
+    TOKENS_FOLLOWING_T__41_IN_return_statement_274 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_expression_IN_return_statement_276 = Set[ 14 ]
+    TOKENS_FOLLOWING_statement_end_IN_return_statement_278 = Set[ 1 ]
+    TOKENS_FOLLOWING_VAR_TYPE_IN_variable_statement_296 = Set[ 8 ]
+    TOKENS_FOLLOWING_variable_declaration_list_IN_variable_statement_298 = Set[ 14 ]
+    TOKENS_FOLLOWING_statement_end_IN_variable_statement_300 = Set[ 1 ]
+    TOKENS_FOLLOWING_variable_declaration_IN_variable_declaration_list_318 = Set[ 1, 22 ]
+    TOKENS_FOLLOWING_T__22_IN_variable_declaration_list_321 = Set[ 8 ]
+    TOKENS_FOLLOWING_variable_declaration_IN_variable_declaration_list_323 = Set[ 1, 22 ]
+    TOKENS_FOLLOWING_declaration_target_IN_variable_declaration_342 = Set[ 1, 28 ]
+    TOKENS_FOLLOWING_T__28_IN_variable_declaration_345 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_expression_IN_variable_declaration_347 = Set[ 1 ]
+    TOKENS_FOLLOWING_variable_name_IN_declaration_target_366 = Set[ 1, 32 ]
+    TOKENS_FOLLOWING_T__32_IN_declaration_target_369 = Set[ 9 ]
+    TOKENS_FOLLOWING_INT_IN_declaration_target_371 = Set[ 33 ]
+    TOKENS_FOLLOWING_T__33_IN_declaration_target_373 = Set[ 1, 32 ]
+    TOKENS_FOLLOWING_T__32_IN_declaration_target_378 = Set[ 9 ]
+    TOKENS_FOLLOWING_INT_IN_declaration_target_380 = Set[ 33 ]
+    TOKENS_FOLLOWING_T__33_IN_declaration_target_382 = Set[ 1 ]
+    TOKENS_FOLLOWING_ID_IN_assignment_statement_411 = Set[ 28 ]
+    TOKENS_FOLLOWING_T__28_IN_assignment_statement_413 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_expression_IN_assignment_statement_415 = Set[ 14 ]
+    TOKENS_FOLLOWING_statement_end_IN_assignment_statement_417 = Set[ 1 ]
+    TOKENS_FOLLOWING_T__39_IN_condition_statement_445 = Set[ 19 ]
+    TOKENS_FOLLOWING_T__19_IN_condition_statement_447 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_expression_IN_condition_statement_449 = Set[ 20 ]
+    TOKENS_FOLLOWING_T__20_IN_condition_statement_451 = Set[ 8, 10, 16, 35, 36, 39, 40, 41 ]
+    TOKENS_FOLLOWING_block_IN_condition_statement_453 = Set[ 1, 37 ]
+    TOKENS_FOLLOWING_T__37_IN_condition_statement_456 = Set[ 8, 10, 16, 35, 36, 39, 40, 41 ]
+    TOKENS_FOLLOWING_block_IN_condition_statement_458 = Set[ 1 ]
+    TOKENS_FOLLOWING_exp_IN_expression_477 = Set[ 1, 18, 26, 27, 29, 30, 31 ]
+    TOKENS_FOLLOWING_relation_op_IN_expression_480 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_exp_IN_expression_482 = Set[ 1 ]
+    TOKENS_FOLLOWING_term_IN_exp_558 = Set[ 1, 12, 23 ]
+    TOKENS_FOLLOWING_set_IN_exp_561 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_exp_IN_exp_567 = Set[ 1 ]
+    TOKENS_FOLLOWING_factor_IN_term_586 = Set[ 1, 21, 25 ]
+    TOKENS_FOLLOWING_set_IN_term_589 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_term_IN_term_595 = Set[ 1 ]
+    TOKENS_FOLLOWING_T__19_IN_factor_614 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_expression_IN_factor_616 = Set[ 20 ]
+    TOKENS_FOLLOWING_T__20_IN_factor_618 = Set[ 1 ]
+    TOKENS_FOLLOWING_T__23_IN_factor_626 = Set[ 5, 6, 7, 8, 9 ]
+    TOKENS_FOLLOWING_primary_IN_factor_629 = Set[ 1 ]
+    TOKENS_FOLLOWING_expression_IN_expression_list_646 = Set[ 1, 22 ]
+    TOKENS_FOLLOWING_T__22_IN_expression_list_649 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_expression_IN_expression_list_651 = Set[ 1, 22 ]
+    TOKENS_FOLLOWING_T__40_IN_write_statement_670 = Set[ 19 ]
+    TOKENS_FOLLOWING_T__19_IN_write_statement_672 = Set[ 5, 6, 7, 8, 9, 15, 19, 23 ]
+    TOKENS_FOLLOWING_write_expression_IN_write_statement_674 = Set[ 20, 24 ]
+    TOKENS_FOLLOWING_T__24_IN_write_statement_677 = Set[ 5, 6, 7, 8, 9, 15, 19, 23 ]
+    TOKENS_FOLLOWING_write_expression_IN_write_statement_679 = Set[ 20, 24 ]
+    TOKENS_FOLLOWING_T__20_IN_write_statement_683 = Set[ 14 ]
+    TOKENS_FOLLOWING_statement_end_IN_write_statement_685 = Set[ 1 ]
+    TOKENS_FOLLOWING_expression_IN_write_expression_703 = Set[ 1 ]
+    TOKENS_FOLLOWING_STRING_IN_write_expression_711 = Set[ 1 ]
+    TOKENS_FOLLOWING_T__36_IN_loop_statement_728 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_exp_IN_loop_statement_730 = Set[ 42 ]
+    TOKENS_FOLLOWING_T__42_IN_loop_statement_732 = Set[ 8, 10, 16, 35, 36, 39, 40, 41 ]
+    TOKENS_FOLLOWING_block_IN_loop_statement_734 = Set[ 1 ]
+    TOKENS_FOLLOWING_T__35_IN_function_751 = Set[ 16 ]
+    TOKENS_FOLLOWING_VAR_TYPE_IN_function_753 = Set[ 8 ]
+    TOKENS_FOLLOWING_variable_name_IN_function_755 = Set[ 19 ]
+    TOKENS_FOLLOWING_function_parameters_IN_function_757 = Set[ 8, 10, 16, 35, 36, 39, 40, 41 ]
+    TOKENS_FOLLOWING_block_IN_function_759 = Set[ 1 ]
+    TOKENS_FOLLOWING_T__19_IN_function_parameters_786 = Set[ 16, 20 ]
+    TOKENS_FOLLOWING_parameters_IN_function_parameters_788 = Set[ 20 ]
+    TOKENS_FOLLOWING_T__20_IN_function_parameters_791 = Set[ 1 ]
+    TOKENS_FOLLOWING_VAR_TYPE_IN_parameters_808 = Set[ 8 ]
+    TOKENS_FOLLOWING_variable_name_IN_parameters_810 = Set[ 1, 22 ]
+    TOKENS_FOLLOWING_T__22_IN_parameters_813 = Set[ 16 ]
+    TOKENS_FOLLOWING_VAR_TYPE_IN_parameters_815 = Set[ 8 ]
+    TOKENS_FOLLOWING_variable_name_IN_parameters_817 = Set[ 1, 22 ]
+    TOKENS_FOLLOWING_ID_IN_variable_name_838 = Set[ 1 ]
+    TOKENS_FOLLOWING_BOOLEAN_IN_primary_857 = Set[ 1 ]
+    TOKENS_FOLLOWING_CHAR_IN_primary_865 = Set[ 1 ]
+    TOKENS_FOLLOWING_FLOAT_IN_primary_873 = Set[ 1 ]
+    TOKENS_FOLLOWING_INT_IN_primary_881 = Set[ 1 ]
+    TOKENS_FOLLOWING_variable_name_IN_primary_889 = Set[ 1, 32 ]
+    TOKENS_FOLLOWING_T__32_IN_primary_892 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_expression_IN_primary_894 = Set[ 33 ]
+    TOKENS_FOLLOWING_T__33_IN_primary_896 = Set[ 1, 32 ]
+    TOKENS_FOLLOWING_T__32_IN_primary_901 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_expression_IN_primary_903 = Set[ 33 ]
+    TOKENS_FOLLOWING_T__33_IN_primary_905 = Set[ 1 ]
+    TOKENS_FOLLOWING_variable_name_IN_primary_915 = Set[ 19 ]
+    TOKENS_FOLLOWING_T__19_IN_primary_918 = Set[ 5, 6, 7, 8, 9, 19, 23 ]
+    TOKENS_FOLLOWING_expression_list_IN_primary_920 = Set[ 20 ]
+    TOKENS_FOLLOWING_T__20_IN_primary_922 = Set[ 1 ]
+    TOKENS_FOLLOWING_RBRACE_IN_synpred1_Rubik_246 = Set[ 1 ]
 
   end # class Parser < ANTLR3::Parser
 
