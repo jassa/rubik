@@ -6,11 +6,53 @@ options {
 }
 
 tokens {
+    AND='&&';
+    ASGN='=';
     BLOCK;
+    BREAK='break';
+    CHANGE_COLOR='change_color';
+    CHANGE_DIR='change_dir';
+    COMMA=',';
+    DEF='def';
+    DIV='/';
+    DO='do';
+    DOT='.';
+    DRAW_CIRCLE='draw_circle';
+    DRAW_SQUARE='draw_square';
+    DRAW_TRIANGLE='draw_triangle';
+    ELSE='else';
+    EQ='==';
+    GEQ='>=';
+    GREATER='>';
+    IF='if';
     LBRACE='{';
-    RBRACE='}';
-    SEMI=';';
+    LBRAK='[';
+    LEQ='<=';
+    LESS='<';
+    LPAREN='(';
+    LPAREN='(';
+    MINUS='-';
+    NEG='!';
+    NEQ='!=';
+    NULL='null';
+    OR='||';
+    PEN_DOWN='pen_down';
+    PEN_UP='pen_up';
     PLUS='+';
+    RBRACE='}';
+    RBRAK=']';
+    RPAREN=')';
+    RPAREN=')';
+    R_BEGIN='begin';
+    R_END='end';
+    R_MOVE='move';
+    R_RESET='reset';
+    R_RETURN='return';
+    SEMI=';';
+    STAR='*';
+    TIMES='times';
+    TLK='talk';
+    VAR='var';
 }
 
 // Top-level structure
@@ -158,6 +200,19 @@ parameters
     : VAR_TYPE variable_name (',' VAR_TYPE variable_name)*
     ;
 
+robot
+    : 'change_color' '(' COLOR ')'
+    | 'change_direction' '(' DIR ')'
+    | 'draw_circle' '(' expression ')'
+    | 'draw_square' '(' expression ')'
+    | 'draw_triangle' '(' expression ')'
+    | 'pen_down' '(' ')'
+    | 'pen_up' '(' ')'
+    | 'reset' '(' ')'
+    | 'talk' '(' expression ')'
+    | 'move' '(' expression ')'
+    ;
+
 // Words
 
 variable_name
@@ -192,6 +247,25 @@ BOOLEAN
 
 CHAR
     : '\'' + ('a'..'z' | 'A'..'Z') + '\''
+    ;
+
+COLOR
+    : 'rBlack'
+    | 'rBlue'
+    | 'rGreen'
+    | 'rOrange'
+    | 'rPurple'
+    | 'rRandom'
+    | 'rWhite'
+    | 'rYellow'
+    | 'rRed'
+    ;
+
+DIR
+    : 'rDown'
+    | 'rLeft'
+    | 'rRight'
+    | 'rUp'
     ;
 
 FLOAT
