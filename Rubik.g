@@ -55,6 +55,11 @@ tokens {
     VAR='var';
 }
 
+@parser::init {
+    @symbols = {}
+    require 'symbols'
+}
+
 // Top-level structure
 
 program
@@ -108,18 +113,13 @@ variable_declaration_list
 
 variable_declaration
     : declaration_target ('=' expression)?
+        {
+            define_variable($declaration_target.text, $expression.text)
+        }
     ;
 
 declaration_target
     : variable_name ('[' INT ']')? ('[' INT ']')?
-        {
-            if $block::symbols.has_key?(var = String($variable_name.text).to_sym)
-              raise "'#{var}' has already been declared"
-            else
-              $block::symbols[var] = 1
-              # change '1' for var type
-            end
-        }
     ;
 
 assignment_statement
