@@ -57,6 +57,7 @@ tokens {
 
 @parser::init {
     @symbols = {}
+    @current_scope = nil
     require 'symbols'
 }
 
@@ -67,12 +68,6 @@ program
     ;
 
 block
-scope {
-    symbols;
-}
-@init {
-    $block::symbols = Hash.new;
-}
     : statement
     | statement_block
     ;
@@ -114,7 +109,7 @@ variable_declaration_list
 variable_declaration
     : declaration_target ('=' expression)?
         {
-            define_variable($declaration_target.text, $expression.text)
+            define_variable($declaration_target.text, $expression.text, @current_scope)
         }
     ;
 
@@ -124,11 +119,6 @@ declaration_target
 
 assignment_statement
     : ID '=' expression statement_end!
-        {
-            $block::symbols.has_key?(var = String($ID.text).to_sym) or
-                raise "'#{var}' has not been declared"
-            # check type of $block::symbols[var] against VAR_TYPES
-        }
     ;
 
 condition_statement
@@ -179,7 +169,10 @@ loop_statement
     ;
 
 function
-    : 'def' VAR_TYPE variable_name function_parameters block
+@after {
+    @current_scope = nil
+}
+    : 'def' VAR_TYPE variable_name { @current_scope = $variable_name.text } function_parameters block
         {
             has_return = !(String($block.text) =~ /return/).nil?
             if String($VAR_TYPE) == 'void'

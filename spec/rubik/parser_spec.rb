@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Rubik::Parser do
 
   describe 'variables' do
-
     context 'when declaring a variable' do
       before do
         @parser = Rubik::Parser.new('int foo')
@@ -68,7 +67,7 @@ describe Rubik::Parser do
 	          parser.block
 	        end.instance_variable_get('@symbols')
 
-	        {:foo => 9, :bar => 2, :baz => 3}.each do |k, v|
+	        { :foo => 9, :bar => 2, :baz => 3 }.each do |k, v|
 	          expect(symbols).to have_key(k)
             expect(symbols[k].to_i).to eq(v)
 	        end
@@ -80,6 +79,31 @@ describe Rubik::Parser do
 	          "'foo' has already been declared")
 	      end
 	    end
+    end
+  end
+
+  describe 'scopes' do
+
+    it 'separates variables' do
+      variable_declaration = <<-EOS
+        begin
+          def void foo() {
+            int a, b, c = 10;
+          }
+          def void bar() {
+            int a, c = 5;
+          }
+          int a = 100;
+        end
+      EOS
+      @parser = Rubik::Parser.new(variable_declaration)
+      @parser.program
+      symbols = @parser.instance_variable_get('@symbols')
+      { :'foo.a' => nil, :'foo.b' => nil, :'foo.c' => 10,
+        :'bar.a' => nil, :'bar.c' => 5, :a => 100 }.each do |k, v|
+        expect(symbols).to have_key(k)
+        expect(symbols[k].to_i).to eq(v.to_i)
+      end
     end
   end
 
