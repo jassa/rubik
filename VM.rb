@@ -1,3 +1,5 @@
+require_relative 'RubikParser.rb'
+
 module Rubik
   class VM
 
@@ -43,7 +45,7 @@ module Rubik
       operator, op1, op2, key = quadruple.to_a
 
       case operator
-      when '+', '-', '*', '/', '<', '>'
+      when '+', '-', '*', '/', '<', '>',
            '&&', '||', '>=', '<=', '==', '!='
         memory[key] = op1.send(operator, op2)
       when 'print'

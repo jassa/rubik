@@ -2,10 +2,9 @@ require 'spec_helper'
 
 describe Rubik::VM do
 
-  it 'loads executable code into memory'
-
-  it 'generates execution memory'
-
-  it 'interprets intermediate code'
+  it 'performs arithmetic operations' do
+    $stdout.should_receive(:print).with(10)
+    Rubik::VM.new 'print(5+5)'
+  end
 
 end

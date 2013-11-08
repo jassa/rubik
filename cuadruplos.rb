@@ -7,22 +7,6 @@ class Cuadruplo
   end
 end
 
-
-@pila_tipos = []
-@pila_operadores = []
-@pila_operandos = []
-@pila_saltos = []
-@tabla_cuadruplos = []
-@tabla_variables = []
-@saltos = 0
-@temporalInt = 0
-@temporalStr = 0
-@temporalFlt = 0
-@temporalBoo = 0
-@temporalChr = 0
-@aux_times = 0
-
-
 def pushCuadruplo(cuadruplo)
   @tabla_cuadruplos.push(cuadruplo)
   @saltos += 1
@@ -44,9 +28,12 @@ end
 
 #Expresiones
 
-def exp1(variable, tipo)
-  @pila_operandos.push(variable)
-  @pila_tipos.push(tipo)
+def exp1(variable_name, scope)
+  key = [scope, variable_name].compact.join('.').to_sym
+  _name, type, _value, memory_id = @symbols[key]
+
+  @pila_operandos.push(memory_id)
+  @pila_tipos.push(type)
 end
 
 #se usa para el paso 2 ,3 y 8
@@ -55,7 +42,7 @@ def exp2(operador)
 end
 
 def exp4
-  if @pila_operadores.last == '+' or @pila_operadores.last == '-' or @pila_operadores.last == '||'
+  if @pila_operadores.last == '+' || @pila_operadores.last == '-' || @pila_operadores.last == '||'
     tipo_resultado = cubo_semantico[@pila_tipos.last][@pila_tipos[-2]][@pila_operadores.last]
     case tipo_resultado
     when "Integer"
@@ -165,7 +152,7 @@ def exp9
     @pila_tipos.pop
     @pila_tipos.pop
 
-    if tipo_resultado != "Error" and @pila_operadores.last != '=' 
+    if tipo_resultado != "Error" and @pila_operadores.last != '='
       op = @pila_operadores.pop
       op2 = @pila_operandos.pop
       op1 = @pila_operandos.pop
@@ -269,7 +256,7 @@ def color
     mem = @pila_operandos.pop
     cuadruplo = Cuadruplo.new("Color", mem, '','')
     pushCuadruplo(cuadruplo)
-  end  
+  end
 end
 
 #pen_up pen_down
@@ -291,7 +278,7 @@ def draw_circle
     mem = @pila_operandos.pop
     cuadruplo = Cuadruplo.new("DrawC", mem, '','')
     pushCuadruplo(cuadruplo)
-  end  
+  end
 end
 
 def draw_triangle
@@ -302,7 +289,7 @@ def draw_triangle
     mem = @pila_operandos.pop
     cuadruplo = Cuadruplo.new("DrawT", mem, '','')
     pushCuadruplo(cuadruplo)
-  end 
+  end
 end
 
 def draw_square
@@ -313,7 +300,7 @@ def draw_square
     mem = @pila_operandos.pop
     cuadruplo = Cuadruplo.new("DrawS", mem, '','')
     pushCuadruplo(cuadruplo)
-  end 
+  end
 end
 
 # talk
@@ -326,7 +313,7 @@ def talk
     mem = @pila_operandos.pop
     cuadruplo = Cuadruplo.new("Talk", mem, '','')
     pushCuadruplo(cuadruplo)
-  end    
+  end
 end
 
 # Direccion
@@ -338,7 +325,7 @@ def dir
     mem = @pila_operandos.pop
     cuadruplo = Cuadruplo.new("Dir", mem, '','')
     pushCuadruplo(cuadruplo)
-  end    
+  end
 end
 
 

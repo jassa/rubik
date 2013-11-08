@@ -58,7 +58,23 @@ tokens {
 @parser::init {
     @symbols = {}
     @current_scope = nil
+    @pila_tipos = []
+    @pila_operadores = []
+    @pila_operandos = []
+    @pila_saltos = []
+    @tabla_cuadruplos = []
+    @tabla_variables = []
+    @saltos = 0
+    @temporalInt = 0
+    @temporalStr = 0
+    @temporalFlt = 0
+    @temporalBoo = 0
+    @temporalChr = 0
+    @aux_times = 0
+
     require 'symbols'
+    require 'cubo_semantico'
+    require 'cuadruplos'
 }
 
 // Top-level structure
@@ -99,7 +115,10 @@ return_statement
     ;
 
 variable_statement
-    : VAR_TYPE variable_declaration_list statement_end!
+@after {
+    @current_var_type = nil
+}
+    : VAR_TYPE { @current_var_type = $VAR_TYPE.text } variable_declaration_list statement_end!
     ;
 
 variable_declaration_list
@@ -126,7 +145,7 @@ condition_statement
     ;
 
 expression
-    : exp (relation_op exp)?
+    : exp (relation_op { exp2(input.look(-1).text) } exp { exp9 })?
     ;
 
 relation_op
@@ -139,16 +158,16 @@ relation_op
     ;
 
 exp
-    : term (('+'|'-') exp)?
+    : term { exp4 } (('+'|'-') { exp2(input.look(-1).text) } exp)?
     ;
 
 term
-    : factor (('*'|'/') term)?
+    : factor { exp5 } (('*'|'/') { exp2(input.look(-1).text) } term)?
     ;
 
 factor
-    : '(' expression ')'
-    | '-'? primary
+    : '(' { exp6 } expression ')' { exp7 }
+    | '-'? primary { exp1(input.look(-1).text, input.look(-1).name) }
     ;
 
 expression_list
@@ -219,8 +238,9 @@ primary
     | CHAR
     | FLOAT
     | INT
-    | variable_name ('[' expression ']')? ('[' expression ']')?
-    | variable_name ('(' expression_list ')')
+    | variable_name { exp1($variable_name.text, @current_scope) }
+    | variable_name '[' expression ']' ('[' expression ']')?
+    | variable_name '(' expression_list ')'
     ;
 
 // Lexer
