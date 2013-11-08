@@ -40,7 +40,7 @@ module Rubik
     end
 
     def evaluate_quadruple(quadruple)
-      operator, op1, op2, key = quadruple
+      operator, op1, op2, key = quadruple.to_a
 
       case operator
       when '+', '-', '*', '/', '<', '>'
@@ -71,7 +71,7 @@ module Rubik
       when 's'
         value[1..-2]
       when 'b'
-        eval(value)
+        eval(value) if value =~ /true|false/
       end
     end
 
