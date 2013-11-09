@@ -57,19 +57,19 @@ tokens {
 
 @parser::init {
     @symbols = {}
-    @current_scope = nil
+    @constants = {}
+    @quadruples = []
+    @current_scope = '_'
     @pila_tipos = []
     @pila_operadores = []
     @pila_operandos = []
     @pila_saltos = []
-    @tabla_cuadruplos = []
-    @tabla_variables = []
     @saltos = 0
-    @temporalInt = 0
-    @temporalStr = 0
-    @temporalFlt = 0
-    @temporalBoo = 0
-    @temporalChr = 0
+    @cont_const = 0
+    @cont_int = 0
+    @cont_string = 0
+    @cont_float = 0
+    @cont_boolean = 0
     @aux_times = 0
 
     require 'symbols'
@@ -128,7 +128,7 @@ variable_declaration_list
 variable_declaration
     : declaration_target ('=' expression)?
         {
-            define_variable($declaration_target.text, $expression.text, @current_scope)
+            define_variable($declaration_target.text, @current_var_type)
         }
     ;
 
@@ -167,7 +167,8 @@ term
 
 factor
     : '(' { exp6 } expression ')' { exp7 }
-    | '-'? primary { exp1(input.look(-1).text, input.look(-1).name) }
+    | '-'? primary { exp1(input.look(-1).text,
+                (type = input.look(-1).name) && type.downcase) }
     ;
 
 expression_list
@@ -175,7 +176,7 @@ expression_list
     ;
 
 write_statement
-    : 'print' '(' write_expression ('.' write_expression)* ')' statement_end!
+    : 'print' '(' write_expression { r_print } ('.' write_expression { r_print })* ')' statement_end!
     ;
 
 write_expression
@@ -189,7 +190,7 @@ loop_statement
 
 function
 @after {
-    @current_scope = nil
+    @current_scope = '_'
 }
     : 'def' VAR_TYPE variable_name { @current_scope = $variable_name.text } function_parameters block
         {
@@ -238,7 +239,7 @@ primary
     | CHAR
     | FLOAT
     | INT
-    | variable_name { exp1($variable_name.text, @current_scope) }
+    | variable_name
     | variable_name '[' expression ']' ('[' expression ']')?
     | variable_name '(' expression_list ')'
     ;

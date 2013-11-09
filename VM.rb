@@ -27,16 +27,15 @@ module Rubik
     end
 
     def generate_memory_from_constants
-      constants.each do |constant|
-        key, value = constant
-        memory[key] = normalize(key, value)
+      constants.each do |value, memory_id|
+        memory[memory_id] = normalize(value.to_s, memory_id)
       end
     end
 
     def generate_memory_from_quadruples
       @pointer = 0
 
-      while pointer < quadruples.size
+      while @pointer < quadruples.size
         evaluate_quadruple(quadruples[pointer])
       end
     end
@@ -47,25 +46,27 @@ module Rubik
       case operator
       when '+', '-', '*', '/', '<', '>',
            '&&', '||', '>=', '<=', '==', '!='
-        memory[key] = op1.send(operator, op2)
+        memory[key] = memory[op1].send(operator, memory[op2])
+      when '='
+        memory[key] = memory[op1]
       when 'print'
-        print op1
+        $stdout.print memory[op1]
       when 'gets'
         value = gets.chomp
         memory[key] = normalize(key, value)
       when 'goto'
-        return pointer = key
+        return @pointer = key
       when 'gotoF'
-        return pointer = key if !op1
+        return @pointer = key if !op1
       end
 
-      pointer += 1
+      @pointer += 1
     end
 
-    def normalize(key, value)
-      var_id = key[2]
+    def normalize(value, memory_id)
+      var_type_id = memory_id[2]
 
-      case var_id
+      case var_type_id
       when 'i'
         value.to_i
       when 'f'

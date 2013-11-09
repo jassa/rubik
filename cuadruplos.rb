@@ -1,14 +1,22 @@
 class Cuadruplo
-  def initialize(operador, operando1, operando2, memoria)
-    @op = operador
-    @o1 = operando1
-    @o2 = operando2
-    @mem = memoria
+
+  attr_accessor :operator, :op1, :op2, :memory_id
+
+  def initialize(operator, op1, op2, memory_id)
+    @operator = operator
+    @op1 = op1
+    @op2 = op2
+    @memory_id = memory_id
   end
+
+  def to_a
+    [operator, op1, op2, memory_id]
+  end
+
 end
 
 def pushCuadruplo(cuadruplo)
-  @tabla_cuadruplos.push(cuadruplo)
+  @quadruples.push(cuadruplo)
   @saltos += 1
 end
 
@@ -26,95 +34,78 @@ def fill_main
   @tabla_cuadruplos[0].mem = @saltos
 end
 
-#Expresiones
-
-def exp1(variable_name, scope)
-  key = [scope, variable_name].compact.join('.').to_sym
-  _name, type, _value, memory_id = @symbols[key]
-
-  @pila_operandos.push(memory_id)
-  @pila_tipos.push(type)
+def get_variable(name)
+  name_with_scope = variable_with_scope(name)
+  @symbols[name_with_scope] || @symbols[name.to_sym] or
+    raise "undefined variable '#{name}'"
 end
 
-#se usa para el paso 2 ,3 y 8
+def get_constant(value, data_type)
+  @constants[value.to_sym] ||= begin
+    memory_id = "c:#{data_type[0]}:#{@cont_const}"
+    @cont_const += 1
+    memory_id
+  end
+end
+
+def variable_with_scope(name)
+  [@current_scope, name].compact.join('.').to_sym
+end
+
+# Expresiones
+
+def exp1(value, data_type)
+  if data_type == "id"
+    _name, data_type, _value, memory_id = get_variable(value)
+  else
+    memory_id = get_constant(value, data_type)
+  end
+
+  @pila_operandos.push(memory_id)
+  @pila_tipos.push(data_type)
+end
+
+# Se usa para el paso 2, 3 y 8
 def exp2(operador)
   @pila_operadores.push(operador)
 end
 
-def exp4
-  if @pila_operadores.last == '+' || @pila_operadores.last == '-' || @pila_operadores.last == '||'
-    tipo_resultado = cubo_semantico[@pila_tipos.last][@pila_tipos[-2]][@pila_operadores.last]
-    case tipo_resultado
-    when "Integer"
-      mem = @temporalInt
-      @temporalInt += 1
-    when "Float"
-      mem = @temporalFlt
-      @temporalFlt += 1
-    when "String"
-      mem = @temporalStr
-      @temporalStr += 1
-    when "Boolean"
-      mem = @temporalBoo
-      @temporalBoo +=1
-    when "Char"
-      mem = @temporalChr
-      @temporalChr +=1
-    when "Error"
-      puts "Error, tipos no compatibles"
-      exit()
-    end
+def get_result_type(operator, op1_type, op2_type)
+  result_type = cubo_semantico[op1_type][op2_type][operator]
 
-    if tipo_resultado != "Error"
-      @pila_tipos.pop
-      @pila_tipos.pop
-      op = @pila_operadores.pop
-      op2 = @pila_operandos.pop
-      op1 = @pila_operandos.pop
-      cuadruplo = Cuadruplo.new(op,op1,op2, mem )
-      pushCuadruplo(cuadruplo)
-      @pila_operandos.push(cuadruplo.memoria)
-      @pila_tipos.push(tipo_resultado)
-    end
+  case result_type
+  when "int", "float", "string", "boolean"
+    # do nothing
+  else
+    raise "illegal operation #{operator} between #{op1_type} and #{op2_type}"
   end
+
+  result_type
+end
+
+def exp4
+  return unless operator = @pila_operadores.pop
+  op2_type = @pila_tipos.pop
+  op1_type = @pila_tipos.pop
+
+  result_type = get_result_type(operator, op1_type, op2_type)
+
+  op2 = @pila_operandos.pop
+  op1 = @pila_operandos.pop
+
+  cont = instance_variable_get("@cont_#{result_type}")
+  instance_variable_set("@cont_#{result_type}", cont + 1)
+  memory_id = "t:#{result_type[0]}:#{cont}"
+
+  cuadruplo = Cuadruplo.new(operator, op1, op2, memory_id)
+  pushCuadruplo(cuadruplo)
+
+  @pila_operandos.push(memory_id)
+  @pila_tipos.push(result_type)
 end
 
 def exp5
-  if @pila_operadores.last == '*' or @pila_operadores.last == '/' or @pila_operadores.last == '&&'
-    tipo_resultado = cubo_semantico[@pila_tipos.last][@pila_tipos[-2]][@pila_operadores.last]
-    case tipo_resultado
-    when "Integer"
-      mem = @temporalInt
-      @temporalInt += 1
-    when "Float"
-      mem = @temporalFlt
-      @temporalFlt += 1
-    when "String"
-      mem = @temporalStr
-      @temporalStr += 1
-    when "Boolean"
-      mem = @temporalBoo
-      @temporalBoo +=1
-    when "Char"
-      mem = @temporalChr
-      @temporalChr +=1
-    when "Error"
-      puts "Error, tipos no compatibles"
-      exit()
-    end
-
-    if tipo_resultado != "Error"
-      @pila_tipos.pop
-      @pila_tipos.pop
-      op = @pila_operadores.pop
-      op2 = @pila_operandos.pop
-      op1 = @pila_operandos.pop
-      cuadruplo = Cuadruplo.new(op,op1,op2, mem )
-      pushCuadruplo(cuadruplo)
-      @pila_operandos.push(cuadruplo.memoria)
-      @pila_tipos.push(tipo_resultado)
-    end
-  end
+  exp4
 end
 
 def exp6
@@ -126,48 +117,30 @@ def exp7
 end
 
 def exp9
-  if @pila_operadores.last == '=' or @pila_operadores.last == '<=' or @pila_operadores.last == '>=' or @pila_operadores.last == '>' or @pila_operadores.last == '<' or @pila_operadores.last == '<>'
-    tipo_resultado = cubo_semantico[@pila_tipos.last][@pila_tipos[-2]][@pila_operadores.last]
-    case tipo_resultado
-    when "Integer"
-      mem = @temporalInt
-      @temporalInt += 1
-    when "Float"
-      mem = @temporalFlt
-      @temporalFlt += 1
-    when "String"
-      mem = @temporalStr
-      @temporalStr += 1
-    when "Boolean"
-      mem = @temporalBoo
-      @temporalBoo +=1
-    when "Char"
-      mem = @temporalChr
-      @temporalChr +=1
-    when "Error"
-      puts "Error, tipos no compatibles"
-      exit()
-    end
+  return unless operator = @pila_operadores.pop
+  op2_type = @pila_tipos.pop
+  op1_type = @pila_tipos.pop
 
-    @pila_tipos.pop
-    @pila_tipos.pop
+  result_type = get_result_type(operator, op1_type, op2_type)
 
-    if tipo_resultado != "Error" and @pila_operadores.last != '='
-      op = @pila_operadores.pop
-      op2 = @pila_operandos.pop
-      op1 = @pila_operandos.pop
-      cuadruplo = Cuadruplo.new(op,op1,op2, mem )
-      pushCuadruplo(cuadruplo)
-      @pila_operandos.push(cuadruplo.memoria)
-      @pila_tipos.push(tipo_resultado)
-    else
-      mem = @pila_operandos.pop
-      op1 = @pila_operandos.pop
-      op = @pila_operadores.pop
-      cuadruplo = Cuadruplo.new(op, op1, "", mem)
-      pushCuadruplo(cuadruplo)
-    end
+  if operator == '='
+    memory_id = @pila_operandos.pop
+    op2 = nil
+    op1 = @pila_operandos.pop
+  else
+    cont = instance_variable_get("@cont_#{result_type}")
+    instance_variable_set("@cont_#{result_type}", cont + 1)
+    memory_id = "t:#{result_type[0]}:#{cont}"
+
+    op2 = @pila_operandos.pop
+    op1 = @pila_operandos.pop
   end
+
+  cuadruplo = Cuadruplo.new(operator, op1, op2, memory_id)
+  pushCuadruplo(cuadruplo)
+
+  @pila_operandos.push(cuadruplo.memory_id)
+  @pila_tipos.push(result_type)
 end
 
 # if
@@ -228,9 +201,9 @@ end
 # puts
 
 def r_print
-  imprime = @pila_operandos.pop
+  memory_id = @pila_operandos.pop
   @pila_tipos.pop
-  cuadruplo = Cuadruplo.new("PUTS", imprime, '','')
+  cuadruplo = Cuadruplo.new("print", memory_id, '', '')
   pushCuadruplo(cuadruplo)
 end
 
