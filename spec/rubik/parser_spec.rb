@@ -12,7 +12,7 @@ describe Rubik::Parser do
         @parser.block
         symbols = @parser.instance_variable_get('@symbols')
 
-        expect(symbols).to have_key(:foo)
+        expect(symbols).to have_key(:'_.foo')
       end
 
       it 'throws error if variable is already declared' do
@@ -29,7 +29,7 @@ describe Rubik::Parser do
 	        end.instance_variable_get('@symbols')
 
 	        [:foo, :bar, :baz].each do |var|
-	          expect(symbols).to have_key(var)
+	          expect(symbols).to have_key("_.#{var}".to_sym)
 	        end
 	      end
 
@@ -46,12 +46,11 @@ describe Rubik::Parser do
         @parser = Rubik::Parser.new('int foo = 10')
       end
 
-      it 'adds variable and value to symbols hash' do
+      it 'adds variable to symbols hash' do
         @parser.block
         symbols = @parser.instance_variable_get('@symbols')
 
-        expect(symbols).to have_key(:foo)
-        expect(symbols[:foo].to_i).to eq(10)
+        expect(symbols).to have_key(:'_.foo')
       end
 
       it 'throws error if variable is already declared' do
@@ -62,14 +61,13 @@ describe Rubik::Parser do
       end
 
 	    context 'on multiple lines' do
-	      it 'adds multiple variables and values to symbols hash' do
+	      it 'adds multiple variables to symbols hash' do
 	        symbols = Rubik::Parser.new('int foo = 9, bar = 2, baz = 3').tap do |parser|
 	          parser.block
 	        end.instance_variable_get('@symbols')
 
 	        { :foo => 9, :bar => 2, :baz => 3 }.each do |k, v|
-	          expect(symbols).to have_key(k)
-            expect(symbols[k].to_i).to eq(v)
+	          expect(symbols).to have_key("_.#{k}".to_sym)
 	        end
 	      end
 
@@ -100,9 +98,8 @@ describe Rubik::Parser do
       @parser.program
       symbols = @parser.instance_variable_get('@symbols')
       { :'foo.a' => nil, :'foo.b' => nil, :'foo.c' => 10,
-        :'bar.a' => nil, :'bar.c' => 5, :a => 100 }.each do |k, v|
+        :'bar.a' => nil, :'bar.c' => 5, :'_.a' => 100 }.each do |k, v|
         expect(symbols).to have_key(k)
-        expect(symbols[k].to_i).to eq(v.to_i)
       end
     end
   end
