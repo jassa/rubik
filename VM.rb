@@ -52,7 +52,7 @@ module Rubik
       when 'print'
         $stdout.print memory[op1]
       when 'gets'
-        value = gets.chomp
+        value = $stdin.gets.chomp
         memory[key] = normalize(key, value)
       when 'goto'
         return @pointer = key

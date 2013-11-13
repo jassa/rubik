@@ -52,4 +52,16 @@ EOF
     end
   end
 
+  describe 'performs input/output operations' do
+    it 'prints expressions' do
+      $stdout.should_receive(:print).with('Hello world')
+      Rubik::VM.new 'print("Hello world");'
+    end
+
+    it 'takes input' do
+      $stdin.should_receive(:gets).and_return('Hello')
+      Rubik::VM.new 'gets()'
+    end
+  end
+
 end

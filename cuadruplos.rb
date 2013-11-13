@@ -212,7 +212,14 @@ def times3
   @tabla_cuadruplos[falso].mem = @saltos
 end
 
-# puts
+# Input/Output
+
+def r_gets
+  memory_id = "t:s:#{@cont_string}"
+  @cont_string += 1
+  cuadruplo = Cuadruplo.new("gets", nil, nil, memory_id)
+  pushCuadruplo(cuadruplo)
+end
 
 def r_print
   memory_id = @pila_operandos.pop

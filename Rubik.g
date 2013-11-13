@@ -99,6 +99,7 @@ statement
     | assignment_statement
     | condition_statement
     | write_statement
+    | read_statement
     | loop_statement
     | return_statement
     | function
@@ -181,7 +182,10 @@ write_statement
 
 write_expression
     : expression
-    | STRING
+    ;
+
+read_statement
+    : 'gets' '(' ')' { r_gets } statement_end!
     ;
 
 loop_statement
@@ -236,7 +240,7 @@ variable_name
 
 primary
     : BOOLEAN
-    | CHAR
+    | STRING
     | FLOAT
     | INT
     | variable_name
@@ -248,19 +252,15 @@ primary
 
 VAR_TYPE
     : 'boolean'
-    | 'char'
     | 'float'
     | 'int'
+    | 'string'
     | 'void'
     ;
 
 BOOLEAN
     : 'true'
     | 'false'
-    ;
-
-CHAR
-    : '\'' + ('a'..'z' | 'A'..'Z') + '\''
     ;
 
 COLOR
