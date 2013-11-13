@@ -52,6 +52,16 @@ def variable_with_scope(name)
   [@current_scope, name].compact.join('.').to_sym
 end
 
+def assign(variable_name)
+  variable = get_variable(variable_name)
+
+  memory_id = variable[3]
+  var_type = variable[1]
+
+  @pila_operandos.push(memory_id)
+  @pila_tipos.push(var_type)
+end
+
 # Expresiones
 
 def exp1(value, data_type)
@@ -83,8 +93,10 @@ def get_result_type(operator, op1_type, op2_type)
   result_type
 end
 
-def exp4
-  return unless operator = @pila_operadores.pop
+def exp4(operators=['+','-','||'])
+  return unless operators.include?(operator = @pila_operadores.last)
+
+  @pila_operadores.pop
   op2_type = @pila_tipos.pop
   op1_type = @pila_tipos.pop
 
@@ -105,7 +117,7 @@ def exp4
 end
 
 def exp5
-  exp4
+  exp4(['*','/','&&'])
 end
 
 def exp6
@@ -116,17 +128,19 @@ def exp7
   @pila_operadores.pop
 end
 
-def exp9
-  return unless operator = @pila_operadores.pop
+def exp9(operators=['=', '==', '>', '<', '<=', '>=', '!='])
+  return unless operators.include?(operator = @pila_operadores.last)
+
+  @pila_operadores.pop
   op2_type = @pila_tipos.pop
   op1_type = @pila_tipos.pop
 
   result_type = get_result_type(operator, op1_type, op2_type)
 
   if operator == '='
-    memory_id = @pila_operandos.pop
-    op2 = nil
     op1 = @pila_operandos.pop
+    op2 = nil
+    memory_id = @pila_operandos.pop
   else
     cont = instance_variable_get("@cont_#{result_type}")
     instance_variable_set("@cont_#{result_type}", cont + 1)

@@ -137,7 +137,7 @@ declaration_target
     ;
 
 assignment_statement
-    : ID '=' expression statement_end!
+    : ID { assign($ID.text) } '=' { exp2('=') } expression { exp9 } statement_end!
     ;
 
 condition_statement
