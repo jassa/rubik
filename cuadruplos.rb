@@ -62,9 +62,97 @@ def assign(variable_name)
   @pila_tipos.push(var_type)
 end
 
-# Expresiones
+# Functions
+
+class Function
+
+  attr_accessor :name, :return_type, :parameters
+
+  def initialize(name, return_type)
+    @name = name
+    @return_type = return_type
+  end
+
+  def add_parameter(param_name, type)
+    if parameters[param_name.to_sym]
+      raise "parameter #{param_name} has already been declared"
+    end
+
+    parameters[param_name] = type
+  end
+
+  def parameters
+    @parameters ||= {}
+  end
+
+end
+
+def func1(return_type)
+  if @functions.has_key?(@current_scope.to_sym)
+    raise "function '#{@current_scope}' has already been declared"
+  end
+
+  @functions[@current_scope.to_sym] = Function.new(@current_scope, return_type)
+end
+
+def func2(parameter, parameter_type)
+  @functions[@current_scope.to_sym].add_parameter(parameter, parameter_type)
+end
+
+def func3(block_text)
+  has_return = !(String(block_text) =~ /return/).nil?
+  function = @functions[@current_scope.to_sym]
+
+  if function.return_type == 'void'
+    raise "'void' function should not have return statement" if has_return
+  else
+    raise "missing return statement for '#{function.return_type}'" unless has_return
+  end
+end
+
+def call_func1(function_name)
+  unless @functions.has_key?(function_name.to_sym)
+    raise "undefined function '#{function_name}'"
+  end
+
+  @cont_params = 0
+  @current_function = @functions[function_name.to_sym]
+
+  quadruple = Cuadruplo.new('era', function_name, nil, nil)
+  pushCuadruplo(quadruple)
+end
+
+def call_func2
+  param_value = @pila_operandos.pop
+  param_type = @pila_tipos.pop
+
+  function = @current_function
+  current_param = function.parameters.to_a[@cont_params]
+
+  unless current_param
+    raise "wrong number of arguments (must be #{function.parameters.size})"
+  end
+
+  unless current_param.type == param_type
+    raise "wrong parameter type (expected #{current_param.type}, got #{param_type}"
+  end
+
+  quadruple = Cuadruplo.new('param', param_value, nil, @cont_params)
+  pushCuadruplo(quadruple)
+
+  @cont_params += 1
+end
+
+def call_func3
+  quadruple = Cuadruplo.new('goSub', @current_function, nil, nil)
+  pushCuadruplo(quadruple)
+end
+
+# Expressions
 
 def exp1(value, data_type)
+  puts value, data_type
+
   if data_type == "id"
     _name, data_type, _value, memory_id = get_variable(value)
   else

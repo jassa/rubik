@@ -57,6 +57,7 @@ tokens {
 
 @parser::init {
     @symbols = {}
+    @functions = {}
     @constants = {}
     @quadruples = []
     @current_scope = '_'
@@ -168,12 +169,7 @@ term
 
 factor
     : '(' { exp6 } expression ')' { exp7 }
-    | '-'? primary { exp1(input.look(-1).text,
-                (type = input.look(-1).name) && type.downcase) }
-    ;
-
-expression_list
-    : expression (',' expression)*
+    | '-'? primary
     ;
 
 write_statement
@@ -196,17 +192,7 @@ function
 @after {
     @current_scope = '_'
 }
-    : 'def' VAR_TYPE variable_name { @current_scope = $variable_name.text } function_parameters block
-        {
-            has_return = !(String($block.text) =~ /return/).nil?
-            if String($VAR_TYPE) == 'void'
-              raise "'void' function should not have return statement" if has_return
-            else
-              unless has_return
-                raise "missing return statement for '#{$VAR_TYPE.text}'"
-              end
-            end
-        }
+    : 'def' VAR_TYPE variable_name { @current_scope = $variable_name.text; func1($VAR_TYPE.text) } function_parameters block { func3($block.text) }
     ;
 
 function_parameters
@@ -214,7 +200,7 @@ function_parameters
     ;
 
 parameters
-    : VAR_TYPE variable_name (',' VAR_TYPE variable_name)*
+    : VAR_TYPE variable_name { func2($variable_name.text, $VAR_TYPE.text) } (',' parameters)*
     ;
 
 robot
@@ -239,13 +225,33 @@ variable_name
 // Literals
 
 primary
+    : primitive { exp1(input.look(-1).text,
+                    (type = input.look(-1).name) && type.downcase) }
+    | functions
+    | arrays
+    ;
+
+primitive
     : BOOLEAN
     | STRING
     | FLOAT
     | INT
     | variable_name
-    | variable_name '[' expression ']' ('[' expression ']')?
-    | variable_name '(' expression_list ')'
+    ;
+
+arrays
+    : variable_name '[' expression ']' ('[' expression ']')?
+    ;
+
+functions
+@after {
+    @current_function = nil
+}
+    : variable_name { call_func1($variable_name.text) } '(' expression_list ')' { call_func3 }
+    ;
+
+expression_list
+    : expression { call_func2 } (',' expression_list)*
     ;
 
 // Lexer

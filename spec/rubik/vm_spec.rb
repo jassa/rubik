@@ -64,4 +64,20 @@ EOF
     end
   end
 
+  describe 'performs operatins with functions' do
+    it 'defines functions' do
+      $stdout.should_receive(:print).with(8)
+      program = <<-EOF
+begin
+  def int foo(int a, int b) {
+    return a * b;
+  }
+
+  print(foo(2,4));
+end
+EOF
+      Rubik::VM.new program
+    end
+  end
+
 end
