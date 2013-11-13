@@ -19,6 +19,18 @@ end
 EOF
       Rubik::VM.new program
     end
+
+    describe 'with priority' do
+      it 'of operators' do
+        $stdout.should_receive(:print).with(25)
+        Rubik::VM.new 'print(10 + 5 * 3);'
+      end
+
+      it 'of parenthesis' do
+        $stdout.should_receive(:print).with(45)
+        Rubik::VM.new 'print((10 + 5) * 3);'
+      end
+    end
   end
 
   describe 'compares objects' do
@@ -33,7 +45,7 @@ EOF
 begin
   int a, b;
   a = 10, b = 15;
-  print(a > b);
+  print(a == b);
 end
 EOF
       Rubik::VM.new program
