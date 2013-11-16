@@ -9,6 +9,7 @@ module Rubik
       @parser = Parser.new(input_stream)
 
       process
+      debug
 
       generate_memory_from_constants
       generate_memory_from_quadruples
@@ -16,6 +17,10 @@ module Rubik
 
     def memory
       @memory ||= {}
+    end
+
+    def debug
+      @quadruples.each_with_index { |q, i| puts "#{i} #{q.to_a}" }
     end
 
     private
@@ -34,6 +39,7 @@ module Rubik
 
     def generate_memory_from_quadruples
       @pointer = 0
+
 
       while @pointer < quadruples.size
         evaluate_quadruple(quadruples[pointer])
@@ -62,7 +68,7 @@ module Rubik
       when 'goto'
         return @pointer = key
       when 'gotoF'
-        return @pointer = key if !op1
+        return @pointer = key if !memory[op1]
       when 'param'
         @params << op1
       when 'ret'

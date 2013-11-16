@@ -109,15 +109,19 @@ def func3(block_text)
     raise "missing return statement for '#{function.return_type}'" unless has_return
   end
 
-  result_type = @pila_tipos.pop
+  if has_return
+    result_type = @pila_tipos.pop
 
-  unless result_type == function.return_type
-    raise "wrong return type in function '#{function.name}': " +
-      "expected #{function.return_type}, got #{result_type}"
+    unless result_type == function.return_type
+      raise "wrong return type in function '#{function.name}': " +
+        "expected #{function.return_type}, got #{result_type}"
+    end
+
+    result = @pila_operandos.pop
+    function.return_memory_id = result
   end
 
-  result = @pila_operandos.pop
-  function.return_memory_id = result
+  result ||= nil
 
   pushCuadruplo(Cuadruplo.new('return', result, nil, nil))
   pushCuadruplo(Cuadruplo.new('ret', nil, nil, nil))
@@ -272,58 +276,67 @@ end
 
 # if
 
-def if1
-  check_bool = @pila_tipos.pop
 
-  if check_bool != "Boolean"
-    puts "If statemet must resturn a Boolean value"
-    exit()
+def if1
+  @check_bool = @pila_tipos.pop
+
+  if @check_bool != "boolean"
+    raise "If statement should recive a boolean value not a #{@check_bool}"
   else
-    mem = @pila_operandos.pop
-    cuadruplo = Cuadruplo.new("GOTOF", mem, '','')
+    cuadruplo_jump = @pila_operandos.pop
+    cuadruplo = Cuadruplo.new("gotoF", cuadruplo_jump, nil , nil)
     pushCuadruplo(cuadruplo)
     @pila_saltos.push(@saltos-1)
   end
 end
 
 def if2
-  cuadruplo = Cuadruplo.new("GOTO", '','','')
+  cuadruplo = Cuadruplo.new("goto",nil, nil, nil)
   pushCuadruplo(cuadruplo)
-  falso = @pila_saltos.pop
-  @tabla_cuadruplos[falso].mem = @saltos
+  jump_to_false = @pila_saltos.pop
+  @quadruples[jump_to_false].memory_id = @saltos
   @pila_saltos.push(@saltos-1)
 end
 
 def if3
-  inserta_fin = @pila_saltos.pop
-  @tabla_cuadruplos[inserta_fin].mem = @saltos
+  @inserta_fin = @pila_saltos.pop
+  @quadruples[@inserta_fin].memory_id = @saltos
 end
 
 # times
 
 def times1
-  @pila_saltos.push(@saltos)
-end
-
-def times2
   check_int = @pila_tipos.pop
-  if check_int != "Integer"
-    puts "Times expression must recive Integer values"
+  if check_int != "int"
+    raise "Times expression must recive int value not #{check_int}"
   else
-    mem = @pila_operandos.pop
-    cuadruplo = Cuadruplo.new("GOTOF", mem, '','')
-    pushCuadruplo(cuadruplo)
+    init_id = @pila_operandos.pop
+    memory_id = "t:i:#{@cont_int}"
+    @cont_int += 1
+    op_1_memory_id = get_constant('1', 'int')
+    op_2_memory_id = get_constant('0', 'int')
+    cuad_init = Cuadruplo.new('=', init_id, nil ,memory_id)
+    cuad_dec_times = Cuadruplo.new('-', memory_id, op_1_memory_id , memory_id)
+    cuad_comp_times = Cuadruplo.new('>=', memory_id, op_2_memory_id,"c:b:#{@cont_boolean}")
+    cuadruplo_jump = Cuadruplo.new("gotoF", "c:b:#{@cont_boolean}", nil, nil)
+    pushCuadruplo(cuad_init)
+    @pila_saltos.push(@saltos)
+    pushCuadruplo(cuad_dec_times)
+    pushCuadruplo(cuad_comp_times)
+    pushCuadruplo(cuadruplo_jump)
     @pila_saltos.push(@saltos-1)
+    @cont_boolean += 1
   end
 end
 
-def times3
-  falso = @pila_saltos.pop
-  ret = @pila_saltos.pop
-  cuadruplo = Cuadruplo.new("GOTO", '' , '', ret)
+def times2
+  go_false = @pila_saltos.pop
+  return_times = @pila_saltos.pop
+  cuadruplo = Cuadruplo.new("goto", nil , nil, return_times)
   pushCuadruplo(cuadruplo)
-  @tabla_cuadruplos[falso].mem = @saltos
+  @quadruples[go_false].memory_id = @saltos
 end
+
 
 # Input/Output
 

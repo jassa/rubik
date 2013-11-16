@@ -56,6 +56,8 @@ tokens {
 }
 
 @parser::init {
+    @inserta_fin = 0
+    @check_bool = "not bool"
     @symbols = {}
     @functions = {}
     @constants = {}
@@ -143,7 +145,7 @@ assignment_statement
     ;
 
 condition_statement
-    : 'if' '(' expression ')' block ('else' block)?
+    : 'if' '(' expression ')'{ if1 } block ({ if2 } 'else' block)? {if3}
     ;
 
 expression
@@ -185,7 +187,7 @@ read_statement
     ;
 
 loop_statement
-    : 'do' exp 'times' block
+    : 'do' exp {times1}'times' block {times2}
     ;
 
 function
