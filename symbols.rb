@@ -6,9 +6,9 @@ def define_variable(name, type)
     raise "'#{name}' has already been declared"
   else
     type_count = instance_variable_get("@cont_#{type}")
-    memory_id = "#{scope}:#{type[0]}:#{type_count}"
+    memory_id = "#{type[0]}:#{type_count}"
+    instance_variable_set("@cont_#{type}", type_count + 1)
     value = nil
     @symbols[key] = [name, type, value, memory_id]
-    instance_variable_set("@cont_#{type}", type_count + 1)
   end
 end

@@ -64,19 +64,59 @@ EOF
     end
   end
 
-  describe 'performs operatins with functions' do
-    it 'defines functions' do
+  describe 'performs functions operations' do
+    it 'with single function' do
       $stdout.should_receive(:print).with(8)
       program = <<-EOF
-begin
-  def int foo(int a, int b) {
-    return a * b;
-  }
+def int foo(int a, int b) {
+  return a * b;
+}
 
+begin
   print(foo(2,4));
 end
 EOF
       Rubik::VM.new program
+    end
+
+    describe 'with multiple functions' do
+      it 'one call' do
+        $stdout.should_receive(:print).with(8)
+        program = <<-EOF
+def int foo(int a, int b) {
+  return a * b;
+}
+
+def int bar(int a, int b) {
+  return a * b;
+}
+
+begin
+  print(foo(2,4));
+end
+EOF
+        Rubik::VM.new program
+      end
+
+      it 'multiple calls' do
+        $stdout.should_receive(:print).with(9.0)
+        program = <<-EOF
+def int foo(int a, int b) {
+  return a * b;
+}
+
+def float bar(float a, float b) {
+  return a / b;
+}
+
+begin
+  print(foo(2,4) + bar(3.0,3.0));
+end
+EOF
+        Rubik::VM.new program
+      end
+
+
     end
   end
 

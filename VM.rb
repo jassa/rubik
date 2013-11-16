@@ -43,6 +43,11 @@ module Rubik
     def evaluate_quadruple(quadruple)
       operator, op1, op2, key = quadruple.to_a
 
+      if @subPointer
+        memory[op1] ||= memory[@params.pop]
+        memory[op2] ||= memory[@params.pop]
+      end
+
       case operator
       when '+', '-', '*', '/', '<', '>',
            '&&', '||', '>=', '<=', '==', '!='
@@ -58,13 +63,25 @@ module Rubik
         return @pointer = key
       when 'gotoF'
         return @pointer = key if !op1
+      when 'param'
+        @params << op1
+      when 'ret'
+        @pointer = @subPointer
+        @subPointer = nil
+        return
+      when 'era'
+        @params = []
+      when 'goSub'
+        @params.reverse!
+        @subPointer = @pointer + 1
+        return @pointer = key
       end
 
       @pointer += 1
     end
 
     def normalize(value, memory_id)
-      var_type_id = memory_id[2]
+      var_type_id = memory_id[0]
 
       case var_type_id
       when 'i'

@@ -66,7 +66,6 @@ tokens {
     @pila_operandos = []
     @pila_saltos = []
     @saltos = 0
-    @cont_const = 0
     @cont_int = 0
     @cont_string = 0
     @cont_float = 0
@@ -81,7 +80,8 @@ tokens {
 // Top-level structure
 
 program
-    : 'begin' block+ 'end'
+    : { goto_main } function* 'begin' statement_end! { fill_main }
+        block+ 'end' statement_end!
     ;
 
 block

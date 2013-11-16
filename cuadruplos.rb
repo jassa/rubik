@@ -21,17 +21,17 @@ def pushCuadruplo(cuadruplo)
 end
 
 def goto_main
-  goto = Cuadruplo.new("GOTO","","","")
+  goto = Cuadruplo.new("goto", nil, nil, nil)
   pushCuadruplo(goto)
 end
 
 def statement_end
-  st_end = Cuadruplo.new("END","","","")
+  st_end = Cuadruplo.new("end","","","")
   pushCuadruplo(st_end)
 end
 
 def fill_main
-  @tabla_cuadruplos[0].mem = @saltos
+  @quadruples[0].memory_id = @saltos
 end
 
 def get_variable(name)
@@ -42,8 +42,9 @@ end
 
 def get_constant(value, data_type)
   @constants[value.to_sym] ||= begin
-    memory_id = "c:#{data_type[0]}:#{@cont_const}"
-    @cont_const += 1
+    cont = instance_variable_get("@cont_#{data_type}")
+    memory_id = "#{data_type[0]}:#{cont}"
+    instance_variable_set("@cont_#{data_type}", cont + 1)
     memory_id
   end
 end
@@ -66,23 +67,20 @@ end
 
 class Function
 
-  attr_accessor :name, :return_type, :parameters
+  attr_accessor :name, :return_type, :return_memory_id, :index, :parameters
 
-  def initialize(name, return_type)
+  def initialize(name, return_type, index)
     @name = name
     @return_type = return_type
+    @index = index
   end
 
-  def add_parameter(param_name, type)
-    if parameters[param_name.to_sym]
-      raise "parameter #{param_name} has already been declared"
-    end
-
-    parameters[param_name] = type
+  def add_parameter(param_type)
+    parameters << param_type
   end
 
   def parameters
-    @parameters ||= {}
+    @parameters ||= []
   end
 
 end
@@ -92,11 +90,13 @@ def func1(return_type)
     raise "function '#{@current_scope}' has already been declared"
   end
 
-  @functions[@current_scope.to_sym] = Function.new(@current_scope, return_type)
+  @functions[@current_scope.to_sym] = Function.new(@current_scope,
+    return_type, @saltos)
 end
 
 def func2(parameter, parameter_type)
-  @functions[@current_scope.to_sym].add_parameter(parameter, parameter_type)
+  @functions[@current_scope.to_sym].add_parameter(parameter_type)
+  define_variable(parameter, parameter_type)
 end
 
 def func3(block_text)
@@ -108,6 +108,19 @@ def func3(block_text)
   else
     raise "missing return statement for '#{function.return_type}'" unless has_return
   end
+
+  result_type = @pila_tipos.pop
+
+  unless result_type == function.return_type
+    raise "wrong return type in function '#{function.name}': " +
+      "expected #{function.return_type}, got #{result_type}"
+  end
+
+  result = @pila_operandos.pop
+  function.return_memory_id = result
+
+  pushCuadruplo(Cuadruplo.new('return', result, nil, nil))
+  pushCuadruplo(Cuadruplo.new('ret', nil, nil, nil))
 end
 
 def call_func1(function_name)
@@ -118,6 +131,9 @@ def call_func1(function_name)
   @cont_params = 0
   @current_function = @functions[function_name.to_sym]
 
+  @pila_operadores.push('era')
+  @pila_tipos.push('control')
+
   quadruple = Cuadruplo.new('era', function_name, nil, nil)
   pushCuadruplo(quadruple)
 end
@@ -127,14 +143,14 @@ def call_func2
   param_type = @pila_tipos.pop
 
   function = @current_function
-  current_param = function.parameters.to_a[@cont_params]
+  current_param = function.parameters[@cont_params]
 
   unless current_param
     raise "wrong number of arguments (must be #{function.parameters.size})"
   end
 
-  unless current_param.type == param_type
-    raise "wrong parameter type (expected #{current_param.type}, got #{param_type}"
+  unless current_param == param_type
+    raise "wrong parameter type: expected #{current_param}, got #{param_type}"
   end
 
   quadruple = Cuadruplo.new('param', param_value, nil, @cont_params)
@@ -144,15 +160,24 @@ def call_func2
 end
 
 def call_func3
-  quadruple = Cuadruplo.new('goSub', @current_function, nil, nil)
+  function = @current_function
+  quadruple = Cuadruplo.new('goSub', function.name,
+    nil, function.index)
+
+  @pila_operadores.pop
+  @pila_tipos.pop
+
+  if function.return_type
+    @pila_operandos.push(function.return_memory_id)
+    @pila_tipos.push(function.return_type)
+  end
+
   pushCuadruplo(quadruple)
 end
 
 # Expressions
 
 def exp1(value, data_type)
-  puts value, data_type
-
   if data_type == "id"
     _name, data_type, _value, memory_id = get_variable(value)
   else
@@ -194,8 +219,8 @@ def exp4(operators=['+','-','||'])
   op1 = @pila_operandos.pop
 
   cont = instance_variable_get("@cont_#{result_type}")
+  memory_id = "#{result_type[0]}:#{cont}"
   instance_variable_set("@cont_#{result_type}", cont + 1)
-  memory_id = "t:#{result_type[0]}:#{cont}"
 
   cuadruplo = Cuadruplo.new(operator, op1, op2, memory_id)
   pushCuadruplo(cuadruplo)
@@ -231,8 +256,8 @@ def exp9(operators=['=', '==', '>', '<', '<=', '>=', '!='])
     memory_id = @pila_operandos.pop
   else
     cont = instance_variable_get("@cont_#{result_type}")
+    memory_id = "#{result_type[0]}:#{cont}"
     instance_variable_set("@cont_#{result_type}", cont + 1)
-    memory_id = "t:#{result_type[0]}:#{cont}"
 
     op2 = @pila_operandos.pop
     op1 = @pila_operandos.pop
@@ -303,7 +328,7 @@ end
 # Input/Output
 
 def r_gets
-  memory_id = "t:s:#{@cont_string}"
+  memory_id = "s:#{@cont_string}"
   @cont_string += 1
   cuadruplo = Cuadruplo.new("gets", nil, nil, memory_id)
   pushCuadruplo(cuadruplo)
@@ -312,7 +337,7 @@ end
 def r_print
   memory_id = @pila_operandos.pop
   @pila_tipos.pop
-  cuadruplo = Cuadruplo.new("print", memory_id, '', '')
+  cuadruplo = Cuadruplo.new("print", memory_id, nil, nil)
   pushCuadruplo(cuadruplo)
 end
 
