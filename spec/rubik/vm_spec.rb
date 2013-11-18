@@ -160,14 +160,15 @@ EOF
 
   describe 'performs functions operations' do
     it 'with single function' do
-      $stdout.should_receive(:print).with(8)
+      $stdout.should_receive(:print).with(96)
       program = <<-EOF
-def int foo(int a, int b) {
-  return a * b;
+def int foo(int a, int b, int c, int d) {
+  c = c + 100;
+  return c - (a + b + d);
 }
 
 begin
-  print(foo(2,4));
+  print(foo(1,2,3,4));
 end
 EOF
       Rubik::VM.new program

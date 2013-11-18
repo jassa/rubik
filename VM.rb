@@ -39,7 +39,7 @@ module Rubik
 
     def generate_memory_from_quadruples
       @pointer = 0
-
+      @pointers = []
 
       while @pointer < quadruples.size
         evaluate_quadruple(quadruples[pointer])
@@ -49,9 +49,9 @@ module Rubik
     def evaluate_quadruple(quadruple)
       operator, op1, op2, key = quadruple.to_a
 
-      if @subPointer
-        memory[op1] ||= memory[@params.pop]
-        memory[op2] ||= memory[@params.pop]
+      if !@pointers.empty?
+        memory[op1] ||= memory[@params[op1]] if @params.has_key?(op1)
+        memory[op2] ||= memory[@params[op2]] if @params.has_key?(op2)
       end
 
       case operator
@@ -70,16 +70,14 @@ module Rubik
       when 'gotoF'
         return @pointer = key if !memory[op1]
       when 'param'
-        @params << op1
+        @params[op1] = key
       when 'ret'
-        @pointer = @subPointer
-        @subPointer = nil
+        @pointer = @pointers.pop
         return
       when 'era'
-        @params = []
+        @params = {}
       when 'goSub'
-        @params.reverse!
-        @subPointer = @pointer + 1
+        @pointers.push(@pointer + 1)
         return @pointer = key
       end
 

@@ -34,8 +34,8 @@ def fill_main
   @quadruples[0].memory_id = @saltos
 end
 
-def get_variable(name)
-  name_with_scope = variable_with_scope(name)
+def get_variable(name, scope = @current_scope)
+  name_with_scope = variable_with_scope(name, scope)
   @symbols[name_with_scope] || @symbols[name.to_sym] or
     raise "undefined variable '#{name}'"
 end
@@ -49,8 +49,8 @@ def get_constant(value, data_type)
   end
 end
 
-def variable_with_scope(name)
-  [@current_scope, name].compact.join('.').to_sym
+def variable_with_scope(name, scope)
+  [scope, name].compact.join('.').to_sym
 end
 
 def assign(variable_name)
@@ -75,8 +75,8 @@ class Function
     @index = index
   end
 
-  def add_parameter(param_type)
-    parameters << param_type
+  def add_parameter(param_id, param_type)
+    parameters << [param_id, param_type]
   end
 
   def parameters
@@ -94,9 +94,9 @@ def func1(return_type)
     return_type, @saltos)
 end
 
-def func2(parameter, parameter_type)
-  @functions[@current_scope.to_sym].add_parameter(parameter_type)
-  define_variable(parameter, parameter_type)
+def func2(param_id, param_type)
+  @functions[@current_scope.to_sym].add_parameter(param_id, param_type)
+  define_variable(param_id, param_type)
 end
 
 def func3(block_text)
@@ -143,21 +143,24 @@ def call_func1(function_name)
 end
 
 def call_func2
-  param_value = @pila_operandos.pop
+  param_id = @pila_operandos.pop
   param_type = @pila_tipos.pop
 
   function = @current_function
-  current_param = function.parameters[@cont_params]
+  func_param_id, func_param_type, = function.parameters[@cont_params]
 
-  unless current_param
+  unless func_param_type
     raise "wrong number of arguments (must be #{function.parameters.size})"
   end
 
-  unless current_param == param_type
-    raise "wrong parameter type: expected #{current_param}, got #{param_type}"
+  unless func_param_type == param_type
+    raise "wrong parameter type: expected #{func_param_type}, got #{param_type}"
   end
 
-  quadruple = Cuadruplo.new('param', param_value, nil, @cont_params)
+  func_var = get_variable(func_param_id, function.name)
+  func_var_memory_id = func_var[3]
+
+  quadruple = Cuadruplo.new('param', func_var_memory_id, nil, param_id)
   pushCuadruplo(quadruple)
 
   @cont_params += 1
