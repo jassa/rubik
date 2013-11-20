@@ -9,6 +9,7 @@ module Rubik
       @parser = Parser.new(input_stream)
 
       process
+
       debug
 
       generate_memory_from_constants
@@ -20,6 +21,7 @@ module Rubik
     end
 
     def debug
+      puts @constants
       @quadruples.each_with_index { |q, i| puts "#{i} #{q.to_a}" }
     end
 
@@ -40,6 +42,9 @@ module Rubik
     def generate_memory_from_quadruples
       @pointer = 0
       @pointers = []
+      @returns = []
+
+      puts "\n** Evaluation\n\n"
 
       while @pointer < quadruples.size
         evaluate_quadruple(quadruples[pointer])
@@ -47,12 +52,8 @@ module Rubik
     end
 
     def evaluate_quadruple(quadruple)
+      puts "#{@pointer} #{quadruple.to_a}"
       operator, op1, op2, key = quadruple.to_a
-
-      if !@pointers.empty?
-        memory[op1] ||= memory[@params[op1]] if @params.has_key?(op1)
-        memory[op2] ||= memory[@params[op2]] if @params.has_key?(op2)
-      end
 
       case operator
       when '+', '-', '*', '/', '<', '>',
@@ -70,12 +71,14 @@ module Rubik
       when 'gotoF'
         return @pointer = key if !memory[op1]
       when 'param'
-        @params[op1] = key
+        memory[op1] = memory[key]
+      when 'return'
+        @returns.push(op1)
       when 'ret'
         @pointer = @pointers.pop
+        @quadruples[@pointer].op1 = @returns.pop
         return
       when 'era'
-        @params = {}
       when 'goSub'
         @pointers.push(@pointer + 1)
         return @pointer = key

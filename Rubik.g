@@ -74,7 +74,6 @@ tokens {
     @cont_boolean = 0
     @aux_times = 0
 
-    require 'symbols'
     require 'cubo_semantico'
     require 'cuadruplos'
 }
@@ -115,7 +114,7 @@ statement_end
     ;
 
 return_statement
-    : 'return' expression statement_end!
+    : 'return' expression { return_expression } statement_end!
     ;
 
 variable_statement
@@ -249,11 +248,11 @@ functions
 @after {
     @current_function = nil
 }
-    : variable_name { call_func1($variable_name.text) } '(' expression_list ')' { call_func3 }
+    : variable_name { call_func1($variable_name.text) } '(' expression_list? ')' { call_func3 }
     ;
 
 expression_list
-    : expression { call_func2 } (',' expression_list)*
+    : { exp6 } expression { exp7; call_func2 } (',' expression_list)*
     ;
 
 // Lexer
