@@ -15,23 +15,42 @@ class Cuadruplo
 
 end
 
-def pushCuadruplo(cuadruplo)
-  @quadruples.push(cuadruplo)
+def new_memory_id(data_type)
+  cont = instance_variable_get("@cont_#{data_type}")
+  memory_id = "#{data_type[0]}:#{cont}"
+  instance_variable_set("@cont_#{data_type}", cont + 1)
+  memory_id
+end
+
+def pushCuadruplo(*args)
+  q = Cuadruplo.new(*args)
+  @quadruples.push(q)
   @saltos += 1
 end
 
 def goto_main
-  goto = Cuadruplo.new("goto", nil, nil, nil)
-  pushCuadruplo(goto)
+  pushCuadruplo("goto", nil, nil, nil)
 end
 
 def statement_end
-  st_end = Cuadruplo.new("end","","","")
-  pushCuadruplo(st_end)
+  pushCuadruplo("end", nil, nil, nil)
 end
 
 def fill_main
   @quadruples[0].memory_id = @saltos
+end
+
+def define_variable(name, type)
+  scope = @current_scope
+  key = [scope, name].compact.join('.').to_sym
+
+  if @symbols.has_key?(key)
+    raise "'#{name}' has already been declared"
+  else
+    memory_id = new_memory_id(type)
+    value = nil
+    @symbols[key] = [name, type, value, memory_id]
+  end
 end
 
 def get_variable(name, scope = @current_scope)
@@ -41,12 +60,11 @@ def get_variable(name, scope = @current_scope)
 end
 
 def get_constant(value, data_type)
-  @constants[value.to_sym] ||= begin
-    cont = instance_variable_get("@cont_#{data_type}")
-    memory_id = "#{data_type[0]}:#{cont}"
-    instance_variable_set("@cont_#{data_type}", cont + 1)
-    memory_id
-  end
+  @constants[value.to_sym] ||= new_memory_id(data_type)
+end
+
+def constant?(memory_id)
+  @constants.has_value?(memory_id)
 end
 
 def variable_with_scope(name, scope)
@@ -115,7 +133,8 @@ end
 # Functions
 
 class Function
-  attr_accessor :name, :return_type, :return_memory_id, :index, :parameters
+
+  attr_accessor :name, :index, :parameters, :return_type, :memory_id
 
   def initialize(name, return_type, index)
     @name = name
@@ -131,6 +150,10 @@ class Function
     @parameters ||= []
   end
 
+  def void?
+    return_type == 'void'
+  end
+
 end
 
 def func1(return_type)
@@ -138,8 +161,9 @@ def func1(return_type)
     raise "function '#{@current_scope}' has already been declared"
   end
 
-  @functions[@current_scope.to_sym] = Function.new(@current_scope,
-    return_type, @saltos)
+  function = Function.new(@current_scope, return_type, @saltos)
+  function.memory_id = new_memory_id(return_type) unless function.void?
+  @functions[@current_scope.to_sym] = function
 end
 
 def func2(param_id, param_type)
@@ -148,31 +172,32 @@ def func2(param_id, param_type)
 end
 
 def func3(block_text)
+  function = @functions[@current_scope.to_sym]
   has_return = !(String(block_text) =~ /return/).nil?
+
+  if function.return_type != 'void' && !has_return
+    raise "missing return statement for '#{function.return_type}'"
+  end
+
+  pushCuadruplo('ret', nil, nil, nil)
+end
+
+def return_expression
   function = @functions[@current_scope.to_sym]
 
   if function.return_type == 'void'
-    raise "'void' function should not have return statement" if has_return
-  else
-    raise "missing return statement for '#{function.return_type}'" unless has_return
+    raise "'void' function should not have return statement"
   end
 
-  if has_return
-    result_type = @pila_tipos.pop
+  result_type = @pila_tipos.pop
 
-    unless result_type == function.return_type
-      raise "wrong return type in function '#{function.name}': " +
-        "expected #{function.return_type}, got #{result_type}"
-    end
-
-    result = @pila_operandos.pop
-    function.return_memory_id = result
+  unless result_type == function.return_type
+    raise "wrong return type in function '#{function.name}': " +
+      "expected #{function.return_type}, got #{result_type}"
   end
 
-  result ||= nil
-
-  pushCuadruplo(Cuadruplo.new('return', result, nil, nil))
-  pushCuadruplo(Cuadruplo.new('ret', nil, nil, nil))
+  result = @pila_operandos.pop
+  pushCuadruplo('return', result, nil, nil)
 end
 
 def call_func1(function_name)
@@ -183,19 +208,21 @@ def call_func1(function_name)
   @cont_params = 0
   @current_function = @functions[function_name.to_sym]
 
-  @pila_operadores.push('era')
-  @pila_tipos.push('control')
-
-  quadruple = Cuadruplo.new('era', function_name, nil, nil)
-  pushCuadruplo(quadruple)
+  pushCuadruplo('era', function_name, nil, nil)
 end
 
 def call_func2
-  param_id = @pila_operandos.pop
+  param_value = @pila_operandos.pop
   param_type = @pila_tipos.pop
 
   function = @current_function
-  func_param_id, func_param_type, = function.parameters[@cont_params]
+  func_param_id, func_param_type = function.parameters[@cont_params]
+
+  begin
+    _name, param_type, _value, param_memory_id = get_variable(param_value)
+  rescue
+    param_memory_id = param_value
+  end
 
   unless func_param_type
     raise "wrong number of arguments (must be #{function.parameters.size})"
@@ -208,26 +235,20 @@ def call_func2
   func_var = get_variable(func_param_id, function.name)
   func_var_memory_id = func_var[3]
 
-  quadruple = Cuadruplo.new('param', func_var_memory_id, nil, param_id)
-  pushCuadruplo(quadruple)
+  pushCuadruplo('param', func_var_memory_id, nil, param_memory_id)
 
   @cont_params += 1
 end
 
 def call_func3
   function = @current_function
-  quadruple = Cuadruplo.new('goSub', function.name,
-    nil, function.index)
+  pushCuadruplo('goSub', function.name, nil, function.index)
 
-  @pila_operadores.pop
-  @pila_tipos.pop
-
-  if function.return_type
-    @pila_operandos.push(function.return_memory_id)
-    @pila_tipos.push(function.return_type)
+  if return_type = function.return_type
+    @pila_tipos.push(return_type)
+    @pila_operandos.push(function.memory_id)
+    pushCuadruplo('=', nil, nil, function.memory_id)
   end
-
-  pushCuadruplo(quadruple)
 end
 
 # Expressions
@@ -273,15 +294,12 @@ def exp4(operators=['+','-','||'])
   op2 = @pila_operandos.pop
   op1 = @pila_operandos.pop
 
-  cont = instance_variable_get("@cont_#{result_type}")
-  memory_id = "#{result_type[0]}:#{cont}"
-  instance_variable_set("@cont_#{result_type}", cont + 1)
-
-  cuadruplo = Cuadruplo.new(operator, op1, op2, memory_id)
-  pushCuadruplo(cuadruplo)
+  memory_id = new_memory_id(result_type)
 
   @pila_operandos.push(memory_id)
   @pila_tipos.push(result_type)
+
+  pushCuadruplo(operator, op1, op2, memory_id)
 end
 
 def exp5
@@ -310,18 +328,14 @@ def exp9(operators=['=', '==', '>', '<', '<=', '>=', '!='])
     op2 = nil
     memory_id = @pila_operandos.pop
   else
-    cont = instance_variable_get("@cont_#{result_type}")
-    memory_id = "#{result_type[0]}:#{cont}"
-    instance_variable_set("@cont_#{result_type}", cont + 1)
-
     op2 = @pila_operandos.pop
     op1 = @pila_operandos.pop
+    memory_id = new_memory_id(result_type)
   end
 
-  cuadruplo = Cuadruplo.new(operator, op1, op2, memory_id)
-  pushCuadruplo(cuadruplo)
+  pushCuadruplo(operator, op1, op2, memory_id)
 
-  @pila_operandos.push(cuadruplo.memory_id)
+  @pila_operandos.push(memory_id)
   @pila_tipos.push(result_type)
 end
 
@@ -335,15 +349,13 @@ def if1
     raise "If statement should recive a boolean value not a #{@check_bool}"
   else
     cuadruplo_jump = @pila_operandos.pop
-    cuadruplo = Cuadruplo.new("gotoF", cuadruplo_jump, nil , nil)
-    pushCuadruplo(cuadruplo)
+    pushCuadruplo("gotoF", cuadruplo_jump, nil , nil)
     @pila_saltos.push(@saltos-1)
   end
 end
 
 def if2
-  cuadruplo = Cuadruplo.new("goto",nil, nil, nil)
-  pushCuadruplo(cuadruplo)
+  pushCuadruplo("goto",nil, nil, nil)
   jump_to_false = @pila_saltos.pop
   @quadruples[jump_to_false].memory_id = @saltos
   @pila_saltos.push(@saltos-1)
@@ -366,16 +378,15 @@ def times1
     @cont_int += 1
     op_1_memory_id = get_constant('1', 'int')
     op_2_memory_id = get_constant('0', 'int')
-    cuad_init = Cuadruplo.new('=', init_id, nil ,memory_id)
-    cuad_dec_times = Cuadruplo.new('-', memory_id, op_1_memory_id , memory_id)
-    cuad_comp_times = Cuadruplo.new('>=', memory_id, op_2_memory_id,"c:b:#{@cont_boolean}")
-    cuadruplo_jump = Cuadruplo.new("gotoF", "c:b:#{@cont_boolean}", nil, nil)
-    pushCuadruplo(cuad_init)
+
+    pushCuadruplo('=', init_id, nil ,memory_id)
     @pila_saltos.push(@saltos)
-    pushCuadruplo(cuad_dec_times)
-    pushCuadruplo(cuad_comp_times)
-    pushCuadruplo(cuadruplo_jump)
+
+    pushCuadruplo('-', memory_id, op_1_memory_id , memory_id)
+    pushCuadruplo('>=', memory_id, op_2_memory_id,"c:b:#{@cont_boolean}")
+    pushCuadruplo("gotoF", "c:b:#{@cont_boolean}", nil, nil)
     @pila_saltos.push(@saltos-1)
+
     @cont_boolean += 1
   end
 end
@@ -383,8 +394,9 @@ end
 def times2
   go_false = @pila_saltos.pop
   return_times = @pila_saltos.pop
-  cuadruplo = Cuadruplo.new("goto", nil , nil, return_times)
-  pushCuadruplo(cuadruplo)
+
+  pushCuadruplo("goto", nil , nil, return_times)
+
   @quadruples[go_false].memory_id = @saltos
 end
 
@@ -392,17 +404,14 @@ end
 # Input/Output
 
 def r_gets
-  memory_id = "s:#{@cont_string}"
-  @cont_string += 1
-  cuadruplo = Cuadruplo.new("gets", nil, nil, memory_id)
-  pushCuadruplo(cuadruplo)
+  memory_id = new_memory_id('string')
+  pushCuadruplo("gets", nil, nil, memory_id)
 end
 
 def r_print
   memory_id = @pila_operandos.pop
   @pila_tipos.pop
-  cuadruplo = Cuadruplo.new("print", memory_id, nil, nil)
-  pushCuadruplo(cuadruplo)
+  pushCuadruplo("print", memory_id, nil, nil)
 end
 
 #move
@@ -412,8 +421,7 @@ def move
     puts "Move expression must recive Integer values"
   else
     mem = @pila_operandos.pop
-    cuadruplo = Cuadruplo.new("MOVE", mem, '','')
-    pushCuadruplo(cuadruplo)
+    pushCuadruplo("MOVE", mem, '','')
   end
 end
 
@@ -425,18 +433,17 @@ def color
     puts "Color method must recive String values"
   else
     mem = @pila_operandos.pop
-    cuadruplo = Cuadruplo.new("Color", mem, '','')
-    pushCuadruplo(cuadruplo)
+    pushCuadruplo("Color", mem, '','')
   end
 end
 
 #pen_up pen_down
 def pen_up
-  cuadruplo = Cuadruplo.new("PENUP",'','','')
+  pushCuadruplo("PENUP",'','','')
 end
 
 def pen_down
-  cuadruplo = Cuadruplo.new("PENDOWN",'','','')
+  pushCuadruplo("PENDOWN",'','','')
 end
 
 #draw figures
@@ -447,8 +454,7 @@ def draw_circle
     puts "Draw_circle method must recive Integer values"
   else
     mem = @pila_operandos.pop
-    cuadruplo = Cuadruplo.new("DrawC", mem, '','')
-    pushCuadruplo(cuadruplo)
+    pushCuadruplo("DrawC", mem, '','')
   end
 end
 
@@ -458,8 +464,7 @@ def draw_triangle
     puts "Draw_triangle method must recive Integer values"
   else
     mem = @pila_operandos.pop
-    cuadruplo = Cuadruplo.new("DrawT", mem, '','')
-    pushCuadruplo(cuadruplo)
+    pushCuadruplo("DrawT", mem, '','')
   end
 end
 
@@ -469,8 +474,7 @@ def draw_square
     puts "Draw_square method must recive Integer values"
   else
     mem = @pila_operandos.pop
-    cuadruplo = Cuadruplo.new("DrawS", mem, '','')
-    pushCuadruplo(cuadruplo)
+    pushCuadruplo("DrawS", mem, '','')
   end
 end
 
@@ -482,8 +486,7 @@ def talk
     puts "talk method must recive String values"
   else
     mem = @pila_operandos.pop
-    cuadruplo = Cuadruplo.new("Talk", mem, '','')
-    pushCuadruplo(cuadruplo)
+    pushCuadruplo("Talk", mem, '','')
   end
 end
 
@@ -494,8 +497,7 @@ def dir
     puts "talk method must recive String values"
   else
     mem = @pila_operandos.pop
-    cuadruplo = Cuadruplo.new("Dir", mem, '','')
-    pushCuadruplo(cuadruplo)
+    pushCuadruplo("Dir", mem, '','')
   end
 end
 
@@ -526,14 +528,12 @@ def verifica_funcion(noexiste, nombre)
 end
 
 def expande(nombre)
-  cuadruplo = Cuadruplo.new("ERA", nombre, '','')
-  pushCuadruplo(cuadruplo)
+  pushCuadruplo("ERA", nombre, '','')
 end
 
 def parametros(param, agr, tipo)
   if param.tipo_dato == tipo
-    cuadruplo = Cuadruplo.new("PARAM", arg, "", param.nombre)
-    pushCuadruplo(cuadruplo)
+    pushCuadruplo("PARAM", arg, "", param.nombre)
   else
     puts "Incompatible types in argument #{arg}"
     exit()
@@ -541,6 +541,5 @@ def parametros(param, agr, tipo)
 end
 
 def call_gosub(nombre, dir)
-  cuadruplo = Cuadruplo("GOSUB", nombre, dir, '')
-  pushCuadruplo(cuadruplo)
+  pushCuadruplo("GOSUB", nombre, dir, '')
 end
