@@ -74,60 +74,41 @@ def variable_with_scope(name, scope)
   [scope, name].compact.join('.').to_sym
 end
 
-def assign(variable_name, sub = nil)
-  variable_name = [variable_name, sub].compact.join('.')
-  variable = get_variable(variable_name)
+def assign(variable_name, index = nil)
+  if index
+    array1(variable_name, index)
+  else
+    variable = get_variable(variable_name)
 
-  memory_id = variable[3]
-  var_type = variable[1]
+    memory_id = variable[3]
+    var_type = variable[1]
 
-  @pila_operandos.push(memory_id)
-  @pila_tipos.push(var_type)
+    @pila_operandos.push(memory_id)
+    @pila_tipos.push(var_type)
+  end
 end
 
 #arrays
 
-def array1(value, subindex)
-  memoria = @pila_operandos.pop
-  tipo = @pila_tipos.pop
-  if subindex != '0' && subindex.to_i == 0
-    _name, data_type, _value, memory_id = get_variable(subindex)
-    @pila_operandos.push(memory_id)
-    @pila_tipos.push(data_type)
-  else
-    key = "_.#{value}.#{subindex.to_i}".to_sym
-    variable = @symbols[key]
-    @pila_operandos.push(variable[3])
-    @pila_tipos.push(variable[1])
+def array1(variable_name, subindex)
+  puts "a1",@pila_operandos.to_s
+  index_type = @pila_tipos.pop
+
+  if index_type != 'int'
+    raise "wrong index data type for array '#{variable_name}': expected int, got #{index_type}"
   end
-end
 
+  array = get_variable(variable_name)
 
-def array1(value, subindex)
-  @pila_operandos.pop
-  @pila_tipos.pop
-  key = "_.#{value}.#{subindex.to_i}".to_sym
-  variable = @symbols[key]
-  puts "#{value}[#{subindex}] :: #{variable[1]}"
-  @pila_operandos.push(variable[3])
-  @pila_tipos.push(variable[1])
-end
+  data_type = array[1]
+  op1 = array[3]
+  op2 = @pila_operandos.pop
+  memory_id = new_memory_id(data_type)
 
+  pushCuadruplo('+', "(#{op1})", op2, memory_id)
 
-
-def array1(value, subindex)
-  memoria = @pila_operandos.pop
-  tipo = @pila_tipos.pop
-  if subindex != '0' && subindex.to_i == 0
-    _name, data_type, _value, memory_id = get_variable(subindex)
-    @pila_operandos.push(memory_id)
-    @pila_tipos.push(data_type)
-  else
-    key = "_.#{value}.#{subindex.to_i}".to_sym
-    variable = @symbols[key]
-    @pila_operandos.push(variable[3])
-    @pila_tipos.push(variable[1])
-  end
+  @pila_operandos.push(memory_id)
+  @pila_tipos.push(data_type)
 end
 
 

@@ -130,7 +130,6 @@ variable_declaration_list
 
 variable_declaration
     : declaration_target ('=' expression)?
-
     ;
 
 declaration_target
@@ -138,7 +137,7 @@ declaration_target
     ;
 
 assignment_statement
-    : ID ('[' INT ']')? { assign($ID.text, ($INT.nil? ? nil : $INT.text)) } '=' { exp2('=') } expression { exp9 } statement_end!
+    : variable_name ('[' exp ']')? { assign($variable_name.text, $exp.text) } '=' { exp2('=') } expression { exp9 } statement_end!
     ;
 
 condition_statement
@@ -239,7 +238,7 @@ primitive
     ;
 
 arrays
-    : variable_name '[' expression ']' { array1($variable_name.text, $expression.text) }
+    : variable_name '[' exp ']' { array1($variable_name.text, $exp.text) }
     ;
 
 functions

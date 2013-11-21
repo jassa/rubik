@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Rubik::VM do
 
   describe 'arrays' do
-    it 'should declare array' do
+    it 'declares array' do
       $stdout.should_receive(:print).with(10)
       program = <<-EOF
 begin
@@ -14,7 +14,8 @@ end
 EOF
       Rubik::VM.new program
     end
-    it 'should assign array value' do
+
+    it 'assigns array value' do
       $stdout.should_receive(:print).with(45)
       program = <<-EOF
 begin
@@ -22,6 +23,55 @@ begin
   int j;
   j = 2;
   a[j] = 45;
+  print(a[2]);
+end
+EOF
+      Rubik::VM.new program
+    end
+
+
+    it 'assigns array as array value' do
+      $stdout.should_receive(:print).with(35)
+      program = <<-EOF
+begin
+  int a[3];
+
+  a[1] = 30;
+  a[2] = a[1] + 5;
+
+  print(a[2]);
+end
+EOF
+      Rubik::VM.new program
+    end
+
+    it 'uses expression as index' do
+      $stdout.should_receive(:print).with(30)
+      program = <<-EOF
+begin
+  int a[3];
+  int b;
+
+  b = 2;
+
+  a[b-1] = 30;
+
+  print(a[1]);
+end
+EOF
+      Rubik::VM.new program
+    end
+
+    it 'uses arrays as index' do
+      $stdout.should_receive(:print).with(30)
+      program = <<-EOF
+begin
+  int a[3];
+  int b[3];
+
+  b[2] = 2;
+  a[b[2]] = 30;
+
   print(a[2]);
 end
 EOF

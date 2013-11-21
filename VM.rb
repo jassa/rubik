@@ -9,7 +9,6 @@ module Rubik
       @parser = Parser.new(input_stream)
 
       process
-
       debug
 
       generate_memory_from_constants
@@ -58,7 +57,13 @@ module Rubik
       case operator
       when '+', '-', '*', '/', '<', '>',
            '&&', '||', '>=', '<=', '==', '!='
-        memory[key] = memory[op1].send(operator, memory[op2])
+        if op1[0] == '('
+          index = op1.match(/\d+/)[0].to_i + memory[op2]
+          memory_id = "i:#{index}"
+          replace_memory(key, memory_id)
+        else
+          memory[key] = memory[op1].send(operator, memory[op2])
+        end
       when '='
         memory[key] = memory[op1]
       when 'print'
@@ -87,6 +92,8 @@ module Rubik
       @pointer += 1
     end
 
+    private
+
     def normalize(value, memory_id)
       var_type_id = memory_id[0]
 
@@ -99,6 +106,14 @@ module Rubik
         value[1..-2]
       when 'b'
         eval(value) if value =~ /true|false/
+      end
+    end
+
+    def replace_memory(memory_id, replacement_id)
+      @quadruples.each do |quad|
+        [:op1, :op2, :memory_id].each do |method|
+          quad.send("#{method}=", replacement_id) if quad.send(method) == memory_id
+        end
       end
     end
 
