@@ -40,16 +40,19 @@ def fill_main
   @quadruples[0].memory_id = @saltos
 end
 
-def define_variable(name, type)
+def define_variable(name, type, dimension=1)
   scope = @current_scope
   key = [scope, name].compact.join('.').to_sym
 
   if @symbols.has_key?(key)
     raise "'#{name}' has already been declared"
   else
-    memory_id = new_memory_id(type)
     value = nil
-    @symbols[key] = [name, type, value, memory_id]
+    dimension.to_i.times do |i|
+      new_key = i > 0 ? [key, i].join('.').to_sym : key
+      memory_id = new_memory_id(type)
+      @symbols[new_key] = [name, type, value, memory_id]
+    end
   end
 end
 
@@ -72,11 +75,9 @@ def variable_with_scope(name, scope)
 end
 
 def assign(variable_name, sub = nil)
+  variable_name = [variable_name, sub].compact.join('.')
   variable = get_variable(variable_name)
-  if sub != nil
-    name = "#{variable_name}.#{sub}"
-    variable = @symbols["_.#{name}".to_sym]
-  end
+
   memory_id = variable[3]
   var_type = variable[1]
 

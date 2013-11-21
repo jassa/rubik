@@ -134,14 +134,11 @@ variable_declaration
     ;
 
 declaration_target
-    : variable_name ('[' INT ']')?
-    {
-            define_variable($declaration_target.text, @current_var_type, ($INT.nil? ? 1:$INT.text))
-        }
+    : variable_name ('[' INT ']')? { define_variable($variable_name.text, @current_var_type, ($INT.nil? ? 1 : $INT.text)) }
     ;
 
 assignment_statement
-    : ID ('[' INT ']')? { assign($ID.text,($INT.nil? ? nil:$INT.text)) } '=' { exp2('=') } expression { exp9 } statement_end!
+    : ID ('[' INT ']')? { assign($ID.text, ($INT.nil? ? nil : $INT.text)) } '=' { exp2('=') } expression { exp9 } statement_end!
     ;
 
 condition_statement

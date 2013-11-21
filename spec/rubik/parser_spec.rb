@@ -11,7 +11,7 @@ describe Rubik::Parser do
       it 'adds variable to symbols hash' do
         @parser.block
         symbols = @parser.instance_variable_get('@symbols')
-
+        puts symbols
         expect(symbols).to have_key(:'_.foo')
       end
 
