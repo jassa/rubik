@@ -14,7 +14,7 @@ end
 EOF
       Rubik::VM.new program
     end
-    it 'should asign array value' do
+    it 'should assign array value' do
       $stdout.should_receive(:print).with(45)
       program = <<-EOF
 begin
