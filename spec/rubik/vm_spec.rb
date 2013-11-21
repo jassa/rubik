@@ -289,6 +289,29 @@ EOF
       end
     end
 
+    it 'calculates factorial of a given number' do
+      $stdout.should_receive(:print).with(120)
+      program = <<-EOF
+def int factorial(int a) {
+  int sum, cont;
+  sum = 1;
+  cont = a;
+
+  do a times {
+    sum = sum * cont;
+    cont = cont - 1;
+  }
+
+  return sum;
+}
+
+begin
+  print(factorial(5));
+end
+EOF
+      Rubik::VM.new program
+    end
+
     pending 'recursively' do
       $stdout.should_receive(:print).with(120)
       program = <<-EOF
