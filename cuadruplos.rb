@@ -53,9 +53,12 @@ def variable_with_scope(name, scope)
   [scope, name].compact.join('.').to_sym
 end
 
-def assign(variable_name)
+def assign(variable_name, sub = nil)
   variable = get_variable(variable_name)
-
+  if sub != nil
+    name = "#{variable_name}.#{sub}"
+    variable = @symbols["_.#{name}".to_sym]
+  end
   memory_id = variable[3]
   var_type = variable[1]
 
@@ -63,10 +66,55 @@ def assign(variable_name)
   @pila_tipos.push(var_type)
 end
 
+#arrays
+
+def array1(value, subindex)
+  memoria = @pila_operandos.pop
+  tipo = @pila_tipos.pop
+  if subindex != '0' && subindex.to_i == 0
+    _name, data_type, _value, memory_id = get_variable(subindex)
+    @pila_operandos.push(memory_id)
+    @pila_tipos.push(data_type)
+  else
+    key = "_.#{value}.#{subindex.to_i}".to_sym
+    variable = @symbols[key]
+    @pila_operandos.push(variable[3])
+    @pila_tipos.push(variable[1])
+  end
+end
+
+
+def array1(value, subindex)
+  @pila_operandos.pop
+  @pila_tipos.pop
+  key = "_.#{value}.#{subindex.to_i}".to_sym
+  variable = @symbols[key]
+  puts "#{value}[#{subindex}] :: #{variable[1]}"
+  @pila_operandos.push(variable[3])
+  @pila_tipos.push(variable[1])
+end
+
+
+
+def array1(value, subindex)
+  memoria = @pila_operandos.pop
+  tipo = @pila_tipos.pop
+  if subindex != '0' && subindex.to_i == 0
+    _name, data_type, _value, memory_id = get_variable(subindex)
+    @pila_operandos.push(memory_id)
+    @pila_tipos.push(data_type)
+  else
+    key = "_.#{value}.#{subindex.to_i}".to_sym
+    variable = @symbols[key]
+    @pila_operandos.push(variable[3])
+    @pila_tipos.push(variable[1])
+  end
+end
+
+
 # Functions
 
 class Function
-
   attr_accessor :name, :return_type, :return_memory_id, :index, :parameters
 
   def initialize(name, return_type, index)

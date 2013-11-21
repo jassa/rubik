@@ -2,6 +2,33 @@ require 'spec_helper'
 
 describe Rubik::VM do
 
+  describe 'arrays' do
+    it 'should declare array' do
+      $stdout.should_receive(:print).with(10)
+      program = <<-EOF
+begin
+  int a[5];
+  a[1] = 10;
+  print(a[1]);
+end
+EOF
+      Rubik::VM.new program
+    end
+    it 'should asign array value' do
+      $stdout.should_receive(:print).with(45)
+      program = <<-EOF
+begin
+  int a[3];
+  int j;
+  j = 2;
+  a[j] = 45;
+  print(a[2]);
+end
+EOF
+      Rubik::VM.new program
+    end
+  end
+
   describe 'times statement' do
     it 'runs block n times' do
       $stdout.should_receive(:print).with(5)

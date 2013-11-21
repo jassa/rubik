@@ -131,17 +131,18 @@ variable_declaration_list
 
 variable_declaration
     : declaration_target ('=' expression)?
-        {
-            define_variable($declaration_target.text, @current_var_type)
-        }
+
     ;
 
 declaration_target
-    : variable_name ('[' INT ']')? ('[' INT ']')?
+    : variable_name ('[' INT ']')?         
+    {
+            define_variable($declaration_target.text, @current_var_type, ($INT.nil? ? 1:$INT.text))
+        }
     ;
 
 assignment_statement
-    : ID { assign($ID.text) } '=' { exp2('=') } expression { exp9 } statement_end!
+    : ID ('[' INT ']')? { assign($ID.text,($INT.nil? ? nil:$INT.text)) } '=' { exp2('=') } expression { exp9 } statement_end!
     ;
 
 condition_statement
@@ -230,7 +231,7 @@ primary
     : primitive { exp1(input.look(-1).text,
                     (type = input.look(-1).name) && type.downcase) }
     | functions
-    | arrays
+    | arrays 
     ;
 
 primitive
@@ -242,7 +243,7 @@ primitive
     ;
 
 arrays
-    : variable_name '[' expression ']' ('[' expression ']')?
+    : variable_name '[' expression ']' {array1($variable_name.text, $expression.tex)}
     ;
 
 functions
