@@ -135,7 +135,7 @@ variable_declaration
     ;
 
 declaration_target
-    : variable_name ('[' INT ']')?         
+    : variable_name ('[' INT ']')?
     {
             define_variable($declaration_target.text, @current_var_type, ($INT.nil? ? 1:$INT.text))
         }
@@ -231,7 +231,7 @@ primary
     : primitive { exp1(input.look(-1).text,
                     (type = input.look(-1).name) && type.downcase) }
     | functions
-    | arrays 
+    | arrays
     ;
 
 primitive
@@ -243,7 +243,7 @@ primitive
     ;
 
 arrays
-    : variable_name '[' expression ']' {array1($variable_name.text, $expression.tex)}
+    : variable_name '[' expression ']' { array1($variable_name.text, $expression.text) }
     ;
 
 functions
