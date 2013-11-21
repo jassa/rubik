@@ -212,16 +212,16 @@ EOF
       end
     end
 
-    it 'recursively' do
-      $stdout.should_receive(:print).with(1)
+    pending 'recursively' do
+      $stdout.should_receive(:print).with(120)
       program = <<-EOF
 def int factorial(int a) {
   if (a == 1) return 1;
-  else return a + factorial(a - 1);
+  else return a * factorial(a - 1);
 }
 
 begin
-  print(factorial(4));
+  print(factorial(5));
 end
 EOF
       Rubik::VM.new program

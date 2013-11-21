@@ -113,7 +113,6 @@ def func1(return_type)
   end
 
   function = Function.new(@current_scope, return_type, @saltos)
-  function.memory_id = new_memory_id(return_type) unless function.void?
   @functions[@current_scope.to_sym] = function
 end
 
@@ -126,7 +125,7 @@ def func3(block_text)
   function = @functions[@current_scope.to_sym]
   has_return = !(String(block_text) =~ /return/).nil?
 
-  if function.return_type != 'void' && !has_return
+  if !function.void? && !has_return
     raise "missing return statement for '#{function.return_type}'"
   end
 
@@ -196,9 +195,10 @@ def call_func3
   pushCuadruplo('goSub', function.name, nil, function.index)
 
   if return_type = function.return_type
+    memory_id = new_memory_id(return_type)
     @pila_tipos.push(return_type)
-    @pila_operandos.push(function.memory_id)
-    pushCuadruplo('=', nil, nil, function.memory_id)
+    @pila_operandos.push(memory_id)
+    pushCuadruplo('=', nil, nil, memory_id)
   end
 end
 
