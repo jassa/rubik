@@ -15,6 +15,7 @@ class Cuadruplo
 
 end
 
+#inicializa una nueva dirección de memoria para una nueva variable
 def new_memory_id(data_type)
   cont = instance_variable_get("@cont_#{data_type}")
   memory_id = "#{data_type[0]}:#{cont}"
@@ -22,24 +23,29 @@ def new_memory_id(data_type)
   memory_id
 end
 
+#crea un nuevo objeto cuadruplo, lo agrega a la pila e incrementa el contador de saltos
 def pushCuadruplo(*args)
   q = Cuadruplo.new(*args)
   @quadruples.push(q)
   @saltos += 1
 end
 
+#redirige el primer cuadruplo al main en ejecución
 def goto_main
   pushCuadruplo("goto", nil, nil, nil)
 end
 
+#agrega el end al final del programa
 def statement_end
   pushCuadruplo("end", nil, nil, nil)
 end
 
+#rellena el primer cuadruplo con la casilla donde comienza el programa
 def fill_main
   @quadruples[0].memory_id = @saltos
 end
 
+#Crea la nueva variable y verifica si la variable ya habia sido declarada antes.
 def define_variable(name, type, dimension=1)
   scope = @current_scope
   key = [scope, name].compact.join('.').to_sym
@@ -56,24 +62,29 @@ def define_variable(name, type, dimension=1)
   end
 end
 
+#obtiene una variable de la lista o si no se encuentra regresa error undefined variable.
 def get_variable(name, scope = @current_scope)
   name_with_scope = variable_with_scope(name, scope)
   @symbols[name_with_scope] || @symbols[name.to_sym] or
     raise "undefined variable '#{name}'"
 end
 
+#crea una constante nueva o obtiene la direccion de la constante
 def get_constant(value, data_type)
   @constants[value.to_sym] ||= new_memory_id(data_type)
 end
 
+#verifica si una constante se encuentra declarada
 def constant?(memory_id)
   @constants.has_value?(memory_id)
 end
 
+#se crea una variable de acuerdo al scope.
 def variable_with_scope(name, scope)
   [scope, name].compact.join('.').to_sym
 end
 
+#asigna la direccion de momoria que traera el valor al asignar una variable
 def assign(variable_name, index = nil)
   if index
     array1(variable_name, index)
@@ -90,6 +101,7 @@ end
 
 #arrays
 
+#se obtiene la dirección de memoria para un array previamente declarado dependiendo del subindex
 def array1(variable_name, subindex)
   puts "a1",@pila_operandos.to_s
   index_type = @pila_tipos.pop
@@ -235,6 +247,7 @@ end
 
 # Expressions
 
+#se introduce a pila de operandos la variable y a pila de tipos el tipo de la variable
 def exp1(value, data_type)
   if data_type == "id"
     _name, data_type, _value, memory_id = get_variable(value)
@@ -246,11 +259,12 @@ def exp1(value, data_type)
   @pila_tipos.push(data_type)
 end
 
-# Se usa para el paso 2, 3 y 8
+# Se usa para el paso 2, 3 y 8 introduce el operador a la pila de operadores
 def exp2(operador)
   @pila_operadores.push(operador)
 end
 
+#compara los tipo para determinar si es una operación legal
 def get_result_type(operator, op1_type, op2_type)
   result_type = cubo_semantico[op1_type][op2_type][operator]
 
@@ -264,6 +278,7 @@ def get_result_type(operator, op1_type, op2_type)
   result_type
 end
 
+# se genera el cuadruplo correspondiente a la operación si es que esta fué valida.
 def exp4(operators=['+','-','||'])
   return unless operators.include?(operator = @pila_operadores.last)
 
@@ -284,18 +299,22 @@ def exp4(operators=['+','-','||'])
   pushCuadruplo(operator, op1, op2, memory_id)
 end
 
+# se genera el cuadruplo correspondiente a la operación si es que esta fué valida.
 def exp5
   exp4(['*','/','&&'])
 end
 
+#se introduce fondo falso para prioridad de operaciones
 def exp6
   @pila_operadores.push("(")
 end
 
+#se extrae el fondo falso de la pila de operadores
 def exp7
   @pila_operadores.pop
 end
 
+#se genra el cuadruplo correspondiente dependiendo de la operación o la asignacion
 def exp9(operators=['=', '==', '>', '<', '<=', '>=', '!='])
   return unless operators.include?(operator = @pila_operadores.last)
 
@@ -323,7 +342,7 @@ end
 
 # if
 
-
+#verifica que el valor recibido de la expresion sea booleando y genera el jump en falso.
 def if1
   @check_bool = @pila_tipos.pop
 
@@ -336,6 +355,7 @@ def if1
   end
 end
 
+#se genera el goto en caso de haber sido ser verdadero salta hasta el final del estatuto.
 def if2
   pushCuadruplo("goto",nil, nil, nil)
   jump_to_false = @pila_saltos.pop
@@ -343,6 +363,7 @@ def if2
   @pila_saltos.push(@saltos-1)
 end
 
+#se registra el final del estatuto y se rellenan el salto al cuadruplo correspondiente
 def if3
   @inserta_fin = @pila_saltos.pop
   @quadruples[@inserta_fin].memory_id = @saltos
@@ -350,6 +371,8 @@ end
 
 # times
 
+#se crean cuadruplos de control que en ejecución se van decrementando 
+#para controlar el numero de veces que se realiza el estatuto
 def times1
   check_int = @pila_tipos.pop
   if check_int != "int"
@@ -373,6 +396,7 @@ def times1
   end
 end
 
+#se genera el salto para volver a ejecutar el estatuto
 def times2
   go_false = @pila_saltos.pop
   return_times = @pila_saltos.pop
@@ -382,14 +406,15 @@ def times2
   @quadruples[go_false].memory_id = @saltos
 end
 
-
 # Input/Output
 
+#genera el cuadruplo para la función gets
 def r_gets
   memory_id = new_memory_id('string')
   pushCuadruplo("gets", nil, nil, memory_id)
 end
 
+#genera el cuadruplo para la funcion print
 def r_print
   memory_id = @pila_operandos.pop
   @pila_tipos.pop
@@ -397,6 +422,8 @@ def r_print
 end
 
 #move
+
+#genera el cuadruplo para la funcion move
 def move
   check_int = @pila_tipos.pop
   if check_int != "Integer"
@@ -409,6 +436,7 @@ end
 
 #color
 
+#genera el cuadruplo para la funcion color
 def color
   color = @pila_tipos.pop
   if color != "String"
@@ -420,16 +448,22 @@ def color
 end
 
 #pen_up pen_down
+
+
+#genera el cuadruplo para la funcion pen_up
 def pen_up
   pushCuadruplo("PENUP",'','','')
 end
 
+
+#genera el cuadruplo para la funcion pen_down
 def pen_down
   pushCuadruplo("PENDOWN",'','','')
 end
 
 #draw figures
 
+#genera el cuadruplo para las funciones que dibujan en el canvas
 def draw_circle
   check_int = @pila_tipos.pop
   if check_int != "Integer"
@@ -462,6 +496,8 @@ end
 
 # talk
 
+
+#genera el cuadruplo para la funcion talk
 def talk
   frase = @pila_tipos.pop
   if frase != "String"
@@ -473,33 +509,18 @@ def talk
 end
 
 # Direccion
+
+
+#genera el cuadruplo para la funcion Dir
 def dir
   direccion = @pila_tipos.pop
   if direccion != "String"
-    puts "talk method must recive String values"
+    puts "dir method must recive String values"
   else
     mem = @pila_operandos.pop
     pushCuadruplo("Dir", mem, '','')
   end
 end
-
-
-# return
-#
-#def r_return(func, tabla_procedimientos)
- # for proc in tabla_procedimientos
-  #  if proc.nombre == func
-   #   tipo = proc.retorno
-    #  r_retorno = @pila_tipos.pop
-     # if tipo == r_retorno
-      #  mem = @pila_operadores.pop
-       # cuadruplo = Cuadruplo.new("RETURN", mem, '','')
-        #pushCuadruplo(cuadruplo)
-        #break
-      #else
-       # puts "Function #{func} must return #{tipo} not #{r_retorno}"
-        #exit()
-#end
 
 # modulos
 def verifica_funcion(noexiste, nombre)
