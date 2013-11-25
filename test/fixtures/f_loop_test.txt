@@ -1,3 +1,0 @@
-do times 5} {
-  print("hello");
-}

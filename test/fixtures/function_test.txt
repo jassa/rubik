@@ -1,4 +1,0 @@
-def int foo(int n) {
-    print(n);
-    return 100;
-}
