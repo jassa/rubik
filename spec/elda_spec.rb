@@ -32,12 +32,14 @@ def int fibo(int a) {
   i = 0;
   j = 1;
   cur = 1;
+
   do a times{
-    k =  i;
+    k = i;
     i = j;
-    j = k+i;
+    j = k + i;
     cur = cur + 1;
   }
+
   return i;
 }
 
