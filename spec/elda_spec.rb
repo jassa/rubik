@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe Rubik::VM do
 
-  pending 'calculates the fibonacci sequence'
-
   it 'calculates the factorial of a given number' do
     $stdout.should_receive(:print).with(120)
     program = <<-EOF
