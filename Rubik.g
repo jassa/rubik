@@ -97,7 +97,8 @@ statement_block
 // Statements
 
 statement
-    : variable_statement
+    : robot_statement
+    | variable_statement
     | assignment_statement
     | condition_statement
     | write_statement
@@ -111,6 +112,10 @@ statement_end
     : ';'
     | ( '}' )=>
     | EOF
+    ;
+
+robot_statement
+    : robot statement_end!
     ;
 
 return_statement
@@ -203,15 +208,15 @@ parameters
 
 robot
     : 'change_color' '(' COLOR ')'
-    | 'change_direction' '(' DIR ')'
+    | 'change_direction' '(' DIR ')' { turtle_change_direction($DIR.text) }
     | 'draw_circle' '(' expression ')'
-    | 'draw_square' '(' expression ')'
+    | 'draw_square' '(' expression ')' { turtle_draw_square }
     | 'draw_triangle' '(' expression ')'
-    | 'pen_down' '(' ')'
-    | 'pen_up' '(' ')'
+    | 'pen_down' '(' ')' { turtle_pen_down }
+    | 'pen_up' '(' ')' { turtle_pen_up }
     | 'reset' '(' ')'
-    | 'talk' '(' expression ')'
-    | 'move' '(' expression ')'
+    | 'talk' '(' expression ')' { turtle_talk }
+    | 'move' '(' expression ')' { turtle_move }
     ;
 
 // Words
@@ -280,10 +285,10 @@ COLOR
     ;
 
 DIR
-    : 'rDown'
-    | 'rLeft'
-    | 'rRight'
-    | 'rUp'
+    : 'down'
+    | 'left'
+    | 'right'
+    | 'up'
     ;
 
 FLOAT

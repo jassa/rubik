@@ -1,11 +1,26 @@
-require_relative 'RubikParser.rb'
+require './RubikParser.rb'
+require './demo/turtle.rb'
 
 module Rubik
   class VM
 
     attr_accessor :parser, :quadruples, :constants, :pointer
 
-    def initialize(input_stream)
+    def initialize(app = nil, input_stream)
+      if app.nil?
+        stub = Class.new do
+          def method_missing(*args)
+            # do nothing
+          end
+        end.new
+        @app = @turtle = stub
+      else
+        @app = app
+        drawings = @app.instance_variable_get("@drawings")
+        turtle = @app.instance_variable_get("@turtle")
+        @turtle = Turtle.new(@app, turtle, drawings)
+      end
+
       @parser = Parser.new(input_stream)
 
       process
@@ -21,6 +36,7 @@ module Rubik
     end
 
     def debug
+      puts # start with new line
       @quadruples.each_with_index { |q, i| puts "#{i} #{q.to_a}" }
     end
 
@@ -64,6 +80,7 @@ module Rubik
       when '='
         memory[key] = memory[op1]
       when 'print'
+        @app.alert memory[op1]
         $stdout.print memory[op1]
       when 'gets'
         value = $stdin.gets.chomp
@@ -84,6 +101,14 @@ module Rubik
       when 'goSub'
         @pointers.push(@pointer + 1)
         return @pointer = key
+      when 'change_direction'
+        @turtle.change_direction(memory[op1])
+      when 'draw_square'
+        @turtle.send(operator.to_sym, memory[op1])
+      when 'move'
+        @turtle.move(memory[op1])
+      when 'pen_down', 'pen_up'
+        @turtle.send(operator.to_sym)
       end
 
       @pointer += 1
@@ -100,7 +125,7 @@ module Rubik
       when 'f'
         value.to_f
       when 's'
-        value[1..-2]
+        value[0] == '"' ? value[1..-2] : value
       when 'b'
         eval(value) if value =~ /true|false/
       end

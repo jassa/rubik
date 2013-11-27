@@ -396,18 +396,40 @@ def r_print
   pushCuadruplo("print", memory_id, nil, nil)
 end
 
-#move
-def move
-  check_int = @pila_tipos.pop
-  if check_int != "Integer"
-    puts "Move expression must recive Integer values"
-  else
-    mem = @pila_operandos.pop
-    pushCuadruplo("MOVE", mem, '','')
-  end
+def turtle_change_direction(direction)
+  memory_id = get_constant(direction, 'string')
+  pushCuadruplo('change_direction', memory_id, nil, nil)
 end
 
-#color
+def turtle_move
+  data_type = @pila_tipos.pop
+
+  unless data_type == 'int'
+    raise "wrong data type for turtle movement: expected int, got #{data_type}"
+  end
+
+  memory_id = @pila_operandos.pop
+  pushCuadruplo('move', memory_id, nil, nil)
+end
+
+def turtle_draw_square
+  data_type = @pila_tipos.pop
+
+  unless data_type == 'int'
+    raise "wrong data type for turtle movement: expected int, got #{data_type}"
+  end
+
+  memory_id = @pila_operandos.pop
+  pushCuadruplo('draw_square', memory_id, nil, nil)
+end
+
+def turtle_pen_down
+  pushCuadruplo('pen_down', nil, nil, nil)
+end
+
+def turtle_pen_up
+  pushCuadruplo('pen_up', nil, nil, nil)
+end
 
 def color
   color = @pila_tipos.pop
@@ -419,14 +441,6 @@ def color
   end
 end
 
-#pen_up pen_down
-def pen_up
-  pushCuadruplo("PENUP",'','','')
-end
-
-def pen_down
-  pushCuadruplo("PENDOWN",'','','')
-end
 
 #draw figures
 
@@ -447,16 +461,6 @@ def draw_triangle
   else
     mem = @pila_operandos.pop
     pushCuadruplo("DrawT", mem, '','')
-  end
-end
-
-def draw_square
-  check_int = @pila_tipos.pop
-  if check_int != "Integer"
-    puts "Draw_square method must recive Integer values"
-  else
-    mem = @pila_operandos.pop
-    pushCuadruplo("DrawS", mem, '','')
   end
 end
 
