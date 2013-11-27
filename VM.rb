@@ -106,7 +106,7 @@ module Rubik
         @turtle.send(operator.to_sym, memory[op1])
       when 'draw_rectangle'
         @turtle.draw_rectangle(memory[op1], memory[op2])
-      when 'pen_down', 'pen_up'
+      when 'pen_down', 'pen_up', 'reset'
         @turtle.send(operator.to_sym)
       end
 

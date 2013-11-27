@@ -65,6 +65,11 @@ class Turtle
     end
   end
 
+  def reset
+    @app.reset_canvas
+    @app.instance_variable_set('@commands', [])
+  end
+
   def talk(msg)
     @app.alert(msg)
   end
