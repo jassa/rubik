@@ -9,10 +9,11 @@ module Rubik
       @parser = Parser.new(input_stream)
 
       process
-      debug
 
       generate_memory_from_constants
       generate_memory_from_quadruples
+
+      debug
     end
 
     def memory
@@ -20,7 +21,6 @@ module Rubik
     end
 
     def debug
-      puts @constants
       @quadruples.each_with_index { |q, i| puts "#{i} #{q.to_a}" }
     end
 
@@ -43,15 +43,12 @@ module Rubik
       @pointers = []
       @returns = []
 
-      puts "\n** Evaluation\n\n"
-
       while @pointer < quadruples.size
         evaluate_quadruple(quadruples[pointer])
       end
     end
 
     def evaluate_quadruple(quadruple)
-      puts "#{@pointer} #{quadruple.to_a}"
       operator, op1, op2, key = quadruple.to_a
 
       case operator

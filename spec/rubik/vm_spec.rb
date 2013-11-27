@@ -2,6 +2,22 @@ require 'spec_helper'
 
 describe Rubik::VM do
 
+  it 'declares variables' do
+    [1, 5.0, "hello", false].each do |expected_result|
+      $stdout.should_receive(:print).with(expected_result)
+    end
+
+    program = <<-EOF
+begin
+  int i; float f; string s; boolean b;
+  i = 1; f = 5.0; s = "hello"; b = false;
+
+  print(i . f . s . b);
+end
+EOF
+    Rubik::VM.new program
+  end
+
   describe 'arrays' do
     it 'declares array' do
       $stdout.should_receive(:print).with(10)
@@ -29,7 +45,6 @@ EOF
       Rubik::VM.new program
     end
 
-
     it 'assigns array as array value' do
       $stdout.should_receive(:print).with(35)
       program = <<-EOF
@@ -45,7 +60,7 @@ EOF
       Rubik::VM.new program
     end
 
-    it 'uses expression as index' do
+    it 'uses expressions as index' do
       $stdout.should_receive(:print).with(30)
       program = <<-EOF
 begin
