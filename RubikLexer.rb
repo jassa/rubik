@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.5
 # Ruby runtime library version: 1.10.0
 # Input grammar file: Rubik.g
-# Generated at: 2013-11-27 05:23:06
+# Generated at: 2013-11-27 10:02:02
 #
 
 # ~~~> start load path setup
@@ -65,12 +65,12 @@ module Rubik
   module TokenData
 
     # define the token constants
-    define_tokens( :EOF => -1, :T__59 => 59, :T__60 => 60, :T__61 => 61, 
-                   :AND => 4, :ASGN => 5, :BLOCK => 6, :BOOLEAN => 7, :BREAK => 8, 
-                   :CHANGE_COLOR => 9, :CHANGE_DIR => 10, :COLOR => 11, 
-                   :COMMA => 12, :DEF => 13, :DIR => 14, :DIV => 15, :DO => 16, 
-                   :DOT => 17, :DRAW_CIRCLE => 18, :DRAW_SQUARE => 19, :DRAW_TRIANGLE => 20, 
-                   :ELSE => 21, :EQ => 22, :FLOAT => 23, :GEQ => 24, :GREATER => 25, 
+    define_tokens( :EOF => -1, :T__58 => 58, :T__59 => 59, :AND => 4, :ASGN => 5, 
+                   :BLOCK => 6, :BOOLEAN => 7, :BREAK => 8, :CHANGE_COLOR => 9, 
+                   :CHANGE_DIR => 10, :COLOR => 11, :COMMA => 12, :DEF => 13, 
+                   :DIR => 14, :DIV => 15, :DO => 16, :DOT => 17, :DRAW_CIRCLE => 18, 
+                   :DRAW_RECTANGLE => 19, :DRAW_SQUARE => 20, :ELSE => 21, 
+                   :EQ => 22, :FLOAT => 23, :GEQ => 24, :GREATER => 25, 
                    :ID => 26, :IF => 27, :INT => 28, :LBRACE => 29, :LBRAK => 30, 
                    :LEQ => 31, :LESS => 32, :LPAREN => 33, :MINUS => 34, 
                    :NEG => 35, :NEQ => 36, :NEWLINE => 37, :NULL => 38, 
@@ -78,7 +78,7 @@ module Rubik
                    :RBRACE => 43, :RBRAK => 44, :RPAREN => 45, :R_BEGIN => 46, 
                    :R_END => 47, :R_MOVE => 48, :R_RESET => 49, :R_RETURN => 50, 
                    :SEMI => 51, :STAR => 52, :STRING => 53, :TIMES => 54, 
-                   :TLK => 55, :VAR => 56, :VAR_TYPE => 57, :WS => 58 )
+                   :TLK => 55, :VAR_TYPE => 56, :WS => 57 )
 
   end
 
@@ -95,24 +95,24 @@ module Rubik
 
     RULE_NAMES   = [ "AND", "ASGN", "BREAK", "CHANGE_COLOR", "CHANGE_DIR", 
                      "COMMA", "DEF", "DIV", "DO", "DOT", "DRAW_CIRCLE", 
-                     "DRAW_SQUARE", "DRAW_TRIANGLE", "ELSE", "EQ", "GEQ", 
+                     "DRAW_RECTANGLE", "DRAW_SQUARE", "ELSE", "EQ", "GEQ", 
                      "GREATER", "IF", "LBRACE", "LBRAK", "LEQ", "LESS", 
                      "LPAREN", "MINUS", "NEG", "NEQ", "NULL", "OR", "PEN_DOWN", 
                      "PEN_UP", "PLUS", "RBRACE", "RBRAK", "RPAREN", "R_BEGIN", 
                      "R_END", "R_MOVE", "R_RESET", "R_RETURN", "SEMI", "STAR", 
-                     "TIMES", "TLK", "VAR", "T__59", "T__60", "T__61", "VAR_TYPE", 
-                     "BOOLEAN", "COLOR", "DIR", "FLOAT", "INT", "STRING", 
-                     "ID", "NEWLINE", "WS" ].freeze
+                     "TIMES", "TLK", "T__58", "T__59", "VAR_TYPE", "BOOLEAN", 
+                     "COLOR", "DIR", "FLOAT", "INT", "STRING", "ID", "NEWLINE", 
+                     "WS" ].freeze
     RULE_METHODS = [ :and!, :asgn!, :break!, :change_color!, :change_dir!, 
                      :comma!, :def!, :div!, :do!, :dot!, :draw_circle!, 
-                     :draw_square!, :draw_triangle!, :else!, :eq!, :geq!, 
+                     :draw_rectangle!, :draw_square!, :else!, :eq!, :geq!, 
                      :greater!, :if!, :lbrace!, :lbrak!, :leq!, :less!, 
                      :lparen!, :minus!, :neg!, :neq!, :null!, :or!, :pen_down!, 
                      :pen_up!, :plus!, :rbrace!, :rbrak!, :rparen!, :r_begin!, 
                      :r_end!, :r_move!, :r_reset!, :r_return!, :semi!, :star!, 
-                     :times!, :tlk!, :var!, :t__59!, :t__60!, :t__61!, :var_type!, 
-                     :boolean!, :color!, :dir!, :float!, :int!, :string!, 
-                     :id!, :newline!, :ws! ].freeze
+                     :times!, :tlk!, :t__58!, :t__59!, :var_type!, :boolean!, 
+                     :color!, :dir!, :float!, :int!, :string!, :id!, :newline!, 
+                     :ws! ].freeze
 
     def initialize( input=nil, options = {} )
       super( input, options )
@@ -245,8 +245,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 11:14: 'change_dir'
-      match( "change_dir" )
+      # at line 11:14: 'change_direction'
+      match( "change_direction" )
 
 
 
@@ -424,22 +424,22 @@ module Rubik
 
     end
 
-    # lexer rule draw_square! (DRAW_SQUARE)
+    # lexer rule draw_rectangle! (DRAW_RECTANGLE)
     # (in Rubik.g)
-    def draw_square!
+    def draw_rectangle!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 12 )
 
 
 
-      type = DRAW_SQUARE
+      type = DRAW_RECTANGLE
       channel = ANTLR3::DEFAULT_CHANNEL
     # - - - - label initialization - - - -
 
 
       # - - - - main rule block - - - -
-      # at line 18:15: 'draw_square'
-      match( "draw_square" )
+      # at line 18:18: 'draw_rectangle'
+      match( "draw_rectangle" )
 
 
 
@@ -452,22 +452,22 @@ module Rubik
 
     end
 
-    # lexer rule draw_triangle! (DRAW_TRIANGLE)
+    # lexer rule draw_square! (DRAW_SQUARE)
     # (in Rubik.g)
-    def draw_triangle!
+    def draw_square!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 13 )
 
 
 
-      type = DRAW_TRIANGLE
+      type = DRAW_SQUARE
       channel = ANTLR3::DEFAULT_CHANNEL
     # - - - - label initialization - - - -
 
 
       # - - - - main rule block - - - -
-      # at line 19:17: 'draw_triangle'
-      match( "draw_triangle" )
+      # at line 19:15: 'draw_square'
+      match( "draw_square" )
 
 
 
@@ -1307,22 +1307,22 @@ module Rubik
 
     end
 
-    # lexer rule var! (VAR)
+    # lexer rule t__58! (T__58)
     # (in Rubik.g)
-    def var!
+    def t__58!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 44 )
 
 
 
-      type = VAR
+      type = T__58
       channel = ANTLR3::DEFAULT_CHANNEL
     # - - - - label initialization - - - -
 
 
       # - - - - main rule block - - - -
-      # at line 50:7: 'var'
-      match( "var" )
+      # at line 50:9: 'gets'
+      match( "gets" )
 
 
 
@@ -1349,8 +1349,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 51:9: 'change_direction'
-      match( "change_direction" )
+      # at line 51:9: 'print'
+      match( "print" )
 
 
 
@@ -1363,67 +1363,11 @@ module Rubik
 
     end
 
-    # lexer rule t__60! (T__60)
-    # (in Rubik.g)
-    def t__60!
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 46 )
-
-
-
-      type = T__60
-      channel = ANTLR3::DEFAULT_CHANNEL
-    # - - - - label initialization - - - -
-
-
-      # - - - - main rule block - - - -
-      # at line 52:9: 'gets'
-      match( "gets" )
-
-
-
-      @state.type = type
-      @state.channel = channel
-    ensure
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 46 )
-
-
-    end
-
-    # lexer rule t__61! (T__61)
-    # (in Rubik.g)
-    def t__61!
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 47 )
-
-
-
-      type = T__61
-      channel = ANTLR3::DEFAULT_CHANNEL
-    # - - - - label initialization - - - -
-
-
-      # - - - - main rule block - - - -
-      # at line 53:9: 'print'
-      match( "print" )
-
-
-
-      @state.type = type
-      @state.channel = channel
-    ensure
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 47 )
-
-
-    end
-
     # lexer rule var_type! (VAR_TYPE)
     # (in Rubik.g)
     def var_type!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 48 )
+      # trace_in( __method__, 46 )
 
 
 
@@ -1433,7 +1377,7 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 263:5: ( 'boolean' | 'float' | 'int' | 'string' | 'void' )
+      # at line 262:5: ( 'boolean' | 'float' | 'int' | 'string' | 'void' )
       alt_1 = 5
       case look_1 = @input.peek( 1 )
       when 0x62 then alt_1 = 1
@@ -1447,27 +1391,27 @@ module Rubik
       end
       case alt_1
       when 1
-        # at line 263:7: 'boolean'
+        # at line 262:7: 'boolean'
         match( "boolean" )
 
 
       when 2
-        # at line 264:7: 'float'
+        # at line 263:7: 'float'
         match( "float" )
 
 
       when 3
-        # at line 265:7: 'int'
+        # at line 264:7: 'int'
         match( "int" )
 
 
       when 4
-        # at line 266:7: 'string'
+        # at line 265:7: 'string'
         match( "string" )
 
 
       when 5
-        # at line 267:7: 'void'
+        # at line 266:7: 'void'
         match( "void" )
 
 
@@ -1477,7 +1421,7 @@ module Rubik
       @state.channel = channel
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 48 )
+      # trace_out( __method__, 46 )
 
 
     end
@@ -1486,7 +1430,7 @@ module Rubik
     # (in Rubik.g)
     def boolean!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 49 )
+      # trace_in( __method__, 47 )
 
 
 
@@ -1496,7 +1440,7 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 271:5: ( 'true' | 'false' )
+      # at line 270:5: ( 'true' | 'false' )
       alt_2 = 2
       look_2_0 = @input.peek( 1 )
 
@@ -1510,13 +1454,180 @@ module Rubik
       end
       case alt_2
       when 1
-        # at line 271:7: 'true'
+        # at line 270:7: 'true'
         match( "true" )
 
 
       when 2
-        # at line 272:7: 'false'
+        # at line 271:7: 'false'
         match( "false" )
+
+
+      end
+
+      @state.type = type
+      @state.channel = channel
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 47 )
+
+
+    end
+
+    # lexer rule color! (COLOR)
+    # (in Rubik.g)
+    def color!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 48 )
+
+
+
+      type = COLOR
+      channel = ANTLR3::DEFAULT_CHANNEL
+    # - - - - label initialization - - - -
+
+
+      # - - - - main rule block - - - -
+      # at line 275:5: ( 'black' | 'blue' | 'green' | 'orange' | 'purple' | 'random' | 'white' | 'yellow' | 'red' )
+      alt_3 = 9
+      case look_3 = @input.peek( 1 )
+      when 0x62 then look_3_1 = @input.peek( 2 )
+
+      if ( look_3_1 == 0x6c )
+        look_3_8 = @input.peek( 3 )
+
+        if ( look_3_8 == 0x61 )
+          alt_3 = 1
+        elsif ( look_3_8 == 0x75 )
+          alt_3 = 2
+        else
+          raise NoViableAlternative( "", 3, 8 )
+
+        end
+      else
+        raise NoViableAlternative( "", 3, 1 )
+
+      end
+      when 0x67 then alt_3 = 3
+      when 0x6f then alt_3 = 4
+      when 0x70 then alt_3 = 5
+      when 0x72 then look_3_5 = @input.peek( 2 )
+
+      if ( look_3_5 == 0x61 )
+        alt_3 = 6
+      elsif ( look_3_5 == 0x65 )
+        alt_3 = 9
+      else
+        raise NoViableAlternative( "", 3, 5 )
+
+      end
+      when 0x77 then alt_3 = 7
+      when 0x79 then alt_3 = 8
+      else
+        raise NoViableAlternative( "", 3, 0 )
+
+      end
+      case alt_3
+      when 1
+        # at line 275:7: 'black'
+        match( "black" )
+
+
+      when 2
+        # at line 276:7: 'blue'
+        match( "blue" )
+
+
+      when 3
+        # at line 277:7: 'green'
+        match( "green" )
+
+
+      when 4
+        # at line 278:7: 'orange'
+        match( "orange" )
+
+
+      when 5
+        # at line 279:7: 'purple'
+        match( "purple" )
+
+
+      when 6
+        # at line 280:7: 'random'
+        match( "random" )
+
+
+      when 7
+        # at line 281:7: 'white'
+        match( "white" )
+
+
+      when 8
+        # at line 282:7: 'yellow'
+        match( "yellow" )
+
+
+      when 9
+        # at line 283:7: 'red'
+        match( "red" )
+
+
+      end
+
+      @state.type = type
+      @state.channel = channel
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 48 )
+
+
+    end
+
+    # lexer rule dir! (DIR)
+    # (in Rubik.g)
+    def dir!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 49 )
+
+
+
+      type = DIR
+      channel = ANTLR3::DEFAULT_CHANNEL
+    # - - - - label initialization - - - -
+
+
+      # - - - - main rule block - - - -
+      # at line 287:5: ( 'down' | 'left' | 'right' | 'up' )
+      alt_4 = 4
+      case look_4 = @input.peek( 1 )
+      when 0x64 then alt_4 = 1
+      when 0x6c then alt_4 = 2
+      when 0x72 then alt_4 = 3
+      when 0x75 then alt_4 = 4
+      else
+        raise NoViableAlternative( "", 4, 0 )
+
+      end
+      case alt_4
+      when 1
+        # at line 287:7: 'down'
+        match( "down" )
+
+
+      when 2
+        # at line 288:7: 'left'
+        match( "left" )
+
+
+      when 3
+        # at line 289:7: 'right'
+        match( "right" )
+
+
+      when 4
+        # at line 290:7: 'up'
+        match( "up" )
 
 
       end
@@ -1530,185 +1641,11 @@ module Rubik
 
     end
 
-    # lexer rule color! (COLOR)
-    # (in Rubik.g)
-    def color!
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 50 )
-
-
-
-      type = COLOR
-      channel = ANTLR3::DEFAULT_CHANNEL
-    # - - - - label initialization - - - -
-
-
-      # - - - - main rule block - - - -
-      # at line 276:5: ( 'rBlack' | 'rBlue' | 'rGreen' | 'rOrange' | 'rPurple' | 'rRandom' | 'rWhite' | 'rYellow' | 'rRed' )
-      alt_3 = 9
-      look_3_0 = @input.peek( 1 )
-
-      if ( look_3_0 == 0x72 )
-        case look_3 = @input.peek( 2 )
-        when 0x42 then look_3_2 = @input.peek( 3 )
-
-        if ( look_3_2 == 0x6c )
-          look_3_9 = @input.peek( 4 )
-
-          if ( look_3_9 == 0x61 )
-            alt_3 = 1
-          elsif ( look_3_9 == 0x75 )
-            alt_3 = 2
-          else
-            raise NoViableAlternative( "", 3, 9 )
-
-          end
-        else
-          raise NoViableAlternative( "", 3, 2 )
-
-        end
-        when 0x47 then alt_3 = 3
-        when 0x4f then alt_3 = 4
-        when 0x50 then alt_3 = 5
-        when 0x52 then look_3_6 = @input.peek( 3 )
-
-        if ( look_3_6 == 0x61 )
-          alt_3 = 6
-        elsif ( look_3_6 == 0x65 )
-          alt_3 = 9
-        else
-          raise NoViableAlternative( "", 3, 6 )
-
-        end
-        when 0x57 then alt_3 = 7
-        when 0x59 then alt_3 = 8
-        else
-          raise NoViableAlternative( "", 3, 1 )
-
-        end
-      else
-        raise NoViableAlternative( "", 3, 0 )
-
-      end
-      case alt_3
-      when 1
-        # at line 276:7: 'rBlack'
-        match( "rBlack" )
-
-
-      when 2
-        # at line 277:7: 'rBlue'
-        match( "rBlue" )
-
-
-      when 3
-        # at line 278:7: 'rGreen'
-        match( "rGreen" )
-
-
-      when 4
-        # at line 279:7: 'rOrange'
-        match( "rOrange" )
-
-
-      when 5
-        # at line 280:7: 'rPurple'
-        match( "rPurple" )
-
-
-      when 6
-        # at line 281:7: 'rRandom'
-        match( "rRandom" )
-
-
-      when 7
-        # at line 282:7: 'rWhite'
-        match( "rWhite" )
-
-
-      when 8
-        # at line 283:7: 'rYellow'
-        match( "rYellow" )
-
-
-      when 9
-        # at line 284:7: 'rRed'
-        match( "rRed" )
-
-
-      end
-
-      @state.type = type
-      @state.channel = channel
-    ensure
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 50 )
-
-
-    end
-
-    # lexer rule dir! (DIR)
-    # (in Rubik.g)
-    def dir!
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 51 )
-
-
-
-      type = DIR
-      channel = ANTLR3::DEFAULT_CHANNEL
-    # - - - - label initialization - - - -
-
-
-      # - - - - main rule block - - - -
-      # at line 288:5: ( 'down' | 'left' | 'right' | 'up' )
-      alt_4 = 4
-      case look_4 = @input.peek( 1 )
-      when 0x64 then alt_4 = 1
-      when 0x6c then alt_4 = 2
-      when 0x72 then alt_4 = 3
-      when 0x75 then alt_4 = 4
-      else
-        raise NoViableAlternative( "", 4, 0 )
-
-      end
-      case alt_4
-      when 1
-        # at line 288:7: 'down'
-        match( "down" )
-
-
-      when 2
-        # at line 289:7: 'left'
-        match( "left" )
-
-
-      when 3
-        # at line 290:7: 'right'
-        match( "right" )
-
-
-      when 4
-        # at line 291:7: 'up'
-        match( "up" )
-
-
-      end
-
-      @state.type = type
-      @state.channel = channel
-    ensure
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 51 )
-
-
-    end
-
     # lexer rule float! (FLOAT)
     # (in Rubik.g)
     def float!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 52 )
+      # trace_in( __method__, 50 )
 
 
 
@@ -1718,8 +1655,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 295:7: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
-      # at file 295:7: ( '0' .. '9' )+
+      # at line 294:7: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
+      # at file 294:7: ( '0' .. '9' )+
       match_count_5 = 0
       while true
         alt_5 = 2
@@ -1755,7 +1692,7 @@ module Rubik
 
 
       match( 0x2e )
-      # at file 295:23: ( '0' .. '9' )+
+      # at file 294:23: ( '0' .. '9' )+
       match_count_6 = 0
       while true
         alt_6 = 2
@@ -1796,7 +1733,7 @@ module Rubik
       @state.channel = channel
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 52 )
+      # trace_out( __method__, 50 )
 
 
     end
@@ -1805,7 +1742,7 @@ module Rubik
     # (in Rubik.g)
     def int!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 53 )
+      # trace_in( __method__, 51 )
 
 
 
@@ -1815,8 +1752,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 299:7: ( '0' .. '9' )+
-      # at file 299:7: ( '0' .. '9' )+
+      # at line 298:7: ( '0' .. '9' )+
+      # at file 298:7: ( '0' .. '9' )+
       match_count_7 = 0
       while true
         alt_7 = 2
@@ -1857,7 +1794,7 @@ module Rubik
       @state.channel = channel
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 53 )
+      # trace_out( __method__, 51 )
 
 
     end
@@ -1866,7 +1803,7 @@ module Rubik
     # (in Rubik.g)
     def string!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 54 )
+      # trace_in( __method__, 52 )
 
 
 
@@ -1876,7 +1813,7 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 303:5: ( '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\'' | '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"' )
+      # at line 302:5: ( '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\'' | '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"' )
       alt_10 = 2
       look_10_0 = @input.peek( 1 )
 
@@ -1890,9 +1827,9 @@ module Rubik
       end
       case alt_10
       when 1
-        # at line 303:7: '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\''
+        # at line 302:7: '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\''
         match( 0x27 )
-        # at line 303:12: (~ ( '\\'' | '\\\\' ) | '\\\\' . )*
+        # at line 302:12: (~ ( '\\'' | '\\\\' ) | '\\\\' . )*
         while true # decision 8
           alt_8 = 3
           look_8_0 = @input.peek( 1 )
@@ -1905,8 +1842,48 @@ module Rubik
           end
           case alt_8
           when 1
-            # at line 303:13: ~ ( '\\'' | '\\\\' )
+            # at line 302:13: ~ ( '\\'' | '\\\\' )
             if @input.peek( 1 ).between?( 0x0, 0x26 ) || @input.peek( 1 ).between?( 0x28, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
+              @input.consume
+            else
+              mse = MismatchedSet( nil )
+              recover mse
+              raise mse
+
+            end
+
+
+
+          when 2
+            # at line 302:30: '\\\\' .
+            match( 0x5c )
+            match_any
+
+          else
+            break # out of loop for decision 8
+          end
+        end # loop for decision 8
+
+        match( 0x27 )
+
+      when 2
+        # at line 303:7: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"'
+        match( 0x22 )
+        # at line 303:12: (~ ( '\"' | '\\\\' ) | '\\\\' . )*
+        while true # decision 9
+          alt_9 = 3
+          look_9_0 = @input.peek( 1 )
+
+          if ( look_9_0.between?( 0x0, 0x21 ) || look_9_0.between?( 0x23, 0x5b ) || look_9_0.between?( 0x5d, 0xffff ) )
+            alt_9 = 1
+          elsif ( look_9_0 == 0x5c )
+            alt_9 = 2
+
+          end
+          case alt_9
+          when 1
+            # at line 303:13: ~ ( '\"' | '\\\\' )
+            if @input.peek( 1 ).between?( 0x0, 0x21 ) || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
               @input.consume
             else
               mse = MismatchedSet( nil )
@@ -1923,46 +1900,6 @@ module Rubik
             match_any
 
           else
-            break # out of loop for decision 8
-          end
-        end # loop for decision 8
-
-        match( 0x27 )
-
-      when 2
-        # at line 304:7: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"'
-        match( 0x22 )
-        # at line 304:12: (~ ( '\"' | '\\\\' ) | '\\\\' . )*
-        while true # decision 9
-          alt_9 = 3
-          look_9_0 = @input.peek( 1 )
-
-          if ( look_9_0.between?( 0x0, 0x21 ) || look_9_0.between?( 0x23, 0x5b ) || look_9_0.between?( 0x5d, 0xffff ) )
-            alt_9 = 1
-          elsif ( look_9_0 == 0x5c )
-            alt_9 = 2
-
-          end
-          case alt_9
-          when 1
-            # at line 304:13: ~ ( '\"' | '\\\\' )
-            if @input.peek( 1 ).between?( 0x0, 0x21 ) || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
-              @input.consume
-            else
-              mse = MismatchedSet( nil )
-              recover mse
-              raise mse
-
-            end
-
-
-
-          when 2
-            # at line 304:30: '\\\\' .
-            match( 0x5c )
-            match_any
-
-          else
             break # out of loop for decision 9
           end
         end # loop for decision 9
@@ -1975,7 +1912,7 @@ module Rubik
       @state.channel = channel
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 54 )
+      # trace_out( __method__, 52 )
 
 
     end
@@ -1984,7 +1921,7 @@ module Rubik
     # (in Rubik.g)
     def id!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 55 )
+      # trace_in( __method__, 53 )
 
 
 
@@ -1994,7 +1931,7 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 308:7: ( '_' | 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+      # at line 307:7: ( '_' | 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
       if @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
         @input.consume
       else
@@ -2005,7 +1942,7 @@ module Rubik
       end
 
 
-      # at line 308:35: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+      # at line 307:35: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
       while true # decision 11
         alt_11 = 2
         look_11_0 = @input.peek( 1 )
@@ -2039,7 +1976,7 @@ module Rubik
       @state.channel = channel
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 55 )
+      # trace_out( __method__, 53 )
 
 
     end
@@ -2048,7 +1985,7 @@ module Rubik
     # (in Rubik.g)
     def newline!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 56 )
+      # trace_in( __method__, 54 )
 
 
 
@@ -2058,8 +1995,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 312:7: ( '\\n' | '\\r' )+
-      # at file 312:7: ( '\\n' | '\\r' )+
+      # at line 311:7: ( '\\n' | '\\r' )+
+      # at file 311:7: ( '\\n' | '\\r' )+
       match_count_12 = 0
       while true
         alt_12 = 2
@@ -2105,7 +2042,7 @@ module Rubik
       @state.channel = channel
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 56 )
+      # trace_out( __method__, 54 )
 
 
     end
@@ -2114,7 +2051,7 @@ module Rubik
     # (in Rubik.g)
     def ws!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 57 )
+      # trace_in( __method__, 55 )
 
 
 
@@ -2124,8 +2061,8 @@ module Rubik
 
 
       # - - - - main rule block - - - -
-      # at line 316:7: ( '\\t' | '\\f' | ' ' | '\\u00A0' )+
-      # at file 316:7: ( '\\t' | '\\f' | ' ' | '\\u00A0' )+
+      # at line 315:7: ( '\\t' | '\\f' | ' ' | '\\u00A0' )+
+      # at file 315:7: ( '\\t' | '\\f' | ' ' | '\\u00A0' )+
       match_count_13 = 0
       while true
         alt_13 = 2
@@ -2171,7 +2108,7 @@ module Rubik
       @state.channel = channel
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 57 )
+      # trace_out( __method__, 55 )
 
 
     end
@@ -2184,8 +2121,8 @@ module Rubik
     # but instead use the next_token method, which will
     # build and emit the actual next token
     def token!
-      # at line 1:8: ( AND | ASGN | BREAK | CHANGE_COLOR | CHANGE_DIR | COMMA | DEF | DIV | DO | DOT | DRAW_CIRCLE | DRAW_SQUARE | DRAW_TRIANGLE | ELSE | EQ | GEQ | GREATER | IF | LBRACE | LBRAK | LEQ | LESS | LPAREN | MINUS | NEG | NEQ | NULL | OR | PEN_DOWN | PEN_UP | PLUS | RBRACE | RBRAK | RPAREN | R_BEGIN | R_END | R_MOVE | R_RESET | R_RETURN | SEMI | STAR | TIMES | TLK | VAR | T__59 | T__60 | T__61 | VAR_TYPE | BOOLEAN | COLOR | DIR | FLOAT | INT | STRING | ID | NEWLINE | WS )
-      alt_14 = 57
+      # at line 1:8: ( AND | ASGN | BREAK | CHANGE_COLOR | CHANGE_DIR | COMMA | DEF | DIV | DO | DOT | DRAW_CIRCLE | DRAW_RECTANGLE | DRAW_SQUARE | ELSE | EQ | GEQ | GREATER | IF | LBRACE | LBRAK | LEQ | LESS | LPAREN | MINUS | NEG | NEQ | NULL | OR | PEN_DOWN | PEN_UP | PLUS | RBRACE | RBRAK | RPAREN | R_BEGIN | R_END | R_MOVE | R_RESET | R_RETURN | SEMI | STAR | TIMES | TLK | T__58 | T__59 | VAR_TYPE | BOOLEAN | COLOR | DIR | FLOAT | INT | STRING | ID | NEWLINE | WS )
+      alt_14 = 55
       alt_14 = @dfa14.predict( @input )
       case alt_14
       when 1
@@ -2244,232 +2181,222 @@ module Rubik
 
 
       when 12
-        # at line 1:82: DRAW_SQUARE
-        draw_square!
+        # at line 1:82: DRAW_RECTANGLE
+        draw_rectangle!
 
 
       when 13
-        # at line 1:94: DRAW_TRIANGLE
-        draw_triangle!
+        # at line 1:97: DRAW_SQUARE
+        draw_square!
 
 
       when 14
-        # at line 1:108: ELSE
+        # at line 1:109: ELSE
         else!
 
 
       when 15
-        # at line 1:113: EQ
+        # at line 1:114: EQ
         eq!
 
 
       when 16
-        # at line 1:116: GEQ
+        # at line 1:117: GEQ
         geq!
 
 
       when 17
-        # at line 1:120: GREATER
+        # at line 1:121: GREATER
         greater!
 
 
       when 18
-        # at line 1:128: IF
+        # at line 1:129: IF
         if!
 
 
       when 19
-        # at line 1:131: LBRACE
+        # at line 1:132: LBRACE
         lbrace!
 
 
       when 20
-        # at line 1:138: LBRAK
+        # at line 1:139: LBRAK
         lbrak!
 
 
       when 21
-        # at line 1:144: LEQ
+        # at line 1:145: LEQ
         leq!
 
 
       when 22
-        # at line 1:148: LESS
+        # at line 1:149: LESS
         less!
 
 
       when 23
-        # at line 1:153: LPAREN
+        # at line 1:154: LPAREN
         lparen!
 
 
       when 24
-        # at line 1:160: MINUS
+        # at line 1:161: MINUS
         minus!
 
 
       when 25
-        # at line 1:166: NEG
+        # at line 1:167: NEG
         neg!
 
 
       when 26
-        # at line 1:170: NEQ
+        # at line 1:171: NEQ
         neq!
 
 
       when 27
-        # at line 1:174: NULL
+        # at line 1:175: NULL
         null!
 
 
       when 28
-        # at line 1:179: OR
+        # at line 1:180: OR
         or!
 
 
       when 29
-        # at line 1:182: PEN_DOWN
+        # at line 1:183: PEN_DOWN
         pen_down!
 
 
       when 30
-        # at line 1:191: PEN_UP
+        # at line 1:192: PEN_UP
         pen_up!
 
 
       when 31
-        # at line 1:198: PLUS
+        # at line 1:199: PLUS
         plus!
 
 
       when 32
-        # at line 1:203: RBRACE
+        # at line 1:204: RBRACE
         rbrace!
 
 
       when 33
-        # at line 1:210: RBRAK
+        # at line 1:211: RBRAK
         rbrak!
 
 
       when 34
-        # at line 1:216: RPAREN
+        # at line 1:217: RPAREN
         rparen!
 
 
       when 35
-        # at line 1:223: R_BEGIN
+        # at line 1:224: R_BEGIN
         r_begin!
 
 
       when 36
-        # at line 1:231: R_END
+        # at line 1:232: R_END
         r_end!
 
 
       when 37
-        # at line 1:237: R_MOVE
+        # at line 1:238: R_MOVE
         r_move!
 
 
       when 38
-        # at line 1:244: R_RESET
+        # at line 1:245: R_RESET
         r_reset!
 
 
       when 39
-        # at line 1:252: R_RETURN
+        # at line 1:253: R_RETURN
         r_return!
 
 
       when 40
-        # at line 1:261: SEMI
+        # at line 1:262: SEMI
         semi!
 
 
       when 41
-        # at line 1:266: STAR
+        # at line 1:267: STAR
         star!
 
 
       when 42
-        # at line 1:271: TIMES
+        # at line 1:272: TIMES
         times!
 
 
       when 43
-        # at line 1:277: TLK
+        # at line 1:278: TLK
         tlk!
 
 
       when 44
-        # at line 1:281: VAR
-        var!
+        # at line 1:282: T__58
+        t__58!
 
 
       when 45
-        # at line 1:285: T__59
+        # at line 1:288: T__59
         t__59!
 
 
       when 46
-        # at line 1:291: T__60
-        t__60!
-
-
-      when 47
-        # at line 1:297: T__61
-        t__61!
-
-
-      when 48
-        # at line 1:303: VAR_TYPE
+        # at line 1:294: VAR_TYPE
         var_type!
 
 
-      when 49
-        # at line 1:312: BOOLEAN
+      when 47
+        # at line 1:303: BOOLEAN
         boolean!
 
 
-      when 50
-        # at line 1:320: COLOR
+      when 48
+        # at line 1:311: COLOR
         color!
 
 
-      when 51
-        # at line 1:326: DIR
+      when 49
+        # at line 1:317: DIR
         dir!
 
 
-      when 52
-        # at line 1:330: FLOAT
+      when 50
+        # at line 1:321: FLOAT
         float!
 
 
-      when 53
-        # at line 1:336: INT
+      when 51
+        # at line 1:327: INT
         int!
 
 
-      when 54
-        # at line 1:340: STRING
+      when 52
+        # at line 1:331: STRING
         string!
 
 
-      when 55
-        # at line 1:347: ID
+      when 53
+        # at line 1:338: ID
         id!
 
 
-      when 56
-        # at line 1:350: NEWLINE
+      when 54
+        # at line 1:341: NEWLINE
         newline!
 
 
-      when 57
-        # at line 1:358: WS
+      when 55
+        # at line 1:349: WS
         ws!
 
 
@@ -2479,180 +2406,177 @@ module Rubik
 
     # - - - - - - - - - - DFA definitions - - - - - - - - - - -
     class DFA14 < ANTLR3::DFA
-      EOT = unpack( 2, -1, 1, 42, 2, 38, 1, -1, 1, 38, 2, -1, 1, 38, 1, 
-                    53, 1, 38, 2, -1, 1, 57, 2, -1, 1, 59, 1, 38, 1, -1, 
-                    1, 38, 4, -1, 2, 38, 2, -1, 7, 38, 1, 85, 6, -1, 5, 
-                    38, 1, 92, 3, 38, 2, -1, 1, 96, 1, 38, 4, -1, 23, 38, 
-                    1, 123, 2, -1, 4, 38, 1, 128, 1, 38, 1, -1, 2, 38, 1, 
-                    132, 1, -1, 1, 133, 18, 38, 1, 153, 6, 38, 1, -1, 4, 
-                    38, 1, -1, 1, 123, 1, 38, 1, 165, 2, -1, 1, 166, 2, 
-                    38, 1, 170, 8, 38, 1, 179, 4, 38, 1, 184, 1, 185, 1, 
-                    -1, 1, 133, 1, 186, 3, 38, 1, 123, 1, 190, 1, 191, 3, 
-                    38, 2, -1, 2, 38, 1, 199, 1, -1, 1, 200, 2, 38, 1, 179, 
-                    4, 38, 1, -1, 2, 38, 1, 123, 1, 209, 3, -1, 1, 133, 
-                    1, 185, 1, 38, 2, -1, 6, 38, 1, 217, 2, -1, 1, 218, 
-                    2, 179, 3, 38, 1, 179, 1, 38, 1, -1, 2, 133, 5, 38, 
-                    2, -1, 4, 179, 5, 38, 1, 234, 5, 38, 1, -1, 1, 38, 1, 
-                    242, 5, 38, 1, -1, 1, 248, 1, 249, 1, 38, 1, 251, 1, 
-                    38, 2, -1, 1, 38, 1, -1, 1, 38, 1, 255, 1, 38, 1, -1, 
-                    1, 38, 1, 258, 1, -1 )
-      EOF = unpack( 259, -1 )
+      EOT = unpack( 2, -1, 1, 45, 2, 41, 1, -1, 1, 41, 2, -1, 1, 41, 1, 
+                    57, 1, 41, 2, -1, 1, 61, 2, -1, 1, 63, 1, 41, 1, -1, 
+                    1, 41, 4, -1, 2, 41, 2, -1, 10, 41, 1, 87, 6, -1, 6, 
+                    41, 1, 96, 3, 41, 2, -1, 1, 100, 1, 41, 4, -1, 21, 41, 
+                    1, 125, 2, -1, 6, 41, 1, 132, 1, 41, 1, -1, 2, 41, 1, 
+                    136, 1, -1, 1, 137, 7, 41, 1, 145, 15, 41, 1, -1, 4, 
+                    41, 1, 145, 1, 41, 1, -1, 1, 125, 1, 41, 1, 167, 2, 
+                    -1, 1, 168, 3, 41, 1, 173, 2, 41, 1, -1, 3, 41, 1, 179, 
+                    1, 180, 1, 181, 4, 41, 1, 137, 3, 41, 1, 125, 1, 189, 
+                    1, 190, 1, 41, 1, 145, 2, 41, 2, -1, 2, 41, 1, 198, 
+                    1, 41, 1, -1, 1, 200, 2, 41, 1, 125, 1, 203, 3, -1, 
+                    1, 145, 1, 137, 1, 180, 2, 41, 1, 145, 1, 41, 2, -1, 
+                    6, 41, 1, 213, 1, -1, 1, 145, 1, -1, 1, 214, 1, 145, 
+                    1, -1, 1, 137, 2, 145, 1, 137, 5, 41, 2, -1, 5, 41, 
+                    1, 226, 5, 41, 1, -1, 7, 41, 1, 239, 1, 41, 1, 241, 
+                    1, 242, 1, 41, 1, -1, 1, 41, 2, -1, 3, 41, 1, 248, 1, 
+                    41, 1, -1, 1, 250, 1, -1 )
+      EOF = unpack( 251, -1 )
       MIN = unpack( 1, 9, 1, -1, 1, 61, 1, 101, 1, 104, 1, -1, 1, 101, 2, 
                     -1, 1, 108, 1, 61, 1, 102, 2, -1, 1, 61, 2, -1, 1, 61, 
-                    1, 117, 1, -1, 1, 101, 4, -1, 1, 111, 1, 66, 2, -1, 
-                    2, 97, 1, 101, 1, 97, 1, 116, 1, 101, 1, 112, 1, 46, 
-                    6, -1, 1, 101, 1, 103, 1, 111, 1, 97, 1, 102, 1, 48, 
-                    1, 97, 1, 115, 1, 100, 2, -1, 1, 48, 1, 116, 4, -1, 
-                    1, 108, 1, 110, 1, 105, 1, 118, 1, 115, 1, 108, 2, 114, 
-                    1, 117, 1, 97, 1, 104, 1, 101, 1, 103, 1, 109, 1, 108, 
-                    1, 117, 1, 114, 1, 105, 1, 116, 1, 111, 1, 108, 1, 114, 
-                    1, 102, 1, 48, 2, -1, 1, 97, 1, 105, 1, 108, 1, 110, 
-                    1, 48, 1, 110, 1, -1, 1, 119, 1, 101, 1, 48, 1, -1, 
-                    1, 48, 1, 108, 1, 95, 1, 110, 2, 101, 1, 117, 1, 97, 
-                    1, 101, 1, 97, 1, 114, 1, 110, 1, 100, 1, 105, 1, 108, 
-                    1, 104, 1, 101, 1, 107, 1, 101, 1, 48, 1, 100, 1, 115, 
-                    1, 97, 1, 115, 1, 105, 1, 116, 1, -1, 1, 107, 1, 110, 
-                    1, 101, 1, 103, 1, -1, 1, 48, 1, 95, 1, 48, 2, -1, 1, 
-                    48, 1, 100, 1, 116, 1, 48, 1, 116, 1, 114, 1, 99, 2, 
-                    101, 1, 110, 1, 112, 1, 100, 1, 48, 1, 116, 1, 108, 
-                    1, 116, 1, 115, 2, 48, 1, -1, 2, 48, 1, 116, 1, 101, 
-                    1, 110, 3, 48, 1, 97, 1, 101, 1, 99, 2, -1, 1, 111, 
-                    1, 112, 1, 48, 1, -1, 1, 48, 1, 110, 1, 107, 1, 48, 
-                    1, 110, 1, 103, 1, 108, 1, 111, 1, -1, 1, 101, 1, 111, 
-                    2, 48, 3, -1, 2, 48, 1, 103, 2, -1, 1, 110, 1, 95, 1, 
-                    105, 1, 113, 1, 114, 1, 119, 1, 48, 2, -1, 3, 48, 2, 
-                    101, 1, 109, 1, 48, 1, 119, 1, -1, 2, 48, 1, 99, 1, 
-                    114, 1, 117, 1, 105, 1, 110, 2, -1, 4, 48, 1, 111, 1, 
-                    105, 1, 99, 2, 97, 1, 48, 1, 108, 1, 114, 1, 108, 1, 
-                    114, 1, 110, 1, -1, 1, 111, 1, 48, 2, 101, 1, 103, 1, 
-                    114, 1, 99, 1, -1, 2, 48, 1, 108, 1, 48, 1, 116, 2, 
-                    -1, 1, 101, 1, -1, 1, 105, 1, 48, 1, 111, 1, -1, 1, 
-                    110, 1, 48, 1, -1 )
+                    1, 117, 1, -1, 1, 101, 4, -1, 1, 111, 1, 97, 2, -1, 
+                    1, 97, 1, 101, 1, 97, 1, 116, 1, 111, 1, 114, 1, 104, 
+                    2, 101, 1, 112, 1, 46, 6, -1, 1, 101, 1, 103, 1, 111, 
+                    2, 97, 1, 102, 1, 48, 1, 97, 1, 115, 1, 100, 2, -1, 
+                    1, 48, 1, 116, 4, -1, 1, 108, 1, 110, 1, 105, 1, 114, 
+                    1, 118, 1, 100, 1, 110, 1, 103, 1, 109, 1, 108, 1, 117, 
+                    1, 116, 1, 101, 1, 111, 1, 108, 1, 114, 1, 105, 1, 97, 
+                    1, 105, 1, 108, 1, 102, 1, 48, 2, -1, 1, 97, 1, 105, 
+                    1, 108, 1, 99, 1, 101, 1, 110, 1, 48, 1, 110, 1, -1, 
+                    1, 119, 1, 101, 1, 48, 1, -1, 1, 48, 1, 108, 1, 95, 
+                    1, 110, 1, 112, 2, 101, 1, 117, 1, 48, 1, 100, 1, 104, 
+                    1, 101, 1, 107, 1, 101, 1, 115, 1, 101, 1, 97, 1, 115, 
+                    1, 105, 1, 100, 1, 110, 1, 116, 1, 108, 1, 116, 1, -1, 
+                    1, 107, 1, 110, 1, 101, 1, 107, 1, 48, 1, 103, 1, -1, 
+                    1, 48, 1, 95, 1, 48, 2, -1, 1, 48, 1, 100, 1, 116, 1, 
+                    108, 1, 48, 1, 116, 1, 114, 1, -1, 1, 111, 1, 116, 1, 
+                    115, 3, 48, 1, 110, 1, 116, 1, 101, 1, 110, 1, 48, 1, 
+                    103, 1, 101, 1, 111, 3, 48, 1, 97, 1, 48, 1, 101, 1, 
+                    99, 2, -1, 1, 111, 1, 112, 1, 48, 1, 101, 1, -1, 1, 
+                    48, 1, 110, 1, 109, 2, 48, 3, -1, 3, 48, 1, 103, 1, 
+                    101, 1, 48, 1, 119, 2, -1, 1, 110, 1, 95, 1, 105, 1, 
+                    101, 1, 113, 1, 119, 1, 48, 1, -1, 1, 48, 1, -1, 2, 
+                    48, 1, -1, 4, 48, 1, 99, 1, 114, 1, 99, 1, 117, 1, 110, 
+                    2, -1, 1, 111, 1, 105, 1, 99, 1, 116, 1, 97, 1, 48, 
+                    1, 108, 1, 114, 1, 108, 1, 97, 1, 114, 1, -1, 1, 111, 
+                    2, 101, 1, 110, 1, 101, 1, 114, 1, 99, 1, 48, 1, 103, 
+                    2, 48, 1, 116, 1, -1, 1, 108, 2, -1, 1, 105, 1, 101, 
+                    1, 111, 1, 48, 1, 110, 1, -1, 1, 48, 1, -1 )
       MAX = unpack( 1, 160, 1, -1, 1, 61, 1, 114, 1, 104, 1, -1, 1, 114, 
                     2, -1, 1, 110, 1, 61, 1, 110, 2, -1, 1, 61, 2, -1, 1, 
-                    61, 1, 117, 1, -1, 1, 114, 4, -1, 1, 111, 1, 105, 2, 
-                    -1, 1, 114, 1, 111, 1, 101, 1, 108, 1, 116, 1, 101, 
-                    1, 112, 1, 57, 6, -1, 1, 101, 1, 103, 1, 111, 1, 97, 
-                    1, 102, 1, 122, 1, 97, 1, 115, 1, 100, 2, -1, 1, 122, 
-                    1, 116, 4, -1, 1, 108, 1, 110, 1, 105, 1, 118, 1, 116, 
-                    1, 108, 2, 114, 1, 117, 1, 101, 1, 104, 1, 101, 1, 103, 
-                    1, 109, 1, 108, 1, 117, 1, 114, 1, 105, 1, 116, 1, 111, 
-                    1, 108, 1, 114, 1, 102, 1, 122, 2, -1, 1, 97, 1, 105, 
-                    1, 108, 1, 110, 1, 122, 1, 110, 1, -1, 1, 119, 1, 101, 
-                    1, 122, 1, -1, 1, 122, 1, 108, 1, 95, 1, 110, 2, 101, 
-                    2, 117, 1, 101, 1, 97, 1, 114, 1, 110, 1, 100, 1, 105, 
-                    1, 108, 1, 104, 1, 101, 1, 107, 1, 101, 1, 122, 1, 100, 
-                    1, 115, 1, 97, 1, 115, 1, 105, 1, 116, 1, -1, 1, 107, 
-                    1, 110, 1, 101, 1, 103, 1, -1, 1, 122, 1, 95, 1, 122, 
-                    2, -1, 1, 122, 1, 117, 1, 116, 1, 122, 1, 116, 1, 114, 
-                    1, 99, 2, 101, 1, 110, 1, 112, 1, 100, 1, 122, 1, 116, 
-                    1, 108, 1, 116, 1, 115, 2, 122, 1, -1, 2, 122, 1, 116, 
-                    1, 101, 1, 110, 3, 122, 1, 97, 1, 101, 1, 116, 2, -1, 
-                    1, 111, 1, 112, 1, 122, 1, -1, 1, 122, 1, 110, 1, 107, 
-                    1, 122, 1, 110, 1, 103, 1, 108, 1, 111, 1, -1, 1, 101, 
-                    1, 111, 2, 122, 3, -1, 2, 122, 1, 103, 2, -1, 1, 110, 
-                    1, 95, 1, 105, 1, 113, 1, 114, 1, 119, 1, 122, 2, -1, 
-                    3, 122, 2, 101, 1, 109, 1, 122, 1, 119, 1, -1, 2, 122, 
-                    1, 100, 1, 114, 1, 117, 1, 105, 1, 110, 2, -1, 4, 122, 
-                    1, 111, 1, 105, 1, 99, 2, 97, 1, 122, 1, 108, 1, 114, 
-                    1, 108, 1, 114, 1, 110, 1, -1, 1, 111, 1, 122, 2, 101, 
-                    1, 103, 1, 114, 1, 99, 1, -1, 2, 122, 1, 108, 1, 122, 
-                    1, 116, 2, -1, 1, 101, 1, -1, 1, 105, 1, 122, 1, 111, 
-                    1, -1, 1, 110, 1, 122, 1, -1 )
+                    61, 1, 117, 1, -1, 1, 117, 4, -1, 1, 111, 1, 105, 2, 
+                    -1, 2, 114, 1, 108, 1, 116, 1, 111, 1, 114, 1, 104, 
+                    2, 101, 1, 112, 1, 57, 6, -1, 1, 101, 1, 103, 1, 111, 
+                    1, 117, 1, 97, 1, 102, 1, 122, 1, 97, 1, 115, 1, 100, 
+                    2, -1, 1, 122, 1, 116, 4, -1, 1, 108, 1, 110, 1, 105, 
+                    1, 114, 1, 118, 1, 116, 1, 110, 1, 103, 1, 109, 1, 108, 
+                    1, 117, 1, 116, 1, 101, 1, 111, 1, 108, 1, 114, 1, 105, 
+                    1, 97, 1, 105, 1, 108, 1, 102, 1, 122, 2, -1, 1, 97, 
+                    1, 105, 1, 108, 1, 99, 1, 101, 1, 110, 1, 122, 1, 110, 
+                    1, -1, 1, 119, 1, 101, 1, 122, 1, -1, 1, 122, 1, 108, 
+                    1, 95, 1, 110, 1, 112, 2, 101, 1, 117, 1, 122, 1, 100, 
+                    1, 104, 1, 101, 1, 107, 1, 101, 1, 115, 1, 101, 1, 97, 
+                    1, 115, 1, 105, 1, 100, 1, 110, 1, 116, 1, 108, 1, 116, 
+                    1, -1, 1, 107, 1, 110, 1, 101, 1, 107, 1, 122, 1, 103, 
+                    1, -1, 1, 122, 1, 95, 1, 122, 2, -1, 1, 122, 1, 117, 
+                    1, 116, 1, 108, 1, 122, 1, 116, 1, 114, 1, -1, 1, 111, 
+                    1, 116, 1, 115, 3, 122, 1, 110, 1, 116, 1, 101, 1, 110, 
+                    1, 122, 1, 103, 1, 101, 1, 111, 3, 122, 1, 97, 1, 122, 
+                    1, 101, 1, 115, 2, -1, 1, 111, 1, 112, 1, 122, 1, 101, 
+                    1, -1, 1, 122, 1, 110, 1, 109, 2, 122, 3, -1, 3, 122, 
+                    1, 103, 1, 101, 1, 122, 1, 119, 2, -1, 1, 110, 1, 95, 
+                    1, 105, 1, 101, 1, 113, 1, 119, 1, 122, 1, -1, 1, 122, 
+                    1, -1, 2, 122, 1, -1, 4, 122, 1, 100, 1, 114, 1, 99, 
+                    1, 117, 1, 110, 2, -1, 1, 111, 1, 105, 1, 99, 1, 116, 
+                    1, 97, 1, 122, 1, 108, 1, 114, 1, 108, 1, 97, 1, 114, 
+                    1, -1, 1, 111, 2, 101, 1, 110, 1, 101, 1, 114, 1, 99, 
+                    1, 122, 1, 103, 2, 122, 1, 116, 1, -1, 1, 108, 2, -1, 
+                    1, 105, 1, 101, 1, 111, 1, 122, 1, 110, 1, -1, 1, 122, 
+                    1, -1 )
       ACCEPT = unpack( 1, -1, 1, 1, 3, -1, 1, 6, 1, -1, 1, 8, 1, 10, 3, 
                        -1, 1, 19, 1, 20, 1, -1, 1, 23, 1, 24, 2, -1, 1, 
                        28, 1, -1, 1, 31, 1, 32, 1, 33, 1, 34, 2, -1, 1, 
-                       40, 1, 41, 8, -1, 1, 54, 1, 55, 1, 56, 1, 57, 1, 
-                       15, 1, 2, 9, -1, 1, 16, 1, 17, 2, -1, 1, 21, 1, 22, 
-                       1, 26, 1, 25, 24, -1, 1, 52, 1, 53, 6, -1, 1, 9, 
-                       3, -1, 1, 18, 26, -1, 1, 51, 4, -1, 1, 7, 3, -1, 
-                       1, 36, 1, 48, 19, -1, 1, 44, 11, -1, 1, 14, 1, 27, 
-                       3, -1, 1, 37, 8, -1, 1, 50, 4, -1, 1, 43, 1, 49, 
-                       1, 46, 3, -1, 1, 3, 1, 35, 7, -1, 1, 47, 1, 38, 8, 
-                       -1, 1, 42, 7, -1, 1, 30, 1, 39, 15, -1, 1, 29, 7, 
-                       -1, 1, 5, 5, -1, 1, 11, 1, 12, 1, -1, 1, 4, 3, -1, 
-                       1, 13, 2, -1, 1, 45 )
-      SPECIAL = unpack( 259, -1 )
+                       40, 1, 41, 11, -1, 1, 52, 1, 53, 1, 54, 1, 55, 1, 
+                       15, 1, 2, 10, -1, 1, 16, 1, 17, 2, -1, 1, 21, 1, 
+                       22, 1, 26, 1, 25, 22, -1, 1, 50, 1, 51, 8, -1, 1, 
+                       9, 3, -1, 1, 18, 24, -1, 1, 49, 6, -1, 1, 7, 3, -1, 
+                       1, 36, 1, 46, 7, -1, 1, 48, 21, -1, 1, 14, 1, 27, 
+                       4, -1, 1, 37, 5, -1, 1, 43, 1, 47, 1, 44, 7, -1, 
+                       1, 3, 1, 35, 7, -1, 1, 45, 1, -1, 1, 38, 2, -1, 1, 
+                       42, 9, -1, 1, 30, 1, 39, 11, -1, 1, 29, 12, -1, 1, 
+                       11, 1, -1, 1, 13, 1, 4, 5, -1, 1, 12, 1, -1, 1, 5 )
+      SPECIAL = unpack( 251, -1 )
       TRANSITION = [
-        unpack( 1, 40, 1, 39, 1, -1, 1, 40, 1, 39, 18, -1, 1, 40, 1, 17, 
-                1, 37, 3, -1, 1, 1, 1, 37, 1, 15, 1, 24, 1, 28, 1, 21, 1, 
-                5, 1, 16, 1, 8, 1, 7, 10, 36, 1, -1, 1, 27, 1, 14, 1, 2, 
-                1, 10, 2, -1, 26, 38, 1, 13, 1, -1, 1, 23, 1, -1, 1, 38, 
-                1, -1, 1, 38, 1, 3, 1, 4, 1, 6, 1, 9, 1, 32, 1, 31, 1, 38, 
-                1, 11, 2, 38, 1, 34, 1, 25, 1, 18, 1, 38, 1, 20, 1, 38, 
-                1, 26, 1, 33, 1, 29, 1, 35, 1, 30, 4, 38, 1, 12, 1, 19, 
-                1, 22, 34, -1, 1, 40 ),
+        unpack( 1, 43, 1, 42, 1, -1, 1, 43, 1, 42, 18, -1, 1, 43, 1, 17, 
+                1, 40, 3, -1, 1, 1, 1, 40, 1, 15, 1, 24, 1, 28, 1, 21, 1, 
+                5, 1, 16, 1, 8, 1, 7, 10, 39, 1, -1, 1, 27, 1, 14, 1, 2, 
+                1, 10, 2, -1, 26, 41, 1, 13, 1, -1, 1, 23, 1, -1, 1, 41, 
+                1, -1, 1, 41, 1, 3, 1, 4, 1, 6, 1, 9, 1, 31, 1, 30, 1, 41, 
+                1, 11, 2, 41, 1, 37, 1, 25, 1, 18, 1, 34, 1, 20, 1, 41, 
+                1, 26, 1, 32, 1, 29, 1, 38, 1, 33, 1, 35, 1, 41, 1, 36, 
+                1, 41, 1, 12, 1, 19, 1, 22, 34, -1, 1, 43 ),
         unpack(  ),
-        unpack( 1, 41 ),
-        unpack( 1, 44, 9, -1, 1, 45, 2, -1, 1, 43 ),
-        unpack( 1, 46 ),
+        unpack( 1, 44 ),
+        unpack( 1, 47, 6, -1, 1, 49, 2, -1, 1, 48, 2, -1, 1, 46 ),
+        unpack( 1, 50 ),
         unpack(  ),
-        unpack( 1, 47, 9, -1, 1, 48, 2, -1, 1, 49 ),
-        unpack(  ),
-        unpack(  ),
-        unpack( 1, 50, 1, -1, 1, 51 ),
-        unpack( 1, 52 ),
-        unpack( 1, 54, 7, -1, 1, 55 ),
+        unpack( 1, 51, 9, -1, 1, 52, 2, -1, 1, 53 ),
         unpack(  ),
         unpack(  ),
+        unpack( 1, 54, 1, -1, 1, 55 ),
         unpack( 1, 56 ),
+        unpack( 1, 58, 7, -1, 1, 59 ),
         unpack(  ),
         unpack(  ),
-        unpack( 1, 58 ),
         unpack( 1, 60 ),
         unpack(  ),
-        unpack( 1, 61, 12, -1, 1, 62 ),
+        unpack(  ),
+        unpack( 1, 62 ),
+        unpack( 1, 64 ),
+        unpack(  ),
+        unpack( 1, 65, 12, -1, 1, 66, 2, -1, 1, 67 ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
-        unpack( 1, 63 ),
-        unpack( 1, 65, 4, -1, 1, 66, 7, -1, 1, 67, 1, 68, 1, -1, 1, 69, 
-                 4, -1, 1, 70, 1, -1, 1, 71, 11, -1, 1, 64, 3, -1, 1, 72 ),
+        unpack( 1, 68 ),
+        unpack( 1, 70, 3, -1, 1, 69, 3, -1, 1, 71 ),
         unpack(  ),
         unpack(  ),
-        unpack( 1, 74, 7, -1, 1, 73, 8, -1, 1, 75 ),
-        unpack( 1, 76, 13, -1, 1, 77 ),
-        unpack( 1, 78 ),
-        unpack( 1, 80, 10, -1, 1, 79 ),
+        unpack( 1, 73, 7, -1, 1, 72, 8, -1, 1, 74 ),
+        unpack( 1, 75, 12, -1, 1, 76 ),
+        unpack( 1, 78, 10, -1, 1, 77 ),
+        unpack( 1, 79 ),
+        unpack( 1, 80 ),
         unpack( 1, 81 ),
         unpack( 1, 82 ),
         unpack( 1, 83 ),
-        unpack( 1, 84, 1, -1, 10, 36 ),
+        unpack( 1, 84 ),
+        unpack( 1, 85 ),
+        unpack( 1, 86, 1, -1, 10, 39 ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
-        unpack( 1, 86 ),
-        unpack( 1, 87 ),
         unpack( 1, 88 ),
         unpack( 1, 89 ),
         unpack( 1, 90 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 22, 38, 1, 
-                 91, 3, 38 ),
+        unpack( 1, 91, 19, -1, 1, 92 ),
         unpack( 1, 93 ),
         unpack( 1, 94 ),
-        unpack( 1, 95 ),
-        unpack(  ),
-        unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 22, 41, 1, 
+                 95, 3, 41 ),
         unpack( 1, 97 ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
         unpack( 1, 98 ),
         unpack( 1, 99 ),
-        unpack( 1, 100 ),
+        unpack(  ),
+        unpack(  ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 101 ),
-        unpack( 1, 102, 1, 103 ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack( 1, 102 ),
+        unpack( 1, 103 ),
         unpack( 1, 104 ),
         unpack( 1, 105 ),
         unpack( 1, 106 ),
-        unpack( 1, 107 ),
-        unpack( 1, 108, 3, -1, 1, 109 ),
+        unpack( 1, 109, 14, -1, 1, 107, 1, 108 ),
         unpack( 1, 110 ),
         unpack( 1, 111 ),
         unpack( 1, 112 ),
@@ -2666,32 +2590,33 @@ module Rubik
         unpack( 1, 120 ),
         unpack( 1, 121 ),
         unpack( 1, 122 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack(  ),
-        unpack(  ),
+        unpack( 1, 123 ),
         unpack( 1, 124 ),
-        unpack( 1, 125 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack(  ),
+        unpack(  ),
         unpack( 1, 126 ),
         unpack( 1, 127 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 1, 128 ),
         unpack( 1, 129 ),
-        unpack(  ),
         unpack( 1, 130 ),
         unpack( 1, 131 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 1, 133 ),
         unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
         unpack( 1, 134 ),
         unpack( 1, 135 ),
-        unpack( 1, 136 ),
-        unpack( 1, 137 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack(  ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 138 ),
         unpack( 1, 139 ),
-        unpack( 1, 140, 19, -1, 1, 141 ),
+        unpack( 1, 140 ),
+        unpack( 1, 141 ),
         unpack( 1, 142 ),
         unpack( 1, 143 ),
         unpack( 1, 144 ),
-        unpack( 1, 145 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 146 ),
         unpack( 1, 147 ),
         unpack( 1, 148 ),
@@ -2699,149 +2624,139 @@ module Rubik
         unpack( 1, 150 ),
         unpack( 1, 151 ),
         unpack( 1, 152 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 1, 153 ),
         unpack( 1, 154 ),
         unpack( 1, 155 ),
         unpack( 1, 156 ),
         unpack( 1, 157 ),
         unpack( 1, 158 ),
         unpack( 1, 159 ),
-        unpack(  ),
         unpack( 1, 160 ),
+        unpack(  ),
         unpack( 1, 161 ),
         unpack( 1, 162 ),
         unpack( 1, 163 ),
-        unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
         unpack( 1, 164 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 1, 165 ),
+        unpack(  ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 1, 166 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack(  ),
         unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 1, 167, 16, -1, 1, 168 ),
-        unpack( 1, 169 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 1, 169, 16, -1, 1, 170 ),
         unpack( 1, 171 ),
         unpack( 1, 172 ),
-        unpack( 1, 173 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 174 ),
         unpack( 1, 175 ),
+        unpack(  ),
         unpack( 1, 176 ),
         unpack( 1, 177 ),
         unpack( 1, 178 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 1, 180 ),
-        unpack( 1, 181 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 182 ),
         unpack( 1, 183 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 1, 184 ),
+        unpack( 1, 185 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 1, 186 ),
         unpack( 1, 187 ),
         unpack( 1, 188 ),
-        unpack( 1, 189 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 1, 191 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 192 ),
-        unpack( 1, 193 ),
-        unpack( 1, 194, 15, -1, 1, 195, 1, 196 ),
+        unpack( 1, 193, 14, -1, 1, 194, 1, 195 ),
         unpack(  ),
         unpack(  ),
+        unpack( 1, 196 ),
         unpack( 1, 197 ),
-        unpack( 1, 198 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 1, 199 ),
         unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 201 ),
         unpack( 1, 202 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 1, 203 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 204 ),
         unpack( 1, 205 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 206 ),
+        unpack(  ),
         unpack(  ),
         unpack( 1, 207 ),
         unpack( 1, 208 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 1, 209 ),
         unpack( 1, 210 ),
-        unpack(  ),
-        unpack(  ),
         unpack( 1, 211 ),
         unpack( 1, 212 ),
-        unpack( 1, 213 ),
-        unpack( 1, 214 ),
-        unpack( 1, 215 ),
-        unpack( 1, 216 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack(  ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack(  ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 1, 215, 1, 216 ),
+        unpack( 1, 217 ),
+        unpack( 1, 218 ),
         unpack( 1, 219 ),
         unpack( 1, 220 ),
-        unpack( 1, 221 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 1, 222 ),
         unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 1, 223, 1, 224 ),
+        unpack(  ),
+        unpack( 1, 221 ),
+        unpack( 1, 222 ),
+        unpack( 1, 223 ),
+        unpack( 1, 224 ),
         unpack( 1, 225 ),
-        unpack( 1, 226 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 227 ),
         unpack( 1, 228 ),
-        unpack(  ),
-        unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
         unpack( 1, 229 ),
         unpack( 1, 230 ),
         unpack( 1, 231 ),
+        unpack(  ),
         unpack( 1, 232 ),
         unpack( 1, 233 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 1, 234 ),
         unpack( 1, 235 ),
         unpack( 1, 236 ),
         unpack( 1, 237 ),
         unpack( 1, 238 ),
-        unpack( 1, 239 ),
-        unpack(  ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 240 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 4, 38, 1, 241, 
-                 21, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack( 1, 243 ),
+        unpack(  ),
         unpack( 1, 244 ),
+        unpack(  ),
+        unpack(  ),
         unpack( 1, 245 ),
         unpack( 1, 246 ),
         unpack( 1, 247 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
+        unpack( 1, 249 ),
         unpack(  ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 1, 250 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 1, 252 ),
-        unpack(  ),
-        unpack(  ),
-        unpack( 1, 253 ),
-        unpack(  ),
-        unpack( 1, 254 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
-        unpack( 1, 256 ),
-        unpack(  ),
-        unpack( 1, 257 ),
-        unpack( 10, 38, 7, -1, 26, 38, 4, -1, 1, 38, 1, -1, 26, 38 ),
+        unpack( 10, 41, 7, -1, 26, 41, 4, -1, 1, 41, 1, -1, 26, 41 ),
         unpack(  )
       ].freeze
 
@@ -2856,7 +2771,7 @@ module Rubik
 
       def description
         <<-'__dfa_description__'.strip!
-          1:1: Tokens : ( AND | ASGN | BREAK | CHANGE_COLOR | CHANGE_DIR | COMMA | DEF | DIV | DO | DOT | DRAW_CIRCLE | DRAW_SQUARE | DRAW_TRIANGLE | ELSE | EQ | GEQ | GREATER | IF | LBRACE | LBRAK | LEQ | LESS | LPAREN | MINUS | NEG | NEQ | NULL | OR | PEN_DOWN | PEN_UP | PLUS | RBRACE | RBRAK | RPAREN | R_BEGIN | R_END | R_MOVE | R_RESET | R_RETURN | SEMI | STAR | TIMES | TLK | VAR | T__59 | T__60 | T__61 | VAR_TYPE | BOOLEAN | COLOR | DIR | FLOAT | INT | STRING | ID | NEWLINE | WS );
+          1:1: Tokens : ( AND | ASGN | BREAK | CHANGE_COLOR | CHANGE_DIR | COMMA | DEF | DIV | DO | DOT | DRAW_CIRCLE | DRAW_RECTANGLE | DRAW_SQUARE | ELSE | EQ | GEQ | GREATER | IF | LBRACE | LBRAK | LEQ | LESS | LPAREN | MINUS | NEG | NEQ | NULL | OR | PEN_DOWN | PEN_UP | PLUS | RBRACE | RBRAK | RPAREN | R_BEGIN | R_END | R_MOVE | R_RESET | R_RETURN | SEMI | STAR | TIMES | TLK | T__58 | T__59 | VAR_TYPE | BOOLEAN | COLOR | DIR | FLOAT | INT | STRING | ID | NEWLINE | WS );
         __dfa_description__
       end
 

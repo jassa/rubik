@@ -396,39 +396,49 @@ def r_print
   pushCuadruplo("print", memory_id, nil, nil)
 end
 
+def turtle_change_color(color)
+  memory_id = get_constant(color, 'string')
+  pushCuadruplo('change_color', memory_id, nil, nil)
+end
+
 def turtle_change_direction(direction)
   memory_id = get_constant(direction, 'string')
   pushCuadruplo('change_direction', memory_id, nil, nil)
 end
 
-def turtle_move
-  data_type = @pila_tipos.pop
+def turtle_draw_rectangle
+  w_type, h_type = @pila_tipos.pop, @pila_tipos.pop
 
-  unless data_type == 'int'
-    raise "wrong data type for turtle movement: expected int, got #{data_type}"
+  unless w_type == h_type && w_type == 'int'
+    raise "wrong data type for turtle drawing: expected int, got #{w_type}"
   end
 
-  memory_id = @pila_operandos.pop
-  pushCuadruplo('move', memory_id, nil, nil)
+  op2 = @pila_operandos.pop
+  op1 = @pila_operandos.pop
+  pushCuadruplo('draw_rectangle', op1, op2, nil)
 end
 
-def turtle_draw_square
-  data_type = @pila_tipos.pop
+def turtle_talk
+  _data_type = @pila_tipos.pop
+  memory_id = @pila_operandos.pop
+  pushCuadruplo('talk', memory_id, nil, nil)
+end
 
-  unless data_type == 'int'
-    raise "wrong data type for turtle movement: expected int, got #{data_type}"
+def turtle_send(method_name, expected_data_type = nil)
+  if expected_data_type
+    data_type = @pila_tipos.pop
+
+    result_type = get_result_type("+", expected_data_type, data_type)
+
+    unless data_type == expected_data_type || result_type == expected_data_type
+      raise "wrong data type for turtle movement: expected #{expected_data_type}, got #{data_type}"
+    end
+
+    memory_id = @pila_operandos.pop
   end
 
-  memory_id = @pila_operandos.pop
-  pushCuadruplo('draw_square', memory_id, nil, nil)
-end
-
-def turtle_pen_down
-  pushCuadruplo('pen_down', nil, nil, nil)
-end
-
-def turtle_pen_up
-  pushCuadruplo('pen_up', nil, nil, nil)
+  memory_id ||= nil
+  pushCuadruplo(method_name, memory_id, nil, nil)
 end
 
 def color

@@ -11,7 +11,7 @@ tokens {
     BLOCK;
     BREAK='break';
     CHANGE_COLOR='change_color';
-    CHANGE_DIR='change_dir';
+    CHANGE_DIR='change_direction';
     COMMA=',';
     DEF='def';
     DIV='/';
@@ -19,7 +19,7 @@ tokens {
     DOT='.';
     DRAW_CIRCLE='draw_circle';
     DRAW_SQUARE='draw_square';
-    DRAW_TRIANGLE='draw_triangle';
+    DRAW_RECTANGLE='draw_rectangle';
     ELSE='else';
     EQ='==';
     GEQ='>=';
@@ -52,12 +52,11 @@ tokens {
     STAR='*';
     TIMES='times';
     TLK='talk';
-    VAR='var';
 }
 
 @parser::init {
     @inserta_fin = 0
-    @check_bool = "not bool"
+    @check_bool = nil
     @symbols = {}
     @functions = {}
     @constants = {}
@@ -207,16 +206,16 @@ parameters
     ;
 
 robot
-    : 'change_color' '(' COLOR ')'
+    : 'change_color' '(' COLOR ')' { turtle_change_color($COLOR.text) }
     | 'change_direction' '(' DIR ')' { turtle_change_direction($DIR.text) }
-    | 'draw_circle' '(' expression ')'
-    | 'draw_square' '(' expression ')' { turtle_draw_square }
-    | 'draw_triangle' '(' expression ')'
-    | 'pen_down' '(' ')' { turtle_pen_down }
-    | 'pen_up' '(' ')' { turtle_pen_up }
-    | 'reset' '(' ')'
     | 'talk' '(' expression ')' { turtle_talk }
-    | 'move' '(' expression ')' { turtle_move }
+    | 'pen_down' '(' ')' { turtle_send('pen_down') }
+    | 'pen_up' '(' ')' { turtle_send('pen_up') }
+    | 'reset' '(' ')' { turtle_send('reset') }
+    | 'draw_circle' '(' expression ')' { turtle_send('draw_circle', 'int') }
+    | 'draw_square' '(' expression ')' { turtle_send('draw_square', 'int') }
+    | 'draw_rectangle' '(' expression ',' expression ')' { turtle_draw_rectangle }
+    | 'move' '(' expression ')' { turtle_send('move', 'int') }
     ;
 
 // Words
@@ -273,15 +272,15 @@ BOOLEAN
     ;
 
 COLOR
-    : 'rBlack'
-    | 'rBlue'
-    | 'rGreen'
-    | 'rOrange'
-    | 'rPurple'
-    | 'rRandom'
-    | 'rWhite'
-    | 'rYellow'
-    | 'rRed'
+    : 'black'
+    | 'blue'
+    | 'green'
+    | 'orange'
+    | 'purple'
+    | 'random'
+    | 'white'
+    | 'yellow'
+    | 'red'
     ;
 
 DIR

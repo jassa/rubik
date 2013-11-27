@@ -80,7 +80,6 @@ module Rubik
       when '='
         memory[key] = memory[op1]
       when 'print'
-        @app.alert memory[op1]
         $stdout.print memory[op1]
       when 'gets'
         value = $stdin.gets.chomp
@@ -101,12 +100,12 @@ module Rubik
       when 'goSub'
         @pointers.push(@pointer + 1)
         return @pointer = key
-      when 'change_direction'
-        @turtle.change_direction(memory[op1])
-      when 'draw_square'
+      when 'change_direction', 'change_color'
         @turtle.send(operator.to_sym, memory[op1])
-      when 'move'
-        @turtle.move(memory[op1])
+      when 'draw_circle', 'draw_square', 'talk', 'move'
+        @turtle.send(operator.to_sym, memory[op1])
+      when 'draw_rectangle'
+        @turtle.draw_rectangle(memory[op1], memory[op2])
       when 'pen_down', 'pen_up'
         @turtle.send(operator.to_sym)
       end

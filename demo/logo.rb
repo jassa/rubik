@@ -1,11 +1,15 @@
+# -*- coding: utf-8 -*-
 require 'VM.rb'
 
 Shoes.app(title: "Logo - Rubik Demo", :width => 1000,
     :height => 630, resizable: false) do
 
   def send_source_code(input_stream)
+    return if input_stream == '-Source Code-'
+
     reset_canvas
     @commands = [] unless caller[0][/`.*'/][1..-2] == 'send_command'
+
     Rubik::VM.new(self, input_stream)
   rescue => e
     alert(e)
@@ -13,6 +17,8 @@ Shoes.app(title: "Logo - Rubik Demo", :width => 1000,
   end
 
   def send_command(input_stream)
+    return if input_stream == '> Commands'
+
     @commands << input_stream
 
     program = <<-EOF
@@ -20,6 +26,8 @@ begin
   #{@commands.join("\n")}
 end
 EOF
+
+    @commands.pop if input_stream =~ /^print|talk/
 
     send_source_code(program)
   end
@@ -49,8 +57,8 @@ EOF
 
           stack do
             @code = edit_box '-Source Code-', width: 370, height: 544
-            button "OK" do
-              send_source_code(@code.text) unless @code.text == '-Source Code-'
+            button "Submit" do
+              send_source_code(@code.text)
             end
           end
         end
@@ -58,13 +66,10 @@ EOF
 
       flow height: 30, margin: 3 do
         background white
-        @input = edit_line '> Commands', width: 938, height: 24
-        button "OK", height: 26 do
-          send_command(@input.text) unless @input.text == '> Commands'
+        @input = edit_line '> Commands', width: 950, height: 24
+        button "»", height: 26 do
+          send_command(@input.text)
         end
-      end
-
-      keypress do |k|
       end
     end
 
