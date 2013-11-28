@@ -27,8 +27,6 @@ module Rubik
 
       generate_memory_from_constants
       generate_memory_from_quadruples
-
-      debug
     end
 
     def memory
@@ -36,7 +34,6 @@ module Rubik
     end
 
     def debug
-      puts # start with new line
       @quadruples.each_with_index { |q, i| puts "#{i} #{q.to_a}" }
     end
 

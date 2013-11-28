@@ -44,6 +44,8 @@ class Turtle
   end
 
   def draw_shape(method, *args)
+    return unless @draw
+
     x1, y1 = turtle.left + offset_x, turtle.top + offset_y
     @app.nofill
     @drawings << @app.send(method, x1, y1, *args)

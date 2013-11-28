@@ -241,7 +241,7 @@ def call_func3
   function = @current_function
   pushCuadruplo('goSub', function.name, nil, function.index)
 
-  if return_type = function.return_type
+  if (return_type = function.return_type) && return_type != 'void'
     memory_id = new_memory_id(return_type)
     @pila_tipos.push(return_type)
     @pila_operandos.push(memory_id)

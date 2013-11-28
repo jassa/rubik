@@ -80,7 +80,7 @@ tokens {
 // Top-level structure
 
 program
-    : { goto_main } function* 'begin' statement_end! { fill_main }
+    : { goto_main } block* 'begin' statement_end! { fill_main }
         block+ 'end' statement_end!
     ;
 
@@ -105,6 +105,7 @@ statement
     | loop_statement
     | return_statement
     | function
+    | functions statement_end!
     ;
 
 statement_end
