@@ -1,0 +1,77 @@
+def int pintaVentana(int ventanillas) {
+  pen_up();
+  change_direction(right);
+  move(200);
+
+  change_color(blue);
+  pen_down();
+
+  do 2 times {
+    change_direction(right);
+    do ventanillas times {
+      draw_square(20);
+      move(20);
+    }
+    change_direction(down);
+    move(20);
+    change_direction(left);
+    move(20 * ventanillas);
+  }
+
+  return 1;
+}
+
+def int pintaPuerta(int altoCasa) {
+  int altoPuerta;
+  altoPuerta = (altoCasa / 3) * 2;
+
+  change_color(black);
+  pen_up();
+  change_direction(up);
+  move(altoPuerta);
+  pen_down();
+  draw_rectangle(100, altoPuerta);
+
+  pintaVentana(4);
+
+  return 1;
+}
+
+def int pintaPasto(int anchoCasa) {
+  change_color(green);
+  pen_up();
+  change_direction(left);
+  move(anchoCasa / 2);
+  pen_down();
+  draw_rectangle(anchoCasa * 2, 60);
+
+  return 1;
+}
+
+def int pintaCasa(int ancho, int alto) {
+  change_color(red);
+  pen_down();
+  draw_rectangle(ancho, alto);
+  change_direction(down);
+  move(alto);
+  pintaPasto(ancho);
+
+  pen_up();
+  change_direction(right);
+  move(ancho / 3);
+  pintaPuerta(alto);
+
+  return 1;
+}
+
+begin
+
+  pen_up();
+  change_direction(left);
+  move(200);
+  change_direction(up);
+  move(200);
+
+  pintaCasa(450, 300);
+
+end
